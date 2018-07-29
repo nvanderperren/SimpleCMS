@@ -1,2 +1,2 @@
 # SimpleCMS
-Project for Native Apps II: iOS (University College Ghent
+Project for Native Apps II: iOS (University College Ghent)
