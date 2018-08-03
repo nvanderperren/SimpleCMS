@@ -19,6 +19,7 @@
 		6EFA83FC210E006D002E305D /* SimpleCMSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFA83FB210E006D002E305D /* SimpleCMSUITests.swift */; };
 		6EFA840B210E07FA002E305D /* HeritageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFA840A210E07FA002E305D /* HeritageObject.swift */; };
 		6EFDFF8B2114627F00B4D171 /* assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6EFDFF8A2114627F00B4D171 /* assets.xcassets */; };
+		6EFDFF8D2114B69C00B4D171 /* HeritageObjectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFDFF8C2114B69C00B4D171 /* HeritageObjectTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		6EFA83FD210E006D002E305D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6EFA840A210E07FA002E305D /* HeritageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeritageObject.swift; sourceTree = "<group>"; };
 		6EFDFF8A2114627F00B4D171 /* assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = assets.xcassets; sourceTree = "<group>"; };
+		6EFDFF8C2114B69C00B4D171 /* HeritageObjectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeritageObjectTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 		6E9B6428211261CF0028D0C4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6EFDFF8C2114B69C00B4D171 /* HeritageObjectTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 				6EFA83D9210E006D002E305D /* AppDelegate.swift in Sources */,
 				6E9B6427211211EC0028D0C4 /* ObjectDimension.swift in Sources */,
 				6EFA840B210E07FA002E305D /* HeritageObject.swift in Sources */,
+				6EFDFF8D2114B69C00B4D171 /* HeritageObjectTableViewCell.swift in Sources */,
 				6E4FD1E42112D80600AC719E /* HeritageCollectionTableViewController.swift in Sources */,
 				6E9B6424211190480028D0C4 /* HeritageObjectCategory.swift in Sources */,
 			);

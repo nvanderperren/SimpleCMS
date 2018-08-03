@@ -13,7 +13,8 @@ class HeritageObject {
     
     // source: https://www.projectcest.be/wiki/Publicatie:PACKED_Dataprofielen
     var id: String
-    var category: [HeritageObjectCategory]
+    var name: String
+    var category: HeritageObjectCategory
     var license: String // enum van maken
     var currentLocation: String // klasse van maken met eigenschappen.
     var photos: [UIImage]? = []
@@ -21,8 +22,9 @@ class HeritageObject {
     var dimensions: [ObjectDimension]? = []
     
     // MARK: - Initializers
-    init(id: String, category: [HeritageObjectCategory], location: String, license: String){
+    init(id: String, name: String, category: HeritageObjectCategory, location: String, license: String){
         self.id = id
+        self.name = name
         self.category = category
         self.currentLocation = location
         self.license = license

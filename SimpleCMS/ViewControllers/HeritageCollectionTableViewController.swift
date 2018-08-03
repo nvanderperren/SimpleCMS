@@ -11,7 +11,7 @@ import UIKit
 class HeritageCollectionTableViewController: UITableViewController {
     
     var heritageObjects: [HeritageObject] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,11 +20,6 @@ class HeritageCollectionTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
@@ -36,15 +31,19 @@ class HeritageCollectionTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 20
+        return heritageObjects.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "heritageCollectionCell", for: indexPath)
-
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "heritageCollectionCell", for: indexPath) as? HeritageObjectTableViewCell else {
+            fatalError("Wrong TableViewCell")
+        }
         // Configure the cell...
-
+        cell.objectIdLabel?.text = heritageObjects[indexPath.row].id
+        cell.objectTitleLabel?.text = heritageObjects[indexPath.row].name
+        cell.objectCategoryLabel?.text = heritageObjects[indexPath.row].category.textualRepresentation
+        cell.objectImageView?.image = heritageObjects[indexPath.row].photos?.first
         return cell
     }
  
