@@ -11,13 +11,15 @@ import UIKit
 class HeritageCollectionTableViewController: UITableViewController {
     
     var heritageObjects: [HeritageObject] = []
+    var seeder = Seeder()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        heritageObjects = seeder.createHeritageObjects()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+ 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
@@ -43,7 +45,7 @@ class HeritageCollectionTableViewController: UITableViewController {
         cell.objectIdLabel?.text = heritageObjects[indexPath.row].id
         cell.objectTitleLabel?.text = heritageObjects[indexPath.row].name
         cell.objectCategoryLabel?.text = heritageObjects[indexPath.row].category.textualRepresentation
-        cell.objectImageView?.image = heritageObjects[indexPath.row].photos?.first
+        cell.objectImageView?.image = heritageObjects[indexPath.row].photos.first as? UIImage
         return cell
     }
  

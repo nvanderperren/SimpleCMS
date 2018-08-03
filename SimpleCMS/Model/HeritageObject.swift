@@ -15,13 +15,20 @@ class HeritageObject {
     var id: String
     var name: String
     var category: HeritageObjectCategory
-    var license: String // enum van maken
-    var currentLocation: String // klasse van maken met eigenschappen.
-    var photos: [UIImage]? = []
+    var license: String? // enum van maken
+    var currentLocation: String? // klasse van maken met eigenschappen.
+    var photos: [UIImage?] = []
     var description: String?
     var dimensions: [ObjectDimension]? = []
     
     // MARK: - Initializers
+    init(id: String, name: String, category: HeritageObjectCategory, photos: [UIImage?]){
+        self.id = id
+        self.name = name
+        self.category = category
+        self.photos = photos
+    }
+    
     init(id: String, name: String, category: HeritageObjectCategory, location: String, license: String){
         self.id = id
         self.name = name
