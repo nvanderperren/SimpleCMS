@@ -14,11 +14,11 @@
 		6EFA83D9210E006D002E305D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFA83D8210E006D002E305D /* AppDelegate.swift */; };
 		6EFA83DE210E006D002E305D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EFA83DC210E006D002E305D /* Main.storyboard */; };
 		6EFA83E1210E006D002E305D /* SimpleCMS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6EFA83DF210E006D002E305D /* SimpleCMS.xcdatamodeld */; };
-		6EFA83E3210E006D002E305D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6EFA83E2210E006D002E305D /* Assets.xcassets */; };
 		6EFA83E6210E006D002E305D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EFA83E4210E006D002E305D /* LaunchScreen.storyboard */; };
 		6EFA83F1210E006D002E305D /* SimpleCMSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFA83F0210E006D002E305D /* SimpleCMSTests.swift */; };
 		6EFA83FC210E006D002E305D /* SimpleCMSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFA83FB210E006D002E305D /* SimpleCMSUITests.swift */; };
 		6EFA840B210E07FA002E305D /* HeritageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFA840A210E07FA002E305D /* HeritageObject.swift */; };
+		6EFDFF8B2114627F00B4D171 /* assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6EFDFF8A2114627F00B4D171 /* assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +48,6 @@
 		6EFA83D8210E006D002E305D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6EFA83DD210E006D002E305D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6EFA83E0210E006D002E305D /* SimpleCMS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SimpleCMS.xcdatamodel; sourceTree = "<group>"; };
-		6EFA83E2210E006D002E305D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6EFA83E5210E006D002E305D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6EFA83E7210E006D002E305D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6EFA83EC210E006D002E305D /* SimpleCMSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleCMSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,6 +57,7 @@
 		6EFA83FB210E006D002E305D /* SimpleCMSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleCMSUITests.swift; sourceTree = "<group>"; };
 		6EFA83FD210E006D002E305D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6EFA840A210E07FA002E305D /* HeritageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeritageObject.swift; sourceTree = "<group>"; };
+		6EFDFF8A2114627F00B4D171 /* assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,7 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				6EFA83D8210E006D002E305D /* AppDelegate.swift */,
-				6EFA83E2210E006D002E305D /* Assets.xcassets */,
+				6EFDFF8A2114627F00B4D171 /* assets.xcassets */,
 				6EFA83E4210E006D002E305D /* LaunchScreen.storyboard */,
 			);
 			path = "Supporting Files";
@@ -298,8 +298,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6EFA83E6210E006D002E305D /* LaunchScreen.storyboard in Resources */,
-				6EFA83E3210E006D002E305D /* Assets.xcassets in Resources */,
 				6EFA83DE210E006D002E305D /* Main.storyboard in Resources */,
+				6EFDFF8B2114627F00B4D171 /* assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

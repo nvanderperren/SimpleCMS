@@ -5,6 +5,8 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -26,12 +28,46 @@
                             </scopeButtonTitles>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="heritageCollectionCell" id="Dsy-Pe-CTD">
-                                <rect key="frame" x="0.0" y="84" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="heritageCollectionCell" rowHeight="125" id="Dsy-Pe-CTD">
+                                <rect key="frame" x="0.0" y="84" width="375" height="125"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Dsy-Pe-CTD" id="cBB-4J-vRO">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="124.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="2d4-va-cry">
+                                            <rect key="frame" x="8" y="8" width="108.5" height="108.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="2d4-va-cry" secondAttribute="height" multiplier="1:1" id="NhO-Ws-awr"/>
+                                            </constraints>
+                                        </imageView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2zs-PT-1Z8">
+                                            <rect key="frame" x="124.5" y="20" width="230.5" height="84.5"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="collectionID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z6T-L7-Ymz">
+                                                    <rect key="frame" x="0.0" y="0.0" width="230.5" height="38.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="collectionTitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="21w-GZ-ivA">
+                                                    <rect key="frame" x="0.0" y="46.5" width="230.5" height="38"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="2d4-va-cry" firstAttribute="leading" secondItem="cBB-4J-vRO" secondAttribute="leadingMargin" id="5iZ-gh-gcl"/>
+                                        <constraint firstItem="2d4-va-cry" firstAttribute="top" secondItem="cBB-4J-vRO" secondAttribute="topMargin" id="RtU-fK-rcA"/>
+                                        <constraint firstItem="2zs-PT-1Z8" firstAttribute="leading" secondItem="2d4-va-cry" secondAttribute="trailing" constant="8" symbolic="YES" id="XYw-xd-YZf"/>
+                                        <constraint firstAttribute="bottom" secondItem="2zs-PT-1Z8" secondAttribute="bottom" constant="20" id="ZSJ-RI-YdW"/>
+                                        <constraint firstAttribute="trailing" secondItem="2zs-PT-1Z8" secondAttribute="trailing" constant="20" symbolic="YES" id="hxB-B7-RbA"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="2d4-va-cry" secondAttribute="bottom" id="rAa-Cw-N7i"/>
+                                        <constraint firstItem="2zs-PT-1Z8" firstAttribute="top" secondItem="cBB-4J-vRO" secondAttribute="top" constant="20" symbolic="YES" id="tEv-OZ-6lR"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -51,7 +87,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UVm-Lw-0n8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-154" y="15"/>
+            <point key="canvasLocation" x="-154.40000000000001" y="14.842578710644679"/>
         </scene>
         <!--Add Heritage Object View Controller-->
         <scene sceneID="jZL-OS-1I7">
@@ -122,4 +158,7 @@
             <point key="canvasLocation" x="588" y="389"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="defaultPhoto" width="540" height="540"/>
+    </resources>
 </document>
