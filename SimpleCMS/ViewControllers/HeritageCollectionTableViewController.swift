@@ -24,7 +24,6 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
         heritageObjects = seeder.createHeritageObjects()
         currentHeritageObjects = heritageObjects
         setupSearchBar()
-        searchBar.delegate = self
     }
     
 
@@ -57,6 +56,7 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
     // verbeteringen: first responder searchbar + stoppen highlighten scopte
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchBar.showsCancelButton = true
         guard !searchText.isEmpty else {
             currentHeritageObjects = heritageObjects
             heritageCollectionTableView.reloadData()
@@ -70,6 +70,7 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
     }
     
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        
         categories = returnSortedSCategoriesOfHeritageObjects()
         if (categories.count < 2 || categories.count > 5 ) {
             fatalError("te weinig of veel categorieën")
@@ -96,12 +97,32 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsScopeBar = false
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        currentHeritageObjects = heritageObjects
+        heritageCollectionTableView.reloadData()
+        searchBar.showsCancelButton = true
+        setupScopeButtons()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        currentHeritageObjects = heritageObjects
+        heritageCollectionTableView.reloadData()
+        searchBar.showsScopeBar = false
+        searchBar.showsCancelButton = false
         searchBar.resignFirstResponder()
     }
 
     // MARK: - Private methods
     
     private func setupSearchBar() {
+        searchBar.delegate = self
+    }
+    
+    private func setupScopeButtons() {
         let searchCategories = returnSortedStringCategoriesOfHeritageObjects()
         if (searchCategories.count > 1 && searchCategories.count < 5) {
             // scopebar with more than 5 items will be too big; with only 1 item it's pointless
