@@ -156,13 +156,13 @@
 		6EFA83D7210E006D002E305D /* SimpleCMS */ = {
 			isa = PBXGroup;
 			children = (
+				6EFA83DC210E006D002E305D /* Main.storyboard */,
 				6E9B6429211262030028D0C4 /* ViewModels */,
 				6E9B642221118D9B0028D0C4 /* Persistence */,
 				6E9B642021118D770028D0C4 /* Model */,
 				6E9B6428211261CF0028D0C4 /* Views */,
 				6E9B642121118D840028D0C4 /* ViewControllers */,
 				6EFA83E7210E006D002E305D /* Info.plist */,
-				6EFA83DC210E006D002E305D /* Main.storyboard */,
 				6EFA8409210E0788002E305D /* Supporting Files */,
 			);
 			path = SimpleCMS;

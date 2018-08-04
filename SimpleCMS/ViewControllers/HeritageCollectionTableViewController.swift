@@ -8,36 +8,44 @@
 
 import UIKit
 
-class HeritageCollectionTableViewController: UITableViewController {
+class HeritageCollectionTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
-    var heritageObjects: [HeritageObject] = []
-    var seeder = Seeder()
+    var heritageObjects = [HeritageObject]()
+    private var seeder = Seeder()
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var heritageCollectionTableView: UITableView!
+    var searchController : UISearchController!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         heritageObjects = seeder.createHeritageObjects()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
- 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        setupSearchBar()
+//        if #available(iOS 11.0, *) {
+//            navigationController?.navigationBar.prefersLargeTitles = false
+//            navigationItem.searchController = searchController
+//        }
     }
+    
+//    override func viewDidLayoutSubviews() {
+//        searchBar.sizeToFit()
+//    }
+    
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return heritageObjects.count
     }
 
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "heritageCollectionCell", for: indexPath) as? HeritageObjectTableViewCell else {
             fatalError("Wrong TableViewCell")
         }
@@ -48,51 +56,26 @@ class HeritageCollectionTableViewController: UITableViewController {
         cell.objectImageView?.image = heritageObjects[indexPath.row].photos.first as? UIImage
         return cell
     }
+    
  
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    // MARK: - Private methods
+    
+    private func setupSearchBar() {
+        if let searchCategories = returnSortedCategoriesOfHeritageObjects() {
+            searchBar.scopeButtonTitles = searchCategories
+            searchBar.showsScopeBar = true
+        } else {
+            searchBar.showsScopeBar = false
+        }
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    private func returnSortedCategoriesOfHeritageObjects() -> [String]? {
+        if (!heritageObjects.isEmpty) {
+            return Array(Set(heritageObjects.map{$0.category.textualRepresentation}).sorted{$0 < $1})
+        } else {
+            return nil
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
