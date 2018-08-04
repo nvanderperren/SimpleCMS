@@ -8,14 +8,13 @@
 
 import UIKit
 
-class HeritageCollectionTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+class HeritageCollectionTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UITextFieldDelegate {
     
     var heritageObjects = [HeritageObject]()
     var currentHeritageObjects : [HeritageObject] = []
     private var seeder = Seeder()
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var heritageCollectionTableView: UITableView!
-    var searchController : UISearchController!
     var isSearching = false
     var categories: [HeritageObjectCategory] = []
 
@@ -96,7 +95,9 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
         }
     }
     
- 
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
 
     // MARK: - Private methods
     
