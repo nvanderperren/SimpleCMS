@@ -27,6 +27,11 @@
 * save knop --> kan alleen opslaan als verplichte velden ingevuld zijn
 * werken met viewmodels?
 
+## Rechten
+* gebruik de licenties van [Rightsstatements.org](http://rightsstatements.org/en/documentation/assets.html)
+* maak een table als popover met reusable cel met afkorting van de rightsstatement en uitleg ervan
+* *maak deze table mss herbruikbaar zodat die ook voor andere doeleinden gebruikt kan worden, bv. lijsten van materiaal ofzo*
+
 ## Datamodel
 
 ### erfgoedobjecten
