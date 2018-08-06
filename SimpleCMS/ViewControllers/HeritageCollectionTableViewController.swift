@@ -23,6 +23,7 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
         super.viewDidLoad()
         heritageObjects = seeder.createHeritageObjects()
         currentHeritageObjects = heritageObjects
+        categories = returnSortedCategoriesOfHeritageObjects()
         setupSearchBar()
     }
     
@@ -47,7 +48,7 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
         // Configure the cell...
         cell.objectIdLabel?.text = currentHeritageObjects[indexPath.row].id
         cell.objectTitleLabel?.text = currentHeritageObjects[indexPath.row].name
-        cell.objectCategoryLabel?.text = currentHeritageObjects[indexPath.row].category.textualRepresentation
+        cell.objectCategoryLabel?.text = currentHeritageObjects[indexPath.row].category.rawValue
         cell.objectImageView?.image = currentHeritageObjects[indexPath.row].photos.first as? UIImage
         return cell
     }
@@ -71,7 +72,7 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
     
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         
-        categories = returnSortedSCategoriesOfHeritageObjects()
+        categories = returnSortedCategoriesOfHeritageObjects()
         if (categories.count < 2 || categories.count > 5 ) {
             fatalError("te weinig of veel categorieën")
         } else {
@@ -123,7 +124,7 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
     }
     
     private func setupScopeButtons() {
-        let searchCategories = returnSortedStringCategoriesOfHeritageObjects()
+        let searchCategories = categories.map{$0.rawValue}
         if (searchCategories.count > 1 && searchCategories.count < 5) {
             // scopebar with more than 5 items will be too big; with only 1 item it's pointless
             searchBar.scopeButtonTitles = searchCategories
@@ -133,14 +134,8 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
         }
     }
     
-    private func returnSortedStringCategoriesOfHeritageObjects() -> [String] {
-        let categories = returnSortedSCategoriesOfHeritageObjects()
-        return categories.map{$0.textualRepresentation}
-        
-    }
-    
-    private func returnSortedSCategoriesOfHeritageObjects() -> [HeritageObjectCategory] {
-        return Array(Set(heritageObjects.map{$0.category}).sorted{$0.textualRepresentation < $1.textualRepresentation})
+    private func returnSortedCategoriesOfHeritageObjects() -> [HeritageObjectCategory] {
+        return Array(Set(heritageObjects.map{$0.category}).sorted{$0.rawValue < $1.rawValue})
         
     }
 

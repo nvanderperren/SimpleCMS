@@ -8,23 +8,10 @@
 
 import Foundation
 
-enum HeritageObjectCategory {
-    case publication
-    case artefact
-    case artwork
-    case metalDetectingFind
-    
-    var textualRepresentation : String {
-        switch (self) {
-        case .publication:
-            return "publicatie"
-        case .artefact:
-            return "roerend erfgoedobject"
-        case .metalDetectingFind:
-            return "metaaldetectievondst"
-        case .artwork:
-            return "kunstwerk"
-        }
-    }
+enum HeritageObjectCategory: String {
+    case publication = "publicatie"
+    case artefact = "object"
+    case monument = "monument"
+    case metalDetectingFind = "vondst"
 }
 

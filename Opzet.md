@@ -32,20 +32,5 @@
 * maak een table als popover met reusable cel met afkorting van de rightsstatement en uitleg ervan
 * *maak deze table mss herbruikbaar zodat die ook voor andere doeleinden gebruikt kan worden, bv. lijsten van materiaal ofzo*
 
-## Datamodel
-
-### erfgoedobjecten
-* objectnummer
-* objectnaam
-* titel
-* instellingsnaam
-* standplaats?
-* korte beschrijving
-* materiaal: []
-* afmetingen?:
-    * eenheid
-    * afmeting
-    * waarde
-* vervaardiger: []
-* rechtenstatus
-* foto []?
+## Bronnen
+* [table view with collapsible sections](https://medium.com/ios-os-x-development/ios-how-to-build-a-table-view-with-collapsible-sections-96badf3387d0)
