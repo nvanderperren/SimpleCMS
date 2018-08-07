@@ -11,7 +11,13 @@
 		6E4FD1E62112D83B00AC719E /* AddHeritageObjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4FD1E52112D83B00AC719E /* AddHeritageObjectViewController.swift */; };
 		6E9B6424211190480028D0C4 /* HeritageObjectCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9B6423211190480028D0C4 /* HeritageObjectCategory.swift */; };
 		6E9B6427211211EC0028D0C4 /* ObjectDimension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9B6426211211EC0028D0C4 /* ObjectDimension.swift */; };
-		6EF60BFF2118E22800531428 /* HeritagePublication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF60BFE2118E22800531428 /* HeritagePublication.swift */; };
+		6EF60BFF2118E22800531428 /* Publication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF60BFE2118E22800531428 /* Publication.swift */; };
+		6EF89CA92119B0E600F785FB /* MetalDetectingFind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF89CA82119B0E600F785FB /* MetalDetectingFind.swift */; };
+		6EF89CAB2119E89900F785FB /* Monument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF89CAA2119E89900F785FB /* Monument.swift */; };
+		6EF89CAF2119ED9900F785FB /* Artefact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF89CAE2119ED9900F785FB /* Artefact.swift */; };
+		6EF89CB12119EF0800F785FB /* Acquisition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF89CB02119EF0800F785FB /* Acquisition.swift */; };
+		6EF89CB32119F00200F785FB /* ObjectCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF89CB22119F00200F785FB /* ObjectCreation.swift */; };
+		6EF89CB72119F09400F785FB /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF89CB62119F09400F785FB /* Location.swift */; };
 		6EFA83D9210E006D002E305D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFA83D8210E006D002E305D /* AppDelegate.swift */; };
 		6EFA83DE210E006D002E305D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EFA83DC210E006D002E305D /* Main.storyboard */; };
 		6EFA83E1210E006D002E305D /* SimpleCMS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6EFA83DF210E006D002E305D /* SimpleCMS.xcdatamodeld */; };
@@ -47,7 +53,13 @@
 		6E9B6423211190480028D0C4 /* HeritageObjectCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeritageObjectCategory.swift; sourceTree = "<group>"; };
 		6E9B642521120CF40028D0C4 /* Opzet.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Opzet.md; sourceTree = "<group>"; };
 		6E9B6426211211EC0028D0C4 /* ObjectDimension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDimension.swift; sourceTree = "<group>"; };
-		6EF60BFE2118E22800531428 /* HeritagePublication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeritagePublication.swift; sourceTree = "<group>"; };
+		6EF60BFE2118E22800531428 /* Publication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publication.swift; sourceTree = "<group>"; };
+		6EF89CA82119B0E600F785FB /* MetalDetectingFind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalDetectingFind.swift; sourceTree = "<group>"; };
+		6EF89CAA2119E89900F785FB /* Monument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monument.swift; sourceTree = "<group>"; };
+		6EF89CAE2119ED9900F785FB /* Artefact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artefact.swift; sourceTree = "<group>"; };
+		6EF89CB02119EF0800F785FB /* Acquisition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Acquisition.swift; sourceTree = "<group>"; };
+		6EF89CB22119F00200F785FB /* ObjectCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCreation.swift; sourceTree = "<group>"; };
+		6EF89CB62119F09400F785FB /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		6EFA83D5210E006D002E305D /* SimpleCMS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleCMS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EFA83D8210E006D002E305D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6EFA83DD210E006D002E305D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -94,11 +106,17 @@
 		6E9B642021118D770028D0C4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6EF89CAE2119ED9900F785FB /* Artefact.swift */,
+				6EF89CB02119EF0800F785FB /* Acquisition.swift */,
 				6EFA840A210E07FA002E305D /* HeritageObject.swift */,
 				6E9B6423211190480028D0C4 /* HeritageObjectCategory.swift */,
 				6E9B6426211211EC0028D0C4 /* ObjectDimension.swift */,
 				6EFDFF8E2114EBC000B4D171 /* Seeder.swift */,
-				6EF60BFE2118E22800531428 /* HeritagePublication.swift */,
+				6EF60BFE2118E22800531428 /* Publication.swift */,
+				6EF89CA82119B0E600F785FB /* MetalDetectingFind.swift */,
+				6EF89CAA2119E89900F785FB /* Monument.swift */,
+				6EF89CB22119F00200F785FB /* ObjectCreation.swift */,
+				6EF89CB62119F09400F785FB /* Location.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -333,12 +351,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EF89CAB2119E89900F785FB /* Monument.swift in Sources */,
 				6E4FD1E62112D83B00AC719E /* AddHeritageObjectViewController.swift in Sources */,
+				6EF89CB72119F09400F785FB /* Location.swift in Sources */,
 				6EFA83E1210E006D002E305D /* SimpleCMS.xcdatamodeld in Sources */,
+				6EF89CA92119B0E600F785FB /* MetalDetectingFind.swift in Sources */,
 				6EFDFF8F2114EBC000B4D171 /* Seeder.swift in Sources */,
-				6EF60BFF2118E22800531428 /* HeritagePublication.swift in Sources */,
+				6EF60BFF2118E22800531428 /* Publication.swift in Sources */,
+				6EF89CB32119F00200F785FB /* ObjectCreation.swift in Sources */,
 				6EFA83D9210E006D002E305D /* AppDelegate.swift in Sources */,
+				6EF89CB12119EF0800F785FB /* Acquisition.swift in Sources */,
 				6E9B6427211211EC0028D0C4 /* ObjectDimension.swift in Sources */,
+				6EF89CAF2119ED9900F785FB /* Artefact.swift in Sources */,
 				6EFA840B210E07FA002E305D /* HeritageObject.swift in Sources */,
 				6EFDFF8D2114B69C00B4D171 /* HeritageObjectTableViewCell.swift in Sources */,
 				6E4FD1E42112D80600AC719E /* HeritageCollectionTableViewController.swift in Sources */,

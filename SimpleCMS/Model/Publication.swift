@@ -9,7 +9,7 @@
 import Foundation
 
 
-class HeritagePublication {
+class Publication {
     
     // MARK: Properties
 
@@ -37,25 +37,19 @@ class HeritagePublication {
     
     struct Identification {
         var idNumber: String
-        var author: [Person]
+        var author: [String]
         var title: String
     }
     
     struct Publication {
         var placeOfPublication: Location?
-        var publisher: [Person]?
+        var publisher: [String]?
         var dateOfPublication: Date?
     }
     
     struct Contents {
         var genre: String?
         var shortDescription: String?
-    }
-    
-    struct Acquisition {
-        var method: String //lijst
-        var date: Date
-        var source: String
     }
     
     struct Rights {
@@ -67,15 +61,5 @@ class HeritagePublication {
         var date = Date()
     }
     
-    struct Person {
-        var name: String
-    }
     
-    struct Location {
-        var municipality: String //lijst
-        var postalCode: String? //lijst
-        var street: String? //lijst
-        var houseNumber: String? //lijst
-
-    }
 }
