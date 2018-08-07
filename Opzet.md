@@ -33,4 +33,5 @@
 * *maak deze table mss herbruikbaar zodat die ook voor andere doeleinden gebruikt kan worden, bv. lijsten van materiaal ofzo*
 
 ## Bronnen
+* [table view with multiple cell items](https://medium.com/@stasost/ios-how-to-build-a-table-view-with-multiple-cell-types-2df91a206429)
 * [table view with collapsible sections](https://medium.com/ios-os-x-development/ios-how-to-build-a-table-view-with-collapsible-sections-96badf3387d0)
