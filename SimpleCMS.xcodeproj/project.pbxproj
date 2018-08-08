@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E3FAB8D211B6D6200454E24 /* HeritageObjectDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3FAB8C211B6D6200454E24 /* HeritageObjectDetailViewController.swift */; };
 		6E4FD1E42112D80600AC719E /* HeritageCollectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4FD1E32112D80600AC719E /* HeritageCollectionTableViewController.swift */; };
 		6E4FD1E62112D83B00AC719E /* AddHeritageObjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4FD1E52112D83B00AC719E /* AddHeritageObjectViewController.swift */; };
 		6E9B6424211190480028D0C4 /* HeritageObjectCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9B6423211190480028D0C4 /* HeritageObjectCategory.swift */; };
@@ -48,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6E3FAB8C211B6D6200454E24 /* HeritageObjectDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeritageObjectDetailViewController.swift; sourceTree = "<group>"; };
 		6E4FD1E32112D80600AC719E /* HeritageCollectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeritageCollectionTableViewController.swift; sourceTree = "<group>"; };
 		6E4FD1E52112D83B00AC719E /* AddHeritageObjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHeritageObjectViewController.swift; sourceTree = "<group>"; };
 		6E9B6423211190480028D0C4 /* HeritageObjectCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeritageObjectCategory.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 			children = (
 				6E4FD1E32112D80600AC719E /* HeritageCollectionTableViewController.swift */,
 				6E4FD1E52112D83B00AC719E /* AddHeritageObjectViewController.swift */,
+				6E3FAB8C211B6D6200454E24 /* HeritageObjectDetailViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -160,13 +163,6 @@
 				6EFDFF8C2114B69C00B4D171 /* HeritageObjectTableViewCell.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		6E9B6429211262030028D0C4 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		6EFA83CC210E006D002E305D = {
@@ -194,7 +190,6 @@
 			isa = PBXGroup;
 			children = (
 				6EFA83DC210E006D002E305D /* Main.storyboard */,
-				6E9B6429211262030028D0C4 /* ViewModels */,
 				6E9B642221118D9B0028D0C4 /* Persistence */,
 				6E9B642021118D770028D0C4 /* Model */,
 				6E9B6428211261CF0028D0C4 /* Views */,
@@ -379,6 +374,7 @@
 				6EF89CB12119EF0800F785FB /* Acquisition.swift in Sources */,
 				6E9B6427211211EC0028D0C4 /* ObjectDimension.swift in Sources */,
 				6EF89CAF2119ED9900F785FB /* Artefact.swift in Sources */,
+				6E3FAB8D211B6D6200454E24 /* HeritageObjectDetailViewController.swift in Sources */,
 				6EFA840B210E07FA002E305D /* HeritageObject.swift in Sources */,
 				6EFDFF8D2114B69C00B4D171 /* HeritageObjectTableViewCell.swift in Sources */,
 				6E4FD1E42112D80600AC719E /* HeritageCollectionTableViewController.swift in Sources */,

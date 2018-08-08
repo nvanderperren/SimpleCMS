@@ -18,10 +18,7 @@ class Publication {
     
     // characteristics
     var numberOfPages: Int?
-    var isPartOfSeries: Bool
     var contents: Contents?
-    
-    // publication
     var publication: PublicationEvent?
     
     // acquisition
@@ -32,9 +29,8 @@ class Publication {
     
     // MARK: Initializers
     
-    init(id: Identification, isPartOfSeries: Bool = false, acquisition: Acquisition, rights: Rights){
+    init(id: Identification, acquisition: Acquisition, rights: Rights){
         self.id = id
-        self.isPartOfSeries = isPartOfSeries
         self.acquisition = acquisition
         self.rights = rights
     }

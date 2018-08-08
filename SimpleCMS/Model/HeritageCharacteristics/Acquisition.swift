@@ -12,14 +12,12 @@ class Acquisition {
     var method: String //lijst
     var date: Date
     var source: String
-    var collectionManager: String
     var depositPlace: String?
     
     
-    init(method: String, date: Date, source: String, collectionManager: String){
+    init(method: String, date: Date, source: String){
         self.method = method
         self.date = date
         self.source = source
-        self.collectionManager = collectionManager
     }
 }

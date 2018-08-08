@@ -1,14 +1,14 @@
 //
-//  AddHeritageObjectViewController.swift
+//  HeritageObjectDetailViewController.swift
 //  SimpleCMS
 //
-//  Created by Nastasia Vanderperren on 2/08/18.
+//  Created by Nastasia Vanderperren on 8/08/18.
 //  Copyright © 2018 Nastasia Vanderperren. All rights reserved.
 //
 
 import UIKit
 
-class AddHeritageObjectViewController: UIViewController {
+class HeritageObjectDetailViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,12 +20,12 @@ class AddHeritageObjectViewController: UIViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
-    @IBAction func cancel(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
+    
+    @IBAction func cancel(_ sender: Any) {
+        dismiss(animated: true) 
     }
     
     
-
     
 
 }
