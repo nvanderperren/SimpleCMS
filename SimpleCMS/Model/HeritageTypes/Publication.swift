@@ -13,24 +13,30 @@ class Publication {
     
     // MARK: Properties
 
-    
+    // identification
     var id: Identification
+    
+    // characteristics
     var numberOfPages: Int?
     var isPartOfSeries: Bool
-    var publication: Publication?
     var contents: Contents?
+    
+    // publication
+    var publication: PublicationEvent?
+    
+    // acquisition
     var acquisition: Acquisition
+    
+    // rights
     var rights: Rights
-    var record: Record
     
     // MARK: Initializers
     
-    init(id: Identification, isPartOfSeries: Bool = false, acquisition: Acquisition, rights: Rights, record: Record){
+    init(id: Identification, isPartOfSeries: Bool = false, acquisition: Acquisition, rights: Rights){
         self.id = id
         self.isPartOfSeries = isPartOfSeries
         self.acquisition = acquisition
         self.rights = rights
-        self.record = record
     }
     
     // MARK: Internal structs
@@ -41,7 +47,7 @@ class Publication {
         var title: String
     }
     
-    struct Publication {
+    struct PublicationEvent {
         var placeOfPublication: Location?
         var publisher: [String]?
         var dateOfPublication: Date?
@@ -54,12 +60,9 @@ class Publication {
     
     struct Rights {
         var status: String //lijst
-        var creditline: String
+        var creditline: String?
     }
     
-    struct Record {
-        var date = Date()
-    }
     
     
 }

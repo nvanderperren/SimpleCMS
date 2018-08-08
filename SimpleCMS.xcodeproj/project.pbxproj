@@ -103,20 +103,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6E9B642021118D770028D0C4 /* Model */ = {
+		6E04E401211AF5930054535F /* HeritageTypes */ = {
 			isa = PBXGroup;
 			children = (
 				6EF89CAE2119ED9900F785FB /* Artefact.swift */,
-				6EF89CB02119EF0800F785FB /* Acquisition.swift */,
 				6EFA840A210E07FA002E305D /* HeritageObject.swift */,
-				6E9B6423211190480028D0C4 /* HeritageObjectCategory.swift */,
-				6E9B6426211211EC0028D0C4 /* ObjectDimension.swift */,
-				6EFDFF8E2114EBC000B4D171 /* Seeder.swift */,
 				6EF60BFE2118E22800531428 /* Publication.swift */,
 				6EF89CA82119B0E600F785FB /* MetalDetectingFind.swift */,
 				6EF89CAA2119E89900F785FB /* Monument.swift */,
+			);
+			path = HeritageTypes;
+			sourceTree = "<group>";
+		};
+		6E04E402211AF5AB0054535F /* HeritageCharacteristics */ = {
+			isa = PBXGroup;
+			children = (
+				6E9B6423211190480028D0C4 /* HeritageObjectCategory.swift */,
+				6E9B6426211211EC0028D0C4 /* ObjectDimension.swift */,
 				6EF89CB22119F00200F785FB /* ObjectCreation.swift */,
+				6EF89CB02119EF0800F785FB /* Acquisition.swift */,
 				6EF89CB62119F09400F785FB /* Location.swift */,
+			);
+			path = HeritageCharacteristics;
+			sourceTree = "<group>";
+		};
+		6E9B642021118D770028D0C4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6E04E401211AF5930054535F /* HeritageTypes */,
+				6E04E402211AF5AB0054535F /* HeritageCharacteristics */,
+				6EFDFF8E2114EBC000B4D171 /* Seeder.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
