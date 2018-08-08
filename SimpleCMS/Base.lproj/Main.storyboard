@@ -110,7 +110,7 @@
                         <barButtonItem key="leftBarButtonItem" systemItem="action" id="9un-Qd-ZpK"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="CE7-l7-gLX">
                             <connections>
-                                <segue destination="Ura-73-u52" kind="presentation" id="jBT-Xb-9pe"/>
+                                <segue destination="NJf-yS-Tvj" kind="presentation" id="lme-db-ZhW"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -124,40 +124,110 @@
             <point key="canvasLocation" x="925.60000000000002" y="14.842578710644679"/>
         </scene>
         <!--Add Heritage Object View Controller-->
-        <scene sceneID="jZL-OS-1I7">
+        <scene sceneID="Tii-ee-70l">
             <objects>
-                <tableViewController id="gYZ-Nt-foQ" customClass="AddHeritageObjectViewController" customModule="SimpleCMS" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="dP7-oZ-I0q">
+                <viewController id="51T-Cv-PPc" customClass="AddHeritageObjectViewController" customModule="SimpleCMS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FfA-d9-I9V" customClass="HeritageObjectTableViewCell" customModule="SimpleCMS" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="4Aw-BG-17l">
+                                <rect key="frame" x="28" y="266" width="319" height="199"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="JBJ-Xg-4Hc">
+                                        <rect key="frame" x="0.0" y="0.0" width="319" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wwl-Rr-Olv">
+                                                <rect key="frame" x="0.0" y="0.0" width="21" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="21" id="0fC-jp-XAJ"/>
+                                                    <constraint firstAttribute="height" constant="30" id="YXy-no-EG8"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Identificatienummer" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tvB-Jz-JTP">
+                                                <rect key="frame" x="30" y="0.0" width="289" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="k68-QH-GaI"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="166" id="ogP-60-5a2"/>
+                                                </constraints>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dQi-mq-01f">
+                                        <rect key="frame" x="0.0" y="54.5" width="319" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Naam:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cY6-qg-ywI">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="qZ3-Mi-14A"/>
+                                                    <constraint firstAttribute="height" constant="30" id="zMg-4g-MD2"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="naam erfgoedstuk" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="569-uU-LyR">
+                                                <rect key="frame" x="58" y="0.0" width="261" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="hdq-Wn-EKq"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="153" id="iKx-5x-zwS"/>
+                                                </constraints>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="WNO-7G-Mgq">
+                                        <rect key="frame" x="0.0" y="110" width="319" height="29"/>
+                                        <segments>
+                                            <segment title="object"/>
+                                            <segment title="vondst"/>
+                                            <segment title="monument"/>
+                                            <segment title="publicatie"/>
+                                        </segments>
+                                    </segmentedControl>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LDC-qE-EQQ">
+                                        <rect key="frame" x="76.5" y="158" width="166" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <state key="normal" title="Start registreren"/>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="dQi-mq-01f" firstAttribute="leading" secondItem="4Aw-BG-17l" secondAttribute="leading" id="84D-Jx-FKX"/>
+                                    <constraint firstAttribute="trailing" secondItem="JBJ-Xg-4Hc" secondAttribute="trailing" id="Q4g-By-9mL"/>
+                                    <constraint firstAttribute="trailing" secondItem="dQi-mq-01f" secondAttribute="trailing" id="fbd-b7-btw"/>
+                                    <constraint firstItem="JBJ-Xg-4Hc" firstAttribute="leading" secondItem="4Aw-BG-17l" secondAttribute="leading" id="jBX-5F-ZZH"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddHeritageObjectCell" id="iU6-GQ-w7y">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iU6-GQ-w7y" id="J6c-ma-FOI">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="gYZ-Nt-foQ" id="1Ve-hg-IRw"/>
-                            <outlet property="delegate" destination="gYZ-Nt-foQ" id="Jz9-Dr-5ED"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="Znq-ZE-4gm">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="mcX-YE-c93">
+                        <constraints>
+                            <constraint firstItem="4Aw-BG-17l" firstAttribute="centerY" secondItem="400-ch-Igh" secondAttribute="centerY" id="Oet-oY-dXn"/>
+                            <constraint firstItem="4Aw-BG-17l" firstAttribute="centerX" secondItem="400-ch-Igh" secondAttribute="centerX" id="nCF-qy-MQf"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="400-ch-Igh"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="LS4-Lz-XTQ">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="F0H-wP-Nhp">
                             <connections>
-                                <action selector="cancel:" destination="gYZ-Nt-foQ" id="wvp-II-yeG"/>
+                                <action selector="cancel:" destination="51T-Cv-PPc" id="JT3-Qs-RU0"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="zC1-7C-EmS"/>
                     </navigationItem>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6Fb-nl-Gg3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                    <connections>
+                        <outlet property="heritageTypesegmentedControl" destination="WNO-7G-Mgq" id="xZq-pT-6sw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GWn-zN-NTv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2471.1999999999998" y="-141.67916041979012"/>
+            <point key="canvasLocation" x="2512.8000000000002" y="-90.404797601199405"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="yqx-wd-u7T">
@@ -178,22 +248,22 @@
             <point key="canvasLocation" x="178" y="15"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="Mt7-u7-fEa">
+        <scene sceneID="Th2-Cb-utm">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Ura-73-u52" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NJf-yS-Tvj" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="uN2-h9-9CS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="n8m-Wb-zhf">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="gYZ-Nt-foQ" kind="relationship" relationship="rootViewController" id="tKt-5k-I2K"/>
+                        <segue destination="51T-Cv-PPc" kind="relationship" relationship="rootViewController" id="7pD-dk-Jxa"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dMl-1w-jcZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wn3-aR-A8V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1732" y="-142"/>
+            <point key="canvasLocation" x="1748" y="-90"/>
         </scene>
     </scenes>
     <resources>
