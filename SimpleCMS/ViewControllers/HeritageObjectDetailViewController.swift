@@ -8,10 +8,18 @@
 
 import UIKit
 
-class HeritageObjectDetailViewController: UITableViewController {
+class HeritageObjectDetailViewController: UITableViewController, UITextFieldDelegate {
+    
+    var objectId: String?
+    var objectName: String?
+    
 
+    @IBOutlet weak var objectIdTextField: UITextField!
+    @IBOutlet weak var objectNameTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateFields()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -20,9 +28,21 @@ class HeritageObjectDetailViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        resignFirstResponder()
+        return true
+    }
+    
     
     @IBAction func cancel(_ sender: Any) {
         dismiss(animated: true) 
+    }
+    
+    private func updateFields() {
+        objectIdTextField.text = objectId
+        objectNameTextField.text = objectName
+        
+        
     }
     
     
