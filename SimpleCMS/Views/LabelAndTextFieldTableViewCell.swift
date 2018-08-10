@@ -8,34 +8,21 @@
 
 import UIKit
 
-@IBDesignable class LabelAndTextFieldTableViewCell: UITableViewCell {
+class LabelAndTextFieldCell: UITableViewCell {
 
-    var label = UILabel()
-    var textField = UITextField()
+    
+    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var textField: UITextField!
+    
     var labelName: String?
-    var stackView = UIStackView()
-    
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    var placeHolderText: String?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.setLabelName(with: labelName)
-        stackView.axis = .vertical
-        stackView.addArrangedSubview(label)
-        stackView.addArrangedSubview(textField)
-        stackView.distribution = .fill
-        stackView.alignment = .fill
-        stackView.isBaselineRelativeArrangement = false
+        label.text = labelName
+        textField.placeholder = placeHolderText
+        
         
     }
 
@@ -45,8 +32,5 @@ import UIKit
         // Configure the view for the selected state
     }
     
-    private func setLabelName(with labelName: String?){
-        self.label.text = labelName
-    }
 
 }

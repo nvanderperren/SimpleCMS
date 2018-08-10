@@ -14,10 +14,18 @@ class AddHeritageObjectViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var nameHeritageTextField: UITextField!
     @IBOutlet weak var typeHeritageSegmentControl: UISegmentedControl!
     @IBOutlet weak var registrationButton: UIButton!
+
+    @IBAction func startRegistering(_ sender: UIButton) {
+        performSegue(withIdentifier: getSegueIdentifier(with: objectType), sender: self)
+        
+    }
     
     var objectId: String?
     var objectName: String?
     var objectTypes: [HeritageObjectCategory] = [.artefact, .metalDetectingFind, .monument, .publication]
+    var objectType : HeritageObjectCategory {
+        return objectTypes[typeHeritageSegmentControl.selectedSegmentIndex]
+    }
     
     
     
@@ -25,6 +33,7 @@ class AddHeritageObjectViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         idHeritageTextField.delegate = self
         nameHeritageTextField.delegate = self
+        registrationButton.layer.cornerRadius = 5
         updateRegistrationButton()
         
 
@@ -51,24 +60,17 @@ class AddHeritageObjectViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let objectType = objectTypes[typeHeritageSegmentControl.selectedSegmentIndex]
-        if case segue.identifier = getSegueIdentifier(with: objectType) {
-            switch(segue.identifier) {
-            case "Add artefact":
-                print("artefact")
-            default:
-                print("iets")
-            }
-        }
-        if let destinationViewController = segue.destination as? UINavigationController,
-        let targetController = destinationViewController.topViewController as?
-        HeritageObjectDetailViewController {
-            targetController.objectId = objectId
-            targetController.objectName = objectName
-            targetController.navigationItem.title = "Voeg \(objectType.rawValue.lowercased()) toe"
-        
+            if let viewController = segue.destination as? UINavigationController,
+                let targetController = viewController.topViewController as? HeritageDetailViewController {
+                targetController.heritageId = objectId
+                targetController.heritageName = objectName
+                targetController.navigationItem.title = "Voeg \(objectType.rawValue) toe"
+            
+            
         }
     }
+    
+    
     
     private func updateRegistrationButton() {
         objectId = idHeritageTextField?.text

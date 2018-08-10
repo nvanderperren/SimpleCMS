@@ -8,14 +8,14 @@
 
 import UIKit
 
-class HeritageObjectDetailViewController: UITableViewController, UITextFieldDelegate {
+class ArtefactDetailViewController: HeritageDetailViewController {
     
-    var objectId: String?
-    var objectName: String?
+    
     
 
     @IBOutlet weak var objectIdTextField: UITextField!
     @IBOutlet weak var objectNameTextField: UITextField!
+    @IBOutlet weak var objectTypeTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,10 +28,7 @@ class HeritageObjectDetailViewController: UITableViewController, UITextFieldDele
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        resignFirstResponder()
-        return true
-    }
+    
     
     
     @IBAction func cancel(_ sender: Any) {
@@ -39,8 +36,8 @@ class HeritageObjectDetailViewController: UITableViewController, UITextFieldDele
     }
     
     private func updateFields() {
-        objectIdTextField.text = objectId
-        objectNameTextField.text = objectName
+        objectIdTextField.text = heritageId
+        objectNameTextField.text = heritageName
         
         
     }
