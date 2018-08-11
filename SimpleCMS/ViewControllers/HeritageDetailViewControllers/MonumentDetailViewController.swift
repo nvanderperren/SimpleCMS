@@ -15,6 +15,7 @@ class MonumentDetailViewController: HeritageDetailViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Monument showing")
         updateFields()
     }
     

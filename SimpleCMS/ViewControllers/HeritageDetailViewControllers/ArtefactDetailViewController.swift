@@ -19,7 +19,9 @@ class ArtefactDetailViewController: HeritageDetailViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Artefact showing")
         updateFields()
+        objectIdTextField.isUserInteractionEnabled = false
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -29,12 +31,7 @@ class ArtefactDetailViewController: HeritageDetailViewController {
     }
     
     
-    
-    
-    @IBAction func cancel(_ sender: Any) {
-        dismiss(animated: true) 
-    }
-    
+  
     private func updateFields() {
         objectIdTextField.text = heritageId
         objectNameTextField.text = heritageName

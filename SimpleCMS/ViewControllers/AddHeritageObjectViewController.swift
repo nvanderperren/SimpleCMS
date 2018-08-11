@@ -16,7 +16,8 @@ class AddHeritageObjectViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var registrationButton: UIButton!
 
     @IBAction func startRegistering(_ sender: UIButton) {
-        performSegue(withIdentifier: getSegueIdentifier(with: objectType), sender: self)
+        print(getSegueIdentifier(with: objectType))
+        performSegue(withIdentifier: getSegueIdentifier(with: objectType), sender: AddHeritageObjectViewController())
         
     }
     

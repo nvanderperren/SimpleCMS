@@ -15,7 +15,10 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.tableView = UITableView(frame: self.tableView.frame, style: .grouped)
+        self.tableView.allowsSelection = false
+        self.tableView.allowsSelectionDuringEditing = false
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -27,6 +30,10 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate {
         resignFirstResponder()
         return true
     }
-
+    
+    @IBAction func cancel(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     
 }
