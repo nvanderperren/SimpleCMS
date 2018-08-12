@@ -17,8 +17,15 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
     @IBOutlet weak var heritageIdTextField: UITextField!
     @IBOutlet weak var heritageNameTextField: UITextField!
     @IBOutlet weak var heritageTypeTextField: UITextField!
-    @IBOutlet weak var HeritageImageView: UIImageView!
+    @IBOutlet weak var heritageImageView: UIImageView!
+    @IBOutlet weak var acquisitionMethodTextField: UITextField!
+    @IBOutlet weak var acquisitionSourceTextField: UITextField!
+    @IBOutlet weak var acquisitionDateTextField: UITextField!
+    @IBOutlet weak var rightsLicenseTextField: UITextField!
+    @IBOutlet weak var creditLineTextField: UITextField!
+    @IBOutlet weak var heritageDescriptionTextField: UITextField!
     
+//    var allTextFields = [UITextField?]()
     
     @IBAction func chooseImageFromSavedPhotos(_ sender: UIButton) {
        setupImagePickerController(type: .photoLibrary)
@@ -47,6 +54,7 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
         super.viewDidLoad()
         setupTableView()
         setupNavBar()
+//        setupAllTextFields()
         
         
         // Uncomment the following line to preserve selection between presentations
@@ -59,7 +67,7 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
     // MARK: TextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        resignFirstResponder()
+        textField.resignFirstResponder()
         return true
     }
     
@@ -71,13 +79,11 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
             fatalError("Expected a dictionary containing an image, but is was provided following: \(info)")
         }
         
-        HeritageImageView.image = selectedImage
+        heritageImageView.image = selectedImage
         if (picker.sourceType == .camera) {
             UIImageWriteToSavedPhotosAlbum(selectedImage, self, nil, nil)
         }
         dismiss(animated: true, completion: nil)
-        
-        
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -105,6 +111,15 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
         imagePickerController.delegate = self
         present(imagePickerController, animated: true)
     }
+    
+//    private func setupAllTextFields() {
+//        for text in allTextFields {
+//            if let text = text {
+//                text.delegate = self
+//                text.autocapitalizationType = .sentences
+//            }
+//        }
+//    }
     
     
 }
