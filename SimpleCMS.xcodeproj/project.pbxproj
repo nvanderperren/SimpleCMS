@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6E0B6072211CC387005623AB /* LabelAndTextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0B6071211CC387005623AB /* LabelAndTextFieldTableViewCell.swift */; };
+		6E36E86A21204B2F00C22ED8 /* MonumentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E36E86921204B2F00C22ED8 /* MonumentViewModel.swift */; };
 		6E3FAB8D211B6D6200454E24 /* ArtefactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3FAB8C211B6D6200454E24 /* ArtefactDetailViewController.swift */; };
 		6E4DD1CC211D620A00E70F3E /* HeritageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4DD1CB211D620A00E70F3E /* HeritageViewModel.swift */; };
 		6E4DD1D1211E06C600E70F3E /* HeritagetableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4DD1D0211E06C600E70F3E /* HeritagetableView.swift */; };
@@ -60,6 +61,7 @@
 
 /* Begin PBXFileReference section */
 		6E0B6071211CC387005623AB /* LabelAndTextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelAndTextFieldTableViewCell.swift; sourceTree = "<group>"; };
+		6E36E86921204B2F00C22ED8 /* MonumentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonumentViewModel.swift; sourceTree = "<group>"; };
 		6E3FAB8C211B6D6200454E24 /* ArtefactDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtefactDetailViewController.swift; sourceTree = "<group>"; };
 		6E4DD1CB211D620A00E70F3E /* HeritageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeritageViewModel.swift; sourceTree = "<group>"; };
 		6E4DD1D0211E06C600E70F3E /* HeritagetableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeritagetableView.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				6E4DD1DB211F303300E70F3E /* ArtefactViewModel.swift */,
 				6E4DD1DD211F352D00E70F3E /* PublicationViewModel.swift */,
 				6E4DD1DF211F36EE00E70F3E /* FindViewModel.swift */,
+				6E36E86921204B2F00C22ED8 /* MonumentViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -409,6 +412,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E4DD1D3211E333200E70F3E /* MonumentDetailViewController.swift in Sources */,
+				6E36E86A21204B2F00C22ED8 /* MonumentViewModel.swift in Sources */,
 				6EF89CAB2119E89900F785FB /* Monument.swift in Sources */,
 				6E4FD1E62112D83B00AC719E /* AddHeritageObjectViewController.swift in Sources */,
 				6E4DD1DE211F352D00E70F3E /* PublicationViewModel.swift in Sources */,

@@ -17,10 +17,10 @@ class PublicationViewModel : HeritageViewModel {
     var amountOfPages: Int?
     var edition: Int?
     
-    required init(id: String, name: String, category: String, author: String, title: String, acquisitionMethod: String, acquisitionSource: String, acquisitionDate: String, rightsLicense: String, creditLine: String) {
+    required init(id: String, name: String, author: String, title: String, acquisitionMethod: String, acquisitionSource: String, acquisitionDate: String, rightsLicense: String, creditLine: String) {
         self.author = author
         self.title = title
-        super.init(id: id, name: name, category: category)
+        super.init(id: id, name: name, category: HeritageObjectCategory.publication.rawValue)
         self.acquisitionMethod = acquisitionMethod
         self.acquisitionSource = acquisitionSource
         self.acquisitionDate = acquisitionDate

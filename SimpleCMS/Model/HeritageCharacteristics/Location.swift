@@ -14,4 +14,6 @@ struct Location {
     var street: String? //lijst
     var houseNumber: String? //lijst
     
+    // placesAPI =  AIzaSyCZ2U06exSk2RHvOVEJs-pBFbbxaD3z8QE
+    
 }

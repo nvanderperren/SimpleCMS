@@ -15,8 +15,8 @@ class FindViewModel : HeritageViewModel {
     var findPlace: String?
     var inscription: String?
     
-    required init(id: String, name: String, category: String, objectType: String) {
+    required init(id: String, name: String, objectType: String) {
         self.objectType = objectType
-        super.init(id: id, name: name, category: category)
+        super.init(id: id, name: name, category: HeritageObjectCategory.metalDetectingFind.rawValue)
     }
 }

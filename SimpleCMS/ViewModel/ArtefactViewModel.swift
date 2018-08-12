@@ -8,8 +8,7 @@
 
 import Foundation
 
-class ArtefactViewModel : HeritageViewModel {
-    
+class ArtefactViewModel : HeritageViewModel {  
     var artefactType: String
     var creator: String?
     var creationPlace: String?
@@ -20,9 +19,9 @@ class ArtefactViewModel : HeritageViewModel {
 //    var sizeValue: Double
 //    var sizeUnit: String
     
-    required init(id: String, name: String, category: String, artefactType: String, acquisitionSource: String, acquisitionMethod: String, acquisitionDate: String, rightsLicense: String, creditLine: String) {
+    required init(id: String, name: String, artefactType: String, acquisitionSource: String, acquisitionMethod: String, acquisitionDate: String, rightsLicense: String, creditLine: String) {
         self.artefactType = artefactType
-        super.init(id: id, name: name, category: category)
+        super.init(id: id, name: name, category: HeritageObjectCategory.artefact.rawValue)
         self.acquisitionMethod = acquisitionMethod
         self.acquisitionSource = acquisitionSource
         self.acquisitionDate = acquisitionDate
