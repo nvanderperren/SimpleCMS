@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ArtefactViewModel : HeritageViewModel {  
+class ArtefactViewModel : HeritageViewModel {
     var artefactType: String
     var creator: String?
     var creationPlace: String?

@@ -12,6 +12,7 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate {
     
     var heritageId: String?
     var heritageName: String?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()

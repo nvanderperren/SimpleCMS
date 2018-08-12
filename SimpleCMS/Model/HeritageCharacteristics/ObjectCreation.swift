@@ -8,9 +8,9 @@
 
 import Foundation
 
-class ObjectCreation {
+struct ObjectCreation {
     var creator: String?
-    var placeOfCreation: Location?
+    var placeOfCreation: String?
     var dateOfCreation: Date?
     var period: String?
 }

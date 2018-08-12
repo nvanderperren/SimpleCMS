@@ -9,6 +9,8 @@
 import UIKit
 
 class FindDetailViewController: HeritageDetailViewController {
+    
+    var find: FindViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()

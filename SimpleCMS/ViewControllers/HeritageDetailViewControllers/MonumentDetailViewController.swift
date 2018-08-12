@@ -13,6 +13,8 @@ class MonumentDetailViewController: HeritageDetailViewController {
     @IBOutlet weak var monumentIdTextField: UITextField!
     @IBOutlet weak var monumentNameTextField: UITextField!
     
+    var monument: MonumentViewModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Monument showing")

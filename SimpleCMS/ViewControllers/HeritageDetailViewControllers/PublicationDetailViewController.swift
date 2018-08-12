@@ -10,6 +10,8 @@ import UIKit
 
 class PublicationDetailViewController: HeritageDetailViewController {
     
+    var publication: PublicationViewModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Publication showing")

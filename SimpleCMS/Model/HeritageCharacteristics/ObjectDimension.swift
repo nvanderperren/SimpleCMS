@@ -9,22 +9,28 @@
 import Foundation
 
 struct ObjectDimension {
-    var dimensionType : ObjectDimensionType
-    var unit : ObjectDimensionUnit
+    var dimensionType : String
+    var unit : String
     var value : Double
     
-    enum ObjectDimensionType: String {
-        case diameter = "diameter"
-        case radius = "straal"
-        case length = "lengte"
-        case width = "breedte"
-        case height = "hoogte"
-        case depth = "diepte"
+    init(dimensionType: ObjectDimensionType.RawValue, value: Double, unit: ObjectDimensionUnit.RawValue) {
+        self.dimensionType = dimensionType
+        self.value = value
+        self.unit = unit
     }
-    
-    enum ObjectDimensionUnit: String {
-        case mm = "mm"
-        case cm = "cm"
-        case m = "m"
-    }
+}
+
+enum ObjectDimensionType: String {
+    case diameter = "diameter"
+    case radius = "straal"
+    case length = "lengte"
+    case width = "breedte"
+    case height = "hoogte"
+    case depth = "diepte"
+}
+
+enum ObjectDimensionUnit: String {
+    case mm = "mm"
+    case cm = "cm"
+    case m = "m"
 }

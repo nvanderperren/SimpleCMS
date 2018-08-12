@@ -13,31 +13,24 @@ class Monument {
     // MARK: Properties
     
     // identification
-    var monumentId: String
-    var pictures: [String]?
-    var name: String
-    var type: String // lijst
+    var identificaion: HeritageIdentification
     
     // characteristics
     var location: Location //via webservice?
-    var style: [String]? //lijst
-    var description: String?
-    
+    var characteristics: ObjectCharacteristics
     // creation
-    var creator: String?
-    var period: String? //lijst
+    var creation: ObjectCreation
     
     // rights
-    var rightsStatus: String // lijst
-    var creditLine: String?
+    var rights: Rights
     
     //MARK: Initializers
-    init(monumentId: String, name: String, type: String, location: Location, rightsStatus: String) {
-        self.monumentId = monumentId
-        self.name = name
-        self.type = type
+    init(monumentId: String, name: String, type: String, photo: String?, location: Location, rightsStatus: String, creditLine: String, creator: String?, period: String?, description: String?, style: String?, material: String?) {
+        self.identificaion = HeritageIdentification(id: monumentId, name: name, type: type, photo: photo)
+        self.rights = Rights(status: rightsStatus, creditLine: creditLine)
         self.location = location
-        self.rightsStatus = rightsStatus
+        self.creation = ObjectCreation(creator: creator, placeOfCreation: nil, dateOfCreation: nil, period: period)
+        self.characteristics = ObjectCharacteristics(usedMaterial: material, usedTechnique: nil, inscription: nil, description: description, style: style)
     }
     
     

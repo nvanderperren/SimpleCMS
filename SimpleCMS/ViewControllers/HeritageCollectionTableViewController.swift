@@ -49,7 +49,7 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
         cell.objectIdLabel?.text = currentHeritageObjects[indexPath.row].id
         cell.objectTitleLabel?.text = currentHeritageObjects[indexPath.row].name
         cell.objectCategoryLabel?.text = currentHeritageObjects[indexPath.row].category.rawValue
-        cell.objectImageView?.image = currentHeritageObjects[indexPath.row].photos.first as? UIImage
+        cell.objectImageView?.image = UIImage(named: currentHeritageObjects[indexPath.row].photo ?? "defaultPhoto")
         return cell
     }
     

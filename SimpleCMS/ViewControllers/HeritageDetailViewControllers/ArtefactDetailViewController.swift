@@ -10,12 +10,11 @@ import UIKit
 
 class ArtefactDetailViewController: HeritageDetailViewController {
     
-    
-    
-
     @IBOutlet weak var objectIdTextField: UITextField!
     @IBOutlet weak var objectNameTextField: UITextField!
     @IBOutlet weak var objectTypeTextField: UITextField!
+    
+    var artefact: ArtefactViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()

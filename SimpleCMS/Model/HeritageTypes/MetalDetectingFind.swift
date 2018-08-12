@@ -13,35 +13,35 @@ class MetalDetectingFind {
     // MARK: Properties
     
     // identification
-    var objectId: String
-    var name: String
-    var objectCategory: [String]
-    var pictures: [String]?
+    var id: HeritageIdentification
     
     // characteristics
-    var usedMaterial: [String]?
-    var usedTechnique: [String]?
-    var inscription: String?
-    var objectDimensions: [Dimension]?
-    var description: String?
+    var objectCharacteristics: ObjectCharacteristics
+    var objectDimensions: [ObjectDimension]?
     
     // find
-    var findDate: Date
-    var findPlaceType: [String]?
-    var localPlaceName: String?
-    var location: Location
+    private var findEvent: FindEvent
     
     // acquisition
     var acquisition: Acquisition?
     
     
     // MARK: Initializers
-    init(objectId: String, name: String, objectCategory: [String], findDate: Date, location: Location) {
-        self.objectId = objectId
-        self.name = name
-        self.findDate = findDate
-        self.objectCategory = objectCategory
-        self.location = location
+    
+    init(findId: String, name: String, objectType: String, photo: String?, acquisition: Acquisition?, publisher: String?, findDate: Date?, findPlaceType: String?, location: Location?, material: String?, technique: String?, inscription: String?, description: String?, objectDimensions: [ObjectDimension]?){
+        
+        self.id = HeritageIdentification(id: findId, name: name, type: objectType, photo: photo)
+        self.acquisition = acquisition
+        self.findEvent = FindEvent(findDate: findDate, findPlaceType: findPlaceType, location: location)
+        self.objectCharacteristics = ObjectCharacteristics(usedMaterial: material, usedTechnique: technique, inscription: inscription, description: description, style: nil)
+        self.objectDimensions = objectDimensions
+        
+    }
+    
+    private struct FindEvent {
+        var findDate: Date?
+        var findPlaceType: String?
+        var location: Location?
     }
     
     

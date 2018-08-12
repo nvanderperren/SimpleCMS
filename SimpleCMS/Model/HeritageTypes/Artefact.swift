@@ -10,19 +10,14 @@ import Foundation
 
 class Artefact {
     
-    // MARK:Properties
+    // MARK: Properties
     
     // identification - dit komt onder HeritageObject
-    var objectId: String
-    var objectName: String //lijst
-    var name: String
-    var pictures: [String]?
+    var identification: HeritageIdentification
     
     // charcteristics
-    var description: String?
-    var material: [String]? //lijst
-    var objectDimension: [ObjectDimension]?
-    var technique: [String]?
+    var objectDimensions: [ObjectDimension]?
+    var objectCharacteristics: ObjectCharacteristics?
     
     // creation
     var objectCreation: ObjectCreation?
@@ -31,16 +26,17 @@ class Artefact {
     var acquisition: Acquisition
     
     // rights
-    var rightsStatus: String // lijst
-    var creditLine: String
+    var rights: Rights
     
-    init(objectId: String, objectName: String, name: String, acquisition: Acquisition, rightsStatus: String, creditLine: String) {
-        self.objectId = objectId
-        self.objectName = objectName
-        self.name = name
-        self.acquisition = acquisition
-        self.rightsStatus = rightsStatus
-        self.creditLine = creditLine
+    
+    // MARK: Initializers
+    init(objectId: String, objectType: String, name: String, photo: String?, acquisitionMethod: String, acquisitionDate: Date, acquisitionSource: String, depositPlace: String?, rightsStatus: String, creditLine: String, creator: String?, placeOfCreation: String?, dateOfCreation: Date?, period: String?, description: String?, material: String?, techique: String?, dimensions: [ObjectDimension]?) {
+        self.identification = HeritageIdentification(id: objectId, name: name, type: objectType, photo: photo)
+        self.acquisition = Acquisition(method: acquisitionMethod, date: acquisitionDate, source: acquisitionSource, depositPlace: depositPlace)
+        self.rights = Rights(status: rightsStatus, creditLine: creditLine)
+        self.objectCreation = ObjectCreation(creator: creator, placeOfCreation: placeOfCreation, dateOfCreation: dateOfCreation, period: period)
+        self.objectCharacteristics = ObjectCharacteristics(usedMaterial: material, usedTechnique: techique, inscription: nil, description: description, style: nil)
+        self.objectDimensions = dimensions
     }
     
     

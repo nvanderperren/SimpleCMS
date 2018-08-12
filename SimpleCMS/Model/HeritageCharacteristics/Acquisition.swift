@@ -8,16 +8,17 @@
 
 import Foundation
 
-class Acquisition {
+struct Acquisition {
     var method: String //lijst
     var date: Date
     var source: String
     var depositPlace: String?
     
     
-    init(method: String, date: Date, source: String){
+    init(method: String, date: Date, source: String, depositPlace: String?){
         self.method = method
         self.date = date
         self.source = source
+        self.depositPlace = depositPlace
     }
 }
