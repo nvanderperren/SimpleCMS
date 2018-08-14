@@ -423,7 +423,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Afmetingen" id="AGe-Bv-QIb" userLabel="Vondstgegevens">
+                            <tableViewSection headerTitle="Vondstgegevens" id="AGe-Bv-QIb" userLabel="Vondstgegevens">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="90" id="FgZ-r9-hFV">
                                         <rect key="frame" x="0.0" y="694" width="414" height="90"/>
@@ -884,20 +884,32 @@
                                 <action selector="cancel:" destination="h0n-5C-3Cn" id="tQj-v7-9rl"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="k1U-ii-SpX"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="k1U-ii-SpX">
+                            <connections>
+                                <segue destination="YpS-6u-lef" kind="unwind" unwindAction="unwindFromFindToHeritageCollectionWithSender:" id="Bfi-3w-msR"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="acquisitionDateTextField" destination="nzj-Wt-GsE" id="pN4-in-nSl"/>
                         <outlet property="acquisitionMethodTextField" destination="qCv-uT-gZS" id="bfn-rj-Kmh"/>
                         <outlet property="acquisitionSourceTextField" destination="KCC-39-gXb" id="Kus-d1-3M9"/>
+                        <outlet property="findDateTextField" destination="qcE-WS-Kur" id="vme-i2-NK2"/>
+                        <outlet property="findInscriptionTextField" destination="T4f-lq-9KG" id="Wua-rS-MWh"/>
+                        <outlet property="findLocationTextField" destination="cQI-By-pck" id="0OP-mS-HVo"/>
+                        <outlet property="findPlaceTypeTextField" destination="AE1-YE-tcy" id="zSK-gb-JGT"/>
+                        <outlet property="findTechniqueTextField" destination="uuH-Pc-0yf" id="bWZ-Cr-XYN"/>
                         <outlet property="heritageDescriptionTextField" destination="WxK-px-JqY" id="q69-Jt-cPR"/>
                         <outlet property="heritageIdTextField" destination="as6-0w-E8W" id="9Lz-Q6-roY"/>
                         <outlet property="heritageImageView" destination="sTh-8E-ka5" id="9bW-hP-uOx"/>
+                        <outlet property="heritageMaterialTextField" destination="cv5-Ge-sku" id="dT9-ll-b9f"/>
                         <outlet property="heritageNameTextField" destination="ClR-KS-Zmw" id="Oi7-d2-sTT"/>
                         <outlet property="heritageTypeTextField" destination="2ec-kb-HWS" id="jSN-Rb-7UX"/>
+                        <outlet property="saveButton" destination="k1U-ii-SpX" id="OPL-CE-KpD"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rqj-P5-vUZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="YpS-6u-lef" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="5365.217391304348" y="77.445652173913047"/>
         </scene>
@@ -1604,26 +1616,35 @@
                                 <action selector="cancel:" destination="955-W2-4yZ" id="CY4-uG-r9a"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Mv1-MN-svp"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Mv1-MN-svp">
+                            <connections>
+                                <segue destination="tr3-Ug-RlW" kind="unwind" unwindAction="unwindFromArtefactToHeritageCollectionWithSender:" id="sTS-vs-CJ6"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="acquisitionDateTextField" destination="5ra-iL-rRf" id="QCX-Ah-2a8"/>
                         <outlet property="acquisitionMethodTextField" destination="Jec-H7-D2p" id="M4E-z7-hID"/>
                         <outlet property="acquisitionSourceTextField" destination="NcC-on-yjP" id="I69-A6-LBr"/>
+                        <outlet property="artefactCreationDateTextField" destination="5Wl-vP-ei4" id="Jgg-gV-mhv"/>
+                        <outlet property="artefactCreationPeriodTextField" destination="muv-V6-Wof" id="jt8-5t-FZo"/>
+                        <outlet property="artefactCreationPlaceTextField" destination="7iA-dv-2kh" id="C0L-wn-Lhn"/>
+                        <outlet property="artefactCreatorTextField" destination="mKC-xx-zkP" id="OhY-XA-Coj"/>
+                        <outlet property="artefactTechniqueTextField" destination="KIR-oQ-gjZ" id="Yxk-sE-3ih"/>
                         <outlet property="creditLineTextField" destination="csQ-uG-U3S" id="uwW-cN-O2f"/>
                         <outlet property="heritageDescriptionTextField" destination="97C-jy-YHa" id="Aum-Cb-SzT"/>
                         <outlet property="heritageIdTextField" destination="CAM-Mr-66l" id="Bz8-qK-PHz"/>
                         <outlet property="heritageImageView" destination="zDw-zd-5kK" id="nbL-Tl-uDV"/>
+                        <outlet property="heritageMaterialTextField" destination="tyi-nT-Ztp" id="qYW-aK-z5t"/>
                         <outlet property="heritageNameTextField" destination="RHV-QL-CzC" id="K3T-w4-n4U"/>
                         <outlet property="heritageTypeTextField" destination="Syv-nG-pzb" id="GP4-sq-KXZ"/>
-                        <outlet property="objectIdTextField" destination="CAM-Mr-66l" id="DV4-tp-YVH"/>
-                        <outlet property="objectNameTextField" destination="RHV-QL-CzC" id="fv0-Dx-07C"/>
-                        <outlet property="objectTypeTextField" destination="Syv-nG-pzb" id="FbX-jF-T0N"/>
                         <outlet property="rightsLicenseTextField" destination="r8G-7a-85z" id="Dtv-ht-0Yt"/>
+                        <outlet property="saveButton" destination="Mv1-MN-svp" id="KfF-Qw-8Q3"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5ME-v8-ep6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="tr3-Ug-RlW" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4458" y="-637"/>
         </scene>
@@ -1639,7 +1660,7 @@
                             <tableViewSection headerTitle="Identificatie (verplicht)" id="5Cw-J7-BUD">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="90" id="vwH-H9-v9b">
-                                        <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="90"/>
+                                        <rect key="frame" x="0.0" y="55.333333333333343" width="414" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vwH-H9-v9b" id="0Jb-wy-gKw">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="89.666666666666671"/>
@@ -1705,7 +1726,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="90" id="XQd-BK-eYr">
-                                        <rect key="frame" x="0.0" y="235.33333333333334" width="414" height="90"/>
+                                        <rect key="frame" x="0.0" y="235.33333333333337" width="414" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XQd-BK-eYr" id="qa8-a5-dua">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="89.666666666666671"/>
@@ -2157,21 +2178,32 @@
                                 <action selector="cancel:" destination="SRi-xV-LCj" id="3TV-my-mLw"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="qjb-4s-hru"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="qjb-4s-hru">
+                            <connections>
+                                <segue destination="jmz-Cq-6LJ" kind="unwind" unwindAction="unwindFromMonumentToHeritageCollectionWithSender:" id="D97-f1-caA"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="creditLineTextField" destination="FVL-A8-jYc" id="G9z-Sx-z7F"/>
                         <outlet property="heritageDescriptionTextField" destination="0td-Ai-JFm" id="O13-cJ-ubY"/>
                         <outlet property="heritageIdTextField" destination="OBp-Nt-oNI" id="j6o-HW-Ita"/>
                         <outlet property="heritageImageView" destination="Sce-n2-mNA" id="A37-ZO-siG"/>
+                        <outlet property="heritageMaterialTextField" destination="AZc-Dr-1ct" id="fub-SX-UPu"/>
                         <outlet property="heritageNameTextField" destination="TGU-2J-e4o" id="W6X-gU-Xb6"/>
                         <outlet property="heritageTypeTextField" destination="u1d-Ng-6tr" id="TpB-h7-wqh"/>
-                        <outlet property="monumentIdTextField" destination="OBp-Nt-oNI" id="FRd-Bm-qWe"/>
-                        <outlet property="monumentNameTextField" destination="TGU-2J-e4o" id="g37-z0-9MN"/>
+                        <outlet property="monumentCreationPeriodTextField" destination="DXb-de-DXb" id="y3O-k2-mqB"/>
+                        <outlet property="monumentCreatorTextField" destination="Nae-YX-ipd" id="r5x-QB-EFD"/>
+                        <outlet property="monumentIsProtectedSwitch" destination="0gC-c6-8Mr" id="pPF-Vh-0wU"/>
+                        <outlet property="monumentMunicipalityTextField" destination="HW0-n4-Tmf" id="qc4-b5-IoD"/>
+                        <outlet property="monumentStreetNameTextField" destination="Acd-ch-mhp" id="o9d-qh-UqU"/>
+                        <outlet property="monumentStyleTextField" destination="utX-yu-K5R" id="B4D-pF-bb8"/>
                         <outlet property="rightsLicenseTextField" destination="Itb-FW-Exg" id="lDh-Ca-Ily"/>
+                        <outlet property="saveButton" destination="qjb-4s-hru" id="iwS-ES-EUy"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DF8-Vd-iND" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="jmz-Cq-6LJ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4725" y="837"/>
         </scene>
@@ -2852,7 +2884,11 @@
                                 <action selector="cancel:" destination="tke-Og-C3Q" id="vQV-SS-y5t"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="WuD-az-CO8"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="WuD-az-CO8">
+                            <connections>
+                                <segue destination="tc0-h4-TIt" kind="unwind" unwindAction="unwindFromPublicationToHeritageCollectionWithSender:" id="9nN-73-tgT"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="acquisitionDateTextField" destination="olY-va-qHK" id="sy9-Ou-aQL"/>
@@ -2870,9 +2906,11 @@
                         <outlet property="publicationPlaceTextField" destination="G6Q-1q-qCa" id="zfX-lu-Mhs"/>
                         <outlet property="publisherTextField" destination="xfR-cl-mTe" id="AYl-yf-2y0"/>
                         <outlet property="rightsLicenseTextField" destination="kBw-j4-m8C" id="hS3-bz-ypr"/>
+                        <outlet property="saveButton" destination="WuD-az-CO8" id="4cF-Vv-0cG"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D75-He-9f7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="tc0-h4-TIt" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2803" y="836"/>
         </scene>

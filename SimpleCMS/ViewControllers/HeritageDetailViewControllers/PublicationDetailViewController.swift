@@ -10,6 +10,8 @@ import UIKit
 
 class PublicationDetailViewController: HeritageDetailViewController {
     
+    // MARK: Properties
+    
     var publication: PublicationViewModel?
     
     @IBOutlet weak var authorTextField: UITextField!
@@ -20,12 +22,35 @@ class PublicationDetailViewController: HeritageDetailViewController {
     @IBOutlet weak var contentTextField: UITextField!
     @IBOutlet weak var editionTextField: UITextField!
     
+    private var allTextFields: [UITextField] {
+        return [heritageIdTextField, heritageNameTextField, authorTextField, acquisitionMethodTextField, acquisitionSourceTextField, acquisitionDateTextField, rightsLicenseTextField, creditLineTextField, publisherTextField, publicationDateTextField, publicationPlaceTextField, numberOfPagesTextField, contentTextField, editionTextField]
+    }
+    
+    private var requiredTextFields: [UITextField] {
+        return [heritageIdTextField, heritageNameTextField, authorTextField, acquisitionMethodTextField, acquisitionSourceTextField, acquisitionDateTextField, rightsLicenseTextField, creditLineTextField]
+    }
+    
+//    @IBAction func savePublicationItem(_ sender: UIBarButtonItem) {
+//        publication = PublicationViewModel(id: heritageIdTextField.text!, author: authorTextField.text!, title: heritageNameTextField.text!, acquisitionMethod: acquisitionMethodTextField.text!, acquisitionSource: acquisitionSourceTextField.text!, acquisitionDate: acquisitionDateTextField.text!, rightsLicense: rightsLicenseTextField.text!, creditLine: creditLineTextField.text!, publisher: publisherTextField.text, publicationDate: publicationDateTextField.text, publicationPlace: publicationPlaceTextField.text, numberOfPages: numberOfPagesTextField.text, edition: editionTextField.text)
+//    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        guard let button = sender as? UIBarButtonItem, button === saveButton else {
+            print("er ging iets fout")
+            return
+        }
+        publication = PublicationViewModel(id: heritageIdTextField.text!, author: authorTextField.text!, title: heritageNameTextField.text!, acquisitionMethod: acquisitionMethodTextField.text!, acquisitionSource: acquisitionSourceTextField.text!, acquisitionDate: acquisitionDateTextField.text!, rightsLicense: rightsLicenseTextField.text!, creditLine: creditLineTextField.text!, publisher: publisherTextField.text, publicationDate: publicationDateTextField.text, publicationPlace: publicationPlaceTextField.text, numberOfPages: numberOfPagesTextField.text, edition: editionTextField.text)
+    }
     
     
+    // MARK: ViewController methods
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Publication showing")
-        setupAllTextFields()
+        setupNavBar(for: publication)
+        setupTextFields(with: allTextFields, for: publication)
+        updateSaveButtonState(with: requiredTextFields)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -33,15 +58,11 @@ class PublicationDetailViewController: HeritageDetailViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
-    private func setupAllTextFields() {
-        let allTextFields = [heritageIdTextField, heritageNameTextField, authorTextField, acquisitionMethodTextField, acquisitionSourceTextField, acquisitionDateTextField, rightsLicenseTextField, creditLineTextField, publisherTextField, publicationDateTextField, publicationPlaceTextField, numberOfPagesTextField, contentTextField, editionTextField]
-        
-        for text in allTextFields {
-            if let text = text {
-                text.delegate = self
-            }
-
-        }
+    // MARK: TextFieldDelegate
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        updateSaveButtonState(with: requiredTextFields)
     }
+    
+    
 
 }

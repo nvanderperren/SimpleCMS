@@ -9,24 +9,44 @@
 import Foundation
 
 class PublicationViewModel : HeritageViewModel {
+    
+    // MARK: Properties
     var author: String
-    var title: String
     var publisher: String?
     var publicationDate: String?
     var publicationPlace: String?
-    var amountOfPages: Int?
+    var numberOfPages: Int?
     var edition: Int?
     
-    required init(id: String, name: String, author: String, title: String, acquisitionMethod: String, acquisitionSource: String, acquisitionDate: String, rightsLicense: String, creditLine: String) {
+    // MARK: Initializers
+    required init(id: String, title: String, author: String, acquisitionMethod: String, acquisitionSource: String, acquisitionDate: String, rightsLicense: String, creditLine: String) {
         self.author = author
-        self.title = title
-        super.init(id: id, name: name, category: HeritageObjectCategory.publication.rawValue)
+        super.init(id: id, name: title, category: HeritageObjectCategory.publication.rawValue)
         self.acquisitionMethod = acquisitionMethod
         self.acquisitionSource = acquisitionSource
         self.acquisitionDate = acquisitionDate
         self.rightsLicense = rightsLicense
         self.creditLine = creditLine
     }
+    
+    convenience init(id: String, author: String, title: String, acquisitionMethod: String, acquisitionSource: String, acquisitionDate: String, rightsLicense: String, creditLine: String, publisher: String?, publicationDate: String?, publicationPlace: String?, numberOfPages: String?, edition: String?) {
+        self.init(id: id, title: title, author: author, acquisitionMethod: acquisitionMethod, acquisitionSource: acquisitionSource, acquisitionDate: acquisitionDate, rightsLicense: rightsLicense, creditLine: creditLine)
+        self.publisher = publisher
+        self.publicationDate = publicationDate
+        self.publicationPlace = publicationPlace
+        self.numberOfPages = convertOptionalStringtoOptionalInt(with: numberOfPages)
+        self.edition = convertOptionalStringtoOptionalInt(with: edition)
+    }
+    
+    private func convertOptionalStringtoOptionalInt(with value: String?) -> Int? {
+        if let value = value {
+            return Int(value)
+        } else {
+            return nil
+        }
+    }
+    
+    
     
     
     

@@ -23,7 +23,7 @@ class HeritageObject {
     var dimensions: [ObjectDimension]? = []
     
     // MARK: - Initializers
-    init(id: String, name: String, category: HeritageObjectCategory, photo: String) {
+    init(id: String, name: String, category: HeritageObjectCategory, photo: String = "defaultPhoto") {
         self.id = id
         self.name = name
         self.category = category

@@ -10,35 +10,53 @@ import UIKit
 
 class ArtefactDetailViewController: HeritageDetailViewController {
     
-    @IBOutlet weak var objectIdTextField: UITextField!
-    @IBOutlet weak var objectNameTextField: UITextField!
-    @IBOutlet weak var objectTypeTextField: UITextField!
-    
     var artefact: ArtefactViewModel?
+    
+    @IBOutlet weak var artefactCreatorTextField: UITextField!
+    @IBOutlet weak var artefactCreationPlaceTextField: UITextField!
+    @IBOutlet weak var artefactCreationDateTextField: UITextField!
+    @IBOutlet weak var artefactCreationPeriodTextField: UITextField!
+    @IBOutlet weak var artefactTechniqueTextField: UITextField!
+    
+    var requiredFields: [UITextField] {
+        return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionDateTextField, acquisitionSourceTextField, acquisitionMethodTextField, rightsLicenseTextField, creditLineTextField]
+    }
+    
+    var allTextFields: [UITextField] {
+        return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionMethodTextField, acquisitionSourceTextField, acquisitionDateTextField, rightsLicenseTextField,  creditLineTextField, artefactCreatorTextField, artefactCreationPlaceTextField, artefactCreationDateTextField, artefactCreationPeriodTextField,heritageDescriptionTextField, heritageMaterialTextField, artefactTechniqueTextField]
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Artefact showing")
-        updateFields()
-        objectIdTextField.isUserInteractionEnabled = false
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        setupNavBar(for: artefact)
+        setupTextFields(with: allTextFields, for: artefact)
+        updateSaveButtonState(with: requiredFields)
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
-    
-    
-  
-    private func updateFields() {
-        objectIdTextField.text = heritageId
-        objectNameTextField.text = heritageName
-        
+        if artefact != nil {
+            self.navigationItem.rightBarButtonItem = self.editButtonItem
+            
+        }
         
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        guard let button = sender as? UIBarButtonItem, button === saveButton else {
+            print("er ging iets fout")
+            return
+        }
+        artefact = ArtefactViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, artefactType: heritageTypeTextField.text!, acquisitionSource: acquisitionSourceTextField.text!, acquisitionMethod: acquisitionMethodTextField.text!, acquisitionDate: acquisitionDateTextField.text!, rightsLicense: rightsLicenseTextField.text!, creditLine: creditLineTextField.text!, creator: artefactCreatorTextField.text, creationPlace: artefactCreationPlaceTextField.text, creationDate: artefactCreationDateTextField.text, creationPeriod: artefactCreationPeriodTextField.text, size: nil)
+        print("item saved")
+        print("\(artefact!.creditLine!)")
+        
+    }
     
-    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        updateSaveButtonState(with: requiredFields)
+    }
+
 
 }

@@ -165,9 +165,9 @@
 			children = (
 				6E4DD1CB211D620A00E70F3E /* HeritageViewModel.swift */,
 				6E4DD1DB211F303300E70F3E /* ArtefactViewModel.swift */,
-				6E4DD1DD211F352D00E70F3E /* PublicationViewModel.swift */,
-				6E4DD1DF211F36EE00E70F3E /* FindViewModel.swift */,
 				6E36E86921204B2F00C22ED8 /* MonumentViewModel.swift */,
+				6E4DD1DF211F36EE00E70F3E /* FindViewModel.swift */,
+				6E4DD1DD211F352D00E70F3E /* PublicationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";

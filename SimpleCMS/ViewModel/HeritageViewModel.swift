@@ -9,19 +9,13 @@
 import UIKit
 
 class HeritageViewModel {
+    
+    // MARK: Properties
     var id: String
     var name: String
     var category: String
     var description: String?
     var picture: UIImage?
-    var pictureURL: String? {
-        didSet {
-            if let URL = pictureURL {
-                picture = UIImage(named: URL)
-            }
-        }
-    }
-    
     var rightsLicense: String?
     var creditLine: String?
     var acquisitionMethod: String?
@@ -30,6 +24,15 @@ class HeritageViewModel {
     var material: String?
     var technique: String?
     
+    var pictureURL: String? {
+        didSet {
+            if let URL = pictureURL {
+                picture = UIImage(named: URL)
+            }
+        }
+    }
+    
+    // MARK: Initializers
     init(id: String, name: String, category: String) {
         self.id = id
         self.name = name

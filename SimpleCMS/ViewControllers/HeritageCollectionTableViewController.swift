@@ -27,6 +27,31 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
         setupSearchBar()
     }
     
+    // MARK: Navigation - Unwind Segues
+    @IBAction func unwindFromFindToHeritageCollection(sender: UIStoryboardSegue){
+        if let sourceViewController = sender.source as? FindDetailViewController, let findObject = sourceViewController.find {
+           addNewRowToTableView(with: findObject)
+        }
+    }
+    
+    @IBAction func unwindFromArtefactToHeritageCollection(sender: UIStoryboardSegue){
+        if let sourceViewController = sender.source as? ArtefactDetailViewController, let artefactObject = sourceViewController.artefact {
+            addNewRowToTableView(with: artefactObject)
+        }
+    }
+    
+    @IBAction func unwindFromMonumentToHeritageCollection(sender: UIStoryboardSegue){
+        if let sourceViewController = sender.source as? MonumentDetailViewController, let monumentObject = sourceViewController.monument {
+            addNewRowToTableView(with: monumentObject)
+        }
+    }
+    
+    @IBAction func unwindFromPublicationToHeritageCollection(sender: UIStoryboardSegue){
+        if let sourceViewController = sender.source as? PublicationDetailViewController, let publicationObject = sourceViewController.publication {
+            addNewRowToTableView(with: publicationObject)
+        }
+    }
+    
 
     // MARK: - Table view data source
 
@@ -137,6 +162,17 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
     private func returnSortedCategoriesOfHeritageObjects() -> [HeritageObjectCategory] {
         return Array(Set(heritageObjects.map{$0.category}).sorted{$0.rawValue < $1.rawValue})
         
+    }
+    
+    private func addNewRowToTableView(with record: HeritageViewModel){
+        let newIndexPath = IndexPath(row: heritageObjects.count, section: 0)
+        let newHeritageObject = HeritageObject(id: record.id, name: record.name, category: HeritageObjectCategory(rawValue: record.category)!, photo: "defaultPhoto")
+        heritageObjects.append(newHeritageObject)
+        currentHeritageObjects = heritageObjects
+        heritageCollectionTableView.insertRows(at: [newIndexPath], with: .automatic)
+        for object in heritageObjects {
+            print(object.name)
+        }
     }
 
 }

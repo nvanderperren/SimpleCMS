@@ -12,7 +12,6 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
     
     var heritageId: String?
     var heritageName: String?
-    var heritageObject: HeritageViewModel?
     
     @IBOutlet weak var heritageIdTextField: UITextField!
     @IBOutlet weak var heritageNameTextField: UITextField!
@@ -24,6 +23,11 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
     @IBOutlet weak var rightsLicenseTextField: UITextField!
     @IBOutlet weak var creditLineTextField: UITextField!
     @IBOutlet weak var heritageDescriptionTextField: UITextField!
+    @IBOutlet weak var heritageMaterialTextField: UITextField!
+    
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    
     
 //    var allTextFields = [UITextField?]()
     
@@ -53,7 +57,7 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        setupNavBar()
+        updateFields()
 //        setupAllTextFields()
         
         
@@ -70,7 +74,6 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
         textField.resignFirstResponder()
         return true
     }
-    
     
     // MARK: ImagePickerControllerDelegate
     
@@ -91,7 +94,7 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
     }
     
     
-    // MARK: Private methods
+    // MARK: Private and internal methods
     
     private func setupTableView() {
         self.tableView = UITableView(frame: self.tableView.frame, style: .grouped)
@@ -99,9 +102,9 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
         self.tableView.allowsSelectionDuringEditing = false
     }
     
-    private func setupNavBar() {
-        if let heritageObject = heritageObject {
-            navigationItem.title = heritageObject.id
+    func setupNavBar(for item: HeritageViewModel?) {
+        if let heritageItem = item {
+            navigationItem.title = heritageItem.id
         }
     }
     
@@ -112,14 +115,35 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
         present(imagePickerController, animated: true)
     }
     
-//    private func setupAllTextFields() {
-//        for text in allTextFields {
-//            if let text = text {
-//                text.delegate = self
-//                text.autocapitalizationType = .sentences
-//            }
-//        }
-//    }
+    private func updateFields() {
+        heritageIdTextField.text = heritageId
+        heritageNameTextField.text = heritageName
+    }
+    
+    func updateSaveButtonState(with requiredFields: [UITextField]) {
+        var strings = [String]()
+        for textField in requiredFields {
+            let text = textField.text ?? ""
+            strings.append(text)
+        }
+        let count = strings.filter{$0.isEmpty}.count
+        if (count > 0) {
+            saveButton.isEnabled = false
+        } else {
+            saveButton.isEnabled = true
+        }
+    }
+    
+    func setupTextFields(with allTextFields: [UITextField], for viewModel: HeritageViewModel?) {
+        for text in allTextFields {
+            text.delegate = self
+            text.autocapitalizationType = .sentences
+            if (viewModel != nil) {
+                text.isEnabled = false
+            }
+            
+        }
+    }
     
     
 }
