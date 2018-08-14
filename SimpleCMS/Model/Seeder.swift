@@ -10,13 +10,19 @@ import UIKit
 
 struct Seeder {
     
-    func createHeritageObjects() -> [HeritageObject] {
-        var collection = [HeritageObject]()
-        collection.append(HeritageObject(id: "TILE1", name: "armband", category: HeritageObjectCategory.metalDetectingFind, photo: "armband"))
-        collection.append(HeritageObject(id: "TILE2", name: "munitie", category: HeritageObjectCategory.metalDetectingFind, photo: "munitie"))
-            collection.append(HeritageObject(id: "TILE3", name: "een oud boek", category: HeritageObjectCategory.publication, photo: "boek"))
-        collection.append(HeritageObject(id: "TILE4", name: "een schilderij", category: HeritageObjectCategory.artefact, photo: "schilderij"))
-        collection.append(HeritageObject(id: "TILE5", name: "een muziekinstrument", category: HeritageObjectCategory.artefact, photo: "kalimba"))
-        return collection
+    func createHeritageObjects() -> [HeritageViewModel] {
+        let item1 = HeritageViewModel(id: "TILE1", name: "armband", category: HeritageObjectCategory.metalDetectingFind.rawValue)
+        let item2 = HeritageViewModel(id: "TILE2", name: "munitie", category: HeritageObjectCategory.metalDetectingFind.rawValue)
+        let item3 = HeritageViewModel(id: "TILE3", name: "een oud boek", category: HeritageObjectCategory.publication.rawValue)
+        let item4 = HeritageViewModel(id: "TILE4", name: "een schilderij", category: HeritageObjectCategory.artefact.rawValue)
+        let item5 = HeritageViewModel(id: "TILE5", name: "een muziekinstrument", category: HeritageObjectCategory.artefact.rawValue)
+        item1.pictureURL = "armband"
+        item2.pictureURL = "munitie"
+        item3.pictureURL = "boek"
+        item4.pictureURL = "schilderij"
+        item5.pictureURL = "kalimba"
+        return [item1, item2, item3, item4, item5]
     }
+    
+    
 }

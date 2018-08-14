@@ -10,13 +10,13 @@ import UIKit
 
 class HeritageCollectionTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UITextFieldDelegate {
     
-    var heritageObjects = [HeritageObject]()
-    var currentHeritageObjects : [HeritageObject] = []
+    var heritageObjects = [HeritageViewModel]()
+    var currentHeritageObjects : [HeritageViewModel] = []
     private var seeder = Seeder()
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var heritageCollectionTableView: UITableView!
     var isSearching = false
-    var categories: [HeritageObjectCategory] = []
+    var categories: [String] = []
 
     
     override func viewDidLoad() {
@@ -73,8 +73,8 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
         // Configure the cell...
         cell.objectIdLabel?.text = currentHeritageObjects[indexPath.row].id
         cell.objectTitleLabel?.text = currentHeritageObjects[indexPath.row].name
-        cell.objectCategoryLabel?.text = currentHeritageObjects[indexPath.row].category.rawValue
-        cell.objectImageView?.image = UIImage(named: currentHeritageObjects[indexPath.row].photo ?? "defaultPhoto")
+        cell.objectCategoryLabel?.text = currentHeritageObjects[indexPath.row].category
+        cell.objectImageView?.image = currentHeritageObjects[indexPath.row].picture ?? UIImage(named: "defaultPhoto")
         return cell
     }
     
@@ -149,7 +149,7 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
     }
     
     private func setupScopeButtons() {
-        let searchCategories = categories.map{$0.rawValue}
+        let searchCategories = categories.map{$0}
         if (searchCategories.count > 1 && searchCategories.count < 5) {
             // scopebar with more than 5 items will be too big; with only 1 item it's pointless
             searchBar.scopeButtonTitles = searchCategories
@@ -159,15 +159,14 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
         }
     }
     
-    private func returnSortedCategoriesOfHeritageObjects() -> [HeritageObjectCategory] {
-        return Array(Set(heritageObjects.map{$0.category}).sorted{$0.rawValue < $1.rawValue})
+    private func returnSortedCategoriesOfHeritageObjects() -> [String] {
+        return Array(Set(heritageObjects.map{$0.category}).sorted{$0 < $1})
         
     }
     
     private func addNewRowToTableView(with record: HeritageViewModel){
         let newIndexPath = IndexPath(row: heritageObjects.count, section: 0)
-        let newHeritageObject = HeritageObject(id: record.id, name: record.name, category: HeritageObjectCategory(rawValue: record.category)!, photo: "defaultPhoto")
-        heritageObjects.append(newHeritageObject)
+        heritageObjects.append(record)
         currentHeritageObjects = heritageObjects
         heritageCollectionTableView.insertRows(at: [newIndexPath], with: .automatic)
         for object in heritageObjects {

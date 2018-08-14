@@ -36,8 +36,7 @@ class ArtefactDetailViewController: HeritageDetailViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         if artefact != nil {
-            self.navigationItem.rightBarButtonItem = self.editButtonItem
-            
+            saveButton = self.editButtonItem
         }
         
     }
