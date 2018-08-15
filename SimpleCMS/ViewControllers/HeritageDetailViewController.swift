@@ -12,6 +12,7 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
     
     var heritageId: String?
     var heritageName: String?
+    var pictureURL: String?
     
     @IBOutlet weak var heritageIdTextField: UITextField!
     @IBOutlet weak var heritageNameTextField: UITextField!
@@ -78,16 +79,28 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
     // MARK: ImagePickerControllerDelegate
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let fileManager = FileManager.default
+        let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
+        let imagePath = documentsPath?.appendingPathComponent("\(heritageId!).jpg")
         guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage  else {
             fatalError("Expected a dictionary containing an image, but is was provided following: \(info)")
         }
-        
+        try! UIImageJPEGRepresentation(selectedImage, 1.0)?.write(to: imagePath!)
+        print(imagePath!.absoluteString)
         heritageImageView.image = selectedImage
-        if (picker.sourceType == .camera) {
-            UIImageWriteToSavedPhotosAlbum(selectedImage, self, nil, nil)
-        }
         dismiss(animated: true, completion: nil)
+        let url = URL(string: imagePath!.absoluteString)
+        DispatchQueue.global().async {
+            let imageData: Data? = try? Data(contentsOf: url!)
+            DispatchQueue.main.async {
+                self.heritageImageView.image = UIImage(data: imageData!)
+            }
+
+        }
+        
+        
     }
+    
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
