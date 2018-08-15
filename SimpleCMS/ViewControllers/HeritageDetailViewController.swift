@@ -79,24 +79,14 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
     // MARK: ImagePickerControllerDelegate
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        let fileManager = FileManager.default
-        let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
-        let imagePath = documentsPath?.appendingPathComponent("\(heritageId!).jpg")
         guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage  else {
             fatalError("Expected a dictionary containing an image, but is was provided following: \(info)")
         }
-        try! UIImageJPEGRepresentation(selectedImage, 1.0)?.write(to: imagePath!)
-        print(imagePath!.absoluteString)
+        
         heritageImageView.image = selectedImage
+        saveImage(selectedImage)
         dismiss(animated: true, completion: nil)
-        let url = URL(string: imagePath!.absoluteString)
-        DispatchQueue.global().async {
-            let imageData: Data? = try? Data(contentsOf: url!)
-            DispatchQueue.main.async {
-                self.heritageImageView.image = UIImage(data: imageData!)
-            }
-
-        }
+        
         
         
     }
@@ -153,6 +143,29 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
             text.autocapitalizationType = .sentences
             if (viewModel != nil) {
                 text.isEnabled = false
+            }
+            
+        }
+    }
+    
+    private func saveImage(_ image:UIImage) {
+        let fileManager = FileManager.default
+        let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
+        let imagePath = documentsPath?.appendingPathComponent("\(heritageId!).jpg")
+        try! UIImageJPEGRepresentation(image, 1.0)?.write(to: imagePath!)
+        let path = imagePath!.absoluteString
+        print(path)
+        pictureURL = path
+        
+    }
+    
+    // use this in the main table view
+    private func loadImage(with pathAbsoluteString: String){
+        let url = URL(string: pathAbsoluteString)
+        DispatchQueue.global().async {
+            let imageData: Data? = try? Data(contentsOf: url!)
+            DispatchQueue.main.async {
+                self.heritageImageView.image = UIImage(data: imageData!)
             }
             
         }

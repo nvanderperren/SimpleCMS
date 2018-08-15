@@ -407,7 +407,7 @@
                                                             <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                                             <state key="normal" title="Kies foto"/>
                                                             <connections>
-                                                                <action selector="chooseImage:" destination="h0n-5C-3Cn" eventType="touchUpInside" id="4oK-zL-2lX"/>
+                                                                <action selector="chooseImageFromSavedPhotos:" destination="h0n-5C-3Cn" eventType="touchUpInside" id="ctE-1z-voQ"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -1660,7 +1660,7 @@
                             <tableViewSection headerTitle="Identificatie (verplicht)" id="5Cw-J7-BUD">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="90" id="vwH-H9-v9b">
-                                        <rect key="frame" x="0.0" y="55.333333333333343" width="414" height="90"/>
+                                        <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vwH-H9-v9b" id="0Jb-wy-gKw">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="89.666666666666671"/>
@@ -1726,7 +1726,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="90" id="XQd-BK-eYr">
-                                        <rect key="frame" x="0.0" y="235.33333333333337" width="414" height="90"/>
+                                        <rect key="frame" x="0.0" y="235.33333333333334" width="414" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XQd-BK-eYr" id="qa8-a5-dua">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="89.666666666666671"/>
