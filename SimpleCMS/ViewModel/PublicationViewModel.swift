@@ -29,8 +29,9 @@ class PublicationViewModel : HeritageViewModel {
         self.creditLine = creditLine
     }
     
-    convenience init(id: String, author: String, title: String, acquisitionMethod: String, acquisitionSource: String, acquisitionDate: String, rightsLicense: String, creditLine: String, publisher: String?, publicationDate: String?, publicationPlace: String?, numberOfPages: String?, edition: String?) {
+    convenience init(id: String, author: String, title: String, pictureURL: String?, acquisitionMethod: String, acquisitionSource: String, acquisitionDate: String, rightsLicense: String, creditLine: String, publisher: String?, publicationDate: String?, publicationPlace: String?, numberOfPages: String?, edition: String?) {
         self.init(id: id, title: title, author: author, acquisitionMethod: acquisitionMethod, acquisitionSource: acquisitionSource, acquisitionDate: acquisitionDate, rightsLicense: rightsLicense, creditLine: creditLine)
+        self.pictureURL = pictureURL
         self.publisher = publisher
         self.publicationDate = publicationDate
         self.publicationPlace = publicationPlace

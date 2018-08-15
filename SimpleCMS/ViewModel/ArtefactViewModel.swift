@@ -30,8 +30,9 @@ class ArtefactViewModel : HeritageViewModel {
         
     }
     
-    convenience init(id: String, name: String, artefactType: String, acquisitionSource: String, acquisitionMethod: String, acquisitionDate: String, rightsLicense: String, creditLine: String, creator: String?, creationPlace: String?, creationDate: String?, creationPeriod: String?, size: String?) {
+    convenience init(id: String, name: String, artefactType: String, pictureURL: String?, acquisitionSource: String, acquisitionMethod: String, acquisitionDate: String, rightsLicense: String, creditLine: String, creator: String?, creationPlace: String?, creationDate: String?, creationPeriod: String?, size: String?) {
         self.init(id: id, name: name, artefactType: artefactType, acquisitionSource: acquisitionSource, acquisitionMethod: acquisitionMethod, acquisitionDate: acquisitionDate, rightsLicense: rightsLicense, creditLine: creditLine)
+        self.pictureURL = pictureURL
         self.creator = creator
         self.creationPlace = creationPlace
         self.creationDate = creationDate

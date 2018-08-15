@@ -82,9 +82,8 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
         guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage  else {
             fatalError("Expected a dictionary containing an image, but is was provided following: \(info)")
         }
-        
-        heritageImageView.image = selectedImage
         saveImage(selectedImage)
+        heritageImageView.image = selectedImage
         dismiss(animated: true, completion: nil)
         
         

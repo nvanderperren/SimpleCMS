@@ -20,8 +20,9 @@ class FindViewModel : HeritageViewModel {
         super.init(id: id, name: name, category: HeritageObjectCategory.metalDetectingFind.rawValue)
     }
     
-    convenience init(id: String, name: String, objectType: String, findDate: String?, findPlaceType: String?, findPlace: String?, inscription: String?) {
+    convenience init(id: String, name: String, objectType: String, pictureURL: String?, findDate: String?, findPlaceType: String?, findPlace: String?, inscription: String?) {
         self.init(id: id, name: name, objectType: objectType)
+        self.pictureURL = pictureURL
         self.findDate = findDate
         self.findPlaceType = findPlaceType
         self.inscription = inscription

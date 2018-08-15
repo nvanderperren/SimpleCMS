@@ -26,8 +26,10 @@ class HeritageViewModel {
     
     var pictureURL: String? {
         didSet {
-            if let URL = pictureURL {
-                picture = UIImage(named: URL)
+            if let url = pictureURL {
+                print("pictureURL staat aan!")
+                print(url)
+                loadImage(with: url)
             }
         }
     }
@@ -37,6 +39,14 @@ class HeritageViewModel {
         self.id = id
         self.name = name
         self.category = category
+        
+    }
+    
+    // MARK: Private methods
+    private func loadImage(with pathAbsoluteString: String){
+        let url = URL(string: pathAbsoluteString)
+        let imageData: Data? = try? Data(contentsOf: url!)
+        self.picture = UIImage(data: imageData!)
     }
     
     

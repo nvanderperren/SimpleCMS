@@ -36,8 +36,9 @@ class MonumentViewModel: HeritageViewModel {
     
     
     // REMINDER: postal code is mandatory!
-    convenience init(id: String, name: String, monumentType: String, protection: Bool, municipality: String, street: String?, houseNumber: String?, postalCode: String?, license: String, creditLine: String, creator: String?, period: String?, style: String?) {
+    convenience init(id: String, name: String, monumentType: String, pictureURL: String?, protection: Bool, municipality: String, street: String?, houseNumber: String?, postalCode: String?, license: String, creditLine: String, creator: String?, period: String?, style: String?) {
         self.init(id: id, name: name, monumentType: monumentType, protection: protection, municipality: municipality, postalCode: postalCode, license: license, creditLine: creditLine)
+        self.pictureURL = pictureURL
         self.monumentLocationStreetName = street
         self.monumentLocationNumber = houseNumber
         self.creator = creator
