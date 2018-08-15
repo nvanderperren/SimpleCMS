@@ -10,7 +10,7 @@ import UIKit
 
 struct Seeder {
     
-    func createHeritageObjects() -> [HeritageViewModel] {
+    var heritageObjects: [HeritageViewModel] {
         let item1 = HeritageViewModel(id: "TILE1", name: "armband", category: HeritageObjectCategory.metalDetectingFind.rawValue)
         let item2 = HeritageViewModel(id: "TILE2", name: "munitie", category: HeritageObjectCategory.metalDetectingFind.rawValue)
         let item3 = HeritageViewModel(id: "TILE3", name: "een oud boek", category: HeritageObjectCategory.publication.rawValue)
@@ -22,6 +22,7 @@ struct Seeder {
         item4.pictureURL = "schilderij"
         item5.pictureURL = "kalimba"
         return [item1, item2, item3, item4, item5]
+        
     }
     
     

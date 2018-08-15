@@ -1,0 +1,6 @@
+framework module Pods_SimpleCMS {
+  umbrella header "Pods-SimpleCMS-umbrella.h"
+
+  export *
+  module * { export * }
+}

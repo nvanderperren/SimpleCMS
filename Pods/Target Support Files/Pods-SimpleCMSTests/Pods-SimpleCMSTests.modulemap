@@ -1,0 +1,6 @@
+framework module Pods_SimpleCMSTests {
+  umbrella header "Pods-SimpleCMSTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

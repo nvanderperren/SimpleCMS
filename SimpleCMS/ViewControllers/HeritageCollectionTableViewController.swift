@@ -21,7 +21,7 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        heritageObjects = seeder.createHeritageObjects()
+        heritageObjects = seeder.heritageObjects
         currentHeritageObjects = heritageObjects
         categories = returnSortedCategoriesOfHeritageObjects()
         setupSearchBar()
