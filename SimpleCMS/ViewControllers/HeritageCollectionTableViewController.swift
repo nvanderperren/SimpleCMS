@@ -79,6 +79,24 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = heritageCollectionTableView.cellForRow(at: indexPath) as? HeritageObjectTableViewCell else {
+            fatalError("Wrong TableViewCell")
+        }
+        switch(cell.objectCategoryLabel.text){
+        case HeritageObjectCategory.artefact.rawValue:
+            performSegue(withIdentifier: "Show artefact", sender: HeritageCollectionTableViewController())
+        case HeritageObjectCategory.monument.rawValue:
+            performSegue(withIdentifier: "Show monument", sender: HeritageCollectionTableViewController())
+        case HeritageObjectCategory.metalDetectingFind.rawValue:
+            performSegue(withIdentifier: "Show find", sender: HeritageCollectionTableViewController())
+        case HeritageObjectCategory.publication.rawValue:
+            performSegue(withIdentifier: "Show publication", sender: HeritageCollectionTableViewController())
+        default:
+            print("Problemen!")
+        }
+    }
+    
     // MARK: - Search bar methods
     // verbeteringen: first responder searchbar + stoppen highlighten scopte
     
@@ -141,6 +159,34 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
         searchBar.showsScopeBar = false
         searchBar.showsCancelButton = false
         searchBar.resignFirstResponder()
+    }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch(segue.identifier){
+        case "Show artefact":
+            let destinationController = segue.destination as! ArtefactDetailViewController
+            let selection = heritageCollectionTableView.indexPathForSelectedRow!
+            destinationController.artefact = heritageObjects[selection.row] as? ArtefactViewModel
+            heritageCollectionTableView.deselectRow(at: selection, animated: true)
+        case "Show find":
+            let destinationController = segue.destination as! FindDetailViewController
+            let selection = heritageCollectionTableView.indexPathForSelectedRow!
+            destinationController.find = heritageObjects[selection.row] as? FindViewModel
+            heritageCollectionTableView.deselectRow(at: selection, animated: true)
+        case "Show monument":
+            let destinationController = segue.destination as! MonumentDetailViewController
+            let selection = heritageCollectionTableView.indexPathForSelectedRow!
+            destinationController.monument = heritageObjects[selection.row] as? MonumentViewModel
+            heritageCollectionTableView.deselectRow(at: selection, animated: true)
+        case "Show publication":
+            let destinationController = segue.destination as! PublicationDetailViewController
+            let selection = heritageCollectionTableView.indexPathForSelectedRow!
+            destinationController.publication = heritageObjects[selection.row] as? PublicationViewModel
+            heritageCollectionTableView.deselectRow(at: selection, animated: true)
+        default:
+            print("Segue does not exist")
+        }
     }
 
     // MARK: - Private methods

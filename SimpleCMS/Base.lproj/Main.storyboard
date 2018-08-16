@@ -117,6 +117,10 @@
                     <connections>
                         <outlet property="heritageCollectionTableView" destination="r5H-a4-UWw" id="CRe-U7-aTK"/>
                         <outlet property="searchBar" destination="sjl-2e-Ta2" id="g7K-Mj-ujf"/>
+                        <segue destination="955-W2-4yZ" kind="show" identifier="Show artefact" id="HjC-1w-WlV"/>
+                        <segue destination="h0n-5C-3Cn" kind="showDetail" identifier="Show find" id="crS-mo-3BM"/>
+                        <segue destination="SRi-xV-LCj" kind="show" identifier="Show monument" id="Vze-e0-vja"/>
+                        <segue destination="tke-Og-C3Q" kind="show" identifier="Show publication" id="Mkd-s4-g3z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QfJ-ct-o1q" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -249,7 +253,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GWn-zN-NTv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2733" y="15"/>
+            <point key="canvasLocation" x="2843" y="-6"/>
         </scene>
         <!--Find Detail View Controller-->
         <scene sceneID="SEt-2Z-rQ3">
@@ -911,7 +915,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rqj-P5-vUZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="YpS-6u-lef" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5365.217391304348" y="77.445652173913047"/>
+            <point key="canvasLocation" x="4794" y="-815"/>
         </scene>
         <!--Artefact Detail View Controller-->
         <scene sceneID="Nar-Yp-d9t">
@@ -1646,7 +1650,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5ME-v8-ep6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="tr3-Ug-RlW" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4458" y="-637"/>
+            <point key="canvasLocation" x="2223" y="-932"/>
         </scene>
         <!--Monument Detail View Controller-->
         <scene sceneID="XVm-nL-Bgo">
@@ -1660,7 +1664,7 @@
                             <tableViewSection headerTitle="Identificatie (verplicht)" id="5Cw-J7-BUD">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="90" id="vwH-H9-v9b">
-                                        <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="90"/>
+                                        <rect key="frame" x="0.0" y="55.333333333333343" width="414" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vwH-H9-v9b" id="0Jb-wy-gKw">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="89.666666666666671"/>
@@ -1726,7 +1730,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="90" id="XQd-BK-eYr">
-                                        <rect key="frame" x="0.0" y="235.33333333333334" width="414" height="90"/>
+                                        <rect key="frame" x="0.0" y="235.33333333333337" width="414" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XQd-BK-eYr" id="qa8-a5-dua">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="89.666666666666671"/>
@@ -2205,7 +2209,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DF8-Vd-iND" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="jmz-Cq-6LJ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4725" y="837"/>
+            <point key="canvasLocation" x="3136" y="1209"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="NX5-9a-tSc">
@@ -2912,7 +2916,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D75-He-9f7" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="tc0-h4-TIt" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2803" y="836"/>
+            <point key="canvasLocation" x="851" y="1208"/>
         </scene>
         <!--Navigation artefact-->
         <scene sceneID="ZmV-7O-N9X">
@@ -2930,7 +2934,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SL2-7k-yg3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3561" y="-638"/>
+            <point key="canvasLocation" x="1325" y="-933"/>
         </scene>
         <!--Navigation monument-->
         <scene sceneID="DVk-Oj-xty">
@@ -2948,7 +2952,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="npg-Tb-pDg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3832" y="836"/>
+            <point key="canvasLocation" x="2242" y="1208"/>
         </scene>
         <!--Navigation find-->
         <scene sceneID="Vma-8V-ooh">
@@ -2966,7 +2970,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yHo-C1-uIb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4468.115942028986" y="77.445652173913047"/>
+            <point key="canvasLocation" x="3897" y="-815"/>
         </scene>
         <!--Navigation publication-->
         <scene sceneID="XsI-Dr-0Yk">
@@ -2984,7 +2988,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zod-q0-2k3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1916" y="836"/>
+            <point key="canvasLocation" x="-36" y="1208"/>
         </scene>
         <!--Navigation registration form-->
         <scene sceneID="ePE-hU-Gj3">
@@ -3008,4 +3012,10 @@
     <resources>
         <image name="defaultPhoto" width="540" height="540"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Mkd-s4-g3z"/>
+        <segue reference="Vze-e0-vja"/>
+        <segue reference="HjC-1w-WlV"/>
+        <segue reference="crS-mo-3BM"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -35,8 +35,10 @@ class ArtefactDetailViewController: HeritageDetailViewController {
         updateSaveButtonState(with: requiredFields)
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        if artefact != nil {
+        if let artefact = artefact {
+            setupArtefactModel(artefact)
             saveButton = self.editButtonItem
+            
         }
         
     }
@@ -47,7 +49,7 @@ class ArtefactDetailViewController: HeritageDetailViewController {
             print("er ging iets fout")
             return
         }
-        artefact = ArtefactViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, artefactType: heritageTypeTextField.text!, pictureURL: pictureURL, acquisitionSource: acquisitionSourceTextField.text!, acquisitionMethod: acquisitionMethodTextField.text!, acquisitionDate: acquisitionDateTextField.text!, rightsLicense: rightsLicenseTextField.text!, creditLine: creditLineTextField.text!, creator: artefactCreatorTextField.text, creationPlace: artefactCreationPlaceTextField.text, creationDate: artefactCreationDateTextField.text, creationPeriod: artefactCreationPeriodTextField.text, size: nil)
+        artefact = ArtefactViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, artefactType: heritageTypeTextField.text!, pictureURL: pictureURL, acquisitionSource: acquisitionSourceTextField.text!, acquisitionMethod: acquisitionMethodTextField.text!, acquisitionDate: acquisitionDateTextField.text!, rightsLicense: rightsLicenseTextField.text!, creditLine: creditLineTextField.text!, creator: artefactCreatorTextField.text, creationPlace: artefactCreationPlaceTextField.text, creationDate: artefactCreationDateTextField.text, creationPeriod: artefactCreationPeriodTextField.text, material: heritageMaterialTextField.text, technique: artefactTechniqueTextField.text, description: heritageDescriptionTextField.text, size: nil)
         if let artefact = artefact {
             artefact.primaryKey = UUID().uuidString
         }
@@ -58,6 +60,26 @@ class ArtefactDetailViewController: HeritageDetailViewController {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         updateSaveButtonState(with: requiredFields)
+    }
+    
+    private func setupArtefactModel(_ artefact: ArtefactViewModel){
+        heritageIdTextField.text = artefact.id
+        heritageNameTextField.text = artefact.name
+        heritageTypeTextField.text = artefact.artefactType
+        heritageImageView.image = artefact.picture
+        acquisitionMethodTextField.text = artefact.acquisitionMethod
+        acquisitionSourceTextField.text = artefact.acquisitionSource
+        acquisitionDateTextField.text = artefact.acquisitionDate
+        rightsLicenseTextField.text = artefact.rightsLicense
+        creditLineTextField.text = artefact.creditLine
+        artefactCreatorTextField.text = artefact.creator
+        artefactCreationDateTextField.text = artefact.creationDate
+        artefactCreationPlaceTextField.text = artefact.creationPlace
+        artefactCreationPeriodTextField.text = artefact.creationPeriod
+        heritageDescriptionTextField.text = artefact.description
+        heritageMaterialTextField.text = artefact.material
+        artefactTechniqueTextField.text = artefact.technique
+        self.heritageId = artefact.id
     }
 
 

@@ -28,10 +28,6 @@ class FindDetailViewController: HeritageDetailViewController {
         return [heritageIdTextField, heritageNameTextField, heritageTypeTextField]
     }
     
-//    @IBAction func saveFindItem(_ sender: UIBarButtonItem) {
-//        find = FindViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, objectType: heritageTypeTextField.text!, findDate: findDateTextField.text, findPlaceType: findPlaceTypeTextField.text, findPlace: findLocationTextField.text, inscription: findInscriptionTextField.text)
-//    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         guard let button = sender as? UIBarButtonItem, button === saveButton else {
@@ -52,6 +48,9 @@ class FindDetailViewController: HeritageDetailViewController {
         setupNavBar(for: find)
         setupTextFields(with: allTextFields, for: find)
         updateSaveButtonState(with: requiredTextFields)
+        if let find = find {
+            setupFindModel(find)
+        }
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
@@ -60,5 +59,23 @@ class FindDetailViewController: HeritageDetailViewController {
     // MARK: TextFieldDelegate
     func textFieldDidEndEditing(_ textField: UITextField) {
         updateSaveButtonState(with: requiredTextFields)
+    }
+    
+    private func setupFindModel(_ find: FindViewModel){
+        heritageIdTextField.text = find.id
+        heritageNameTextField.text = find.name
+        heritageTypeTextField.text = find.objectType
+        heritageImageView.image = find.picture
+        acquisitionMethodTextField.text = find.acquisitionMethod
+        acquisitionSourceTextField.text = find.acquisitionSource
+        acquisitionDateTextField.text = find.acquisitionDate
+        findDateTextField.text = find.findDate
+        findPlaceTypeTextField.text = find.findPlaceType
+        findLocationTextField.text = find.findPlace
+        heritageDescriptionTextField.text = find.description
+        heritageMaterialTextField.text = find.material
+        findTechniqueTextField.text = find.technique
+        findInscriptionTextField.text = find.inscription
+        self.heritageId = find.id
     }
 }
