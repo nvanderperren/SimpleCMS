@@ -39,6 +39,9 @@ class FindDetailViewController: HeritageDetailViewController {
             return
         }
         find = FindViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, objectType: heritageTypeTextField.text!, pictureURL: pictureURL, findDate: findDateTextField.text, findPlaceType: findPlaceTypeTextField.text, findPlace: findLocationTextField.text, inscription: findInscriptionTextField.text)
+        if let find = find {
+            find.primaryKey = UUID().uuidString
+        }
     }
     
     

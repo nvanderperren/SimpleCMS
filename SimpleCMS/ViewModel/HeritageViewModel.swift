@@ -23,6 +23,7 @@ class HeritageViewModel {
     var acquisitionDate: String?
     var material: String?
     var technique: String?
+    var primaryKey = String()
     
     var pictureURL: String? {
         didSet {
@@ -45,8 +46,13 @@ class HeritageViewModel {
     // MARK: Private methods
     private func loadImage(with pathAbsoluteString: String){
         let url = URL(string: pathAbsoluteString)
-        let imageData: Data? = try? Data(contentsOf: url!)
-        self.picture = UIImage(data: imageData!)
+        do {
+            let imageData = try Data(contentsOf: url!)
+            self.picture = UIImage(data: imageData)
+        } catch {
+            print("Error loading image: \(error)")
+        }
+        
     }
     
     

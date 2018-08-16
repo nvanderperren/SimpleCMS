@@ -12,6 +12,8 @@ import RealmSwift
 @objcMembers class Monument: Object {
     
     // MARK: Properties
+    dynamic var primaryKey: String = ""
+
     
     // identification
     dynamic var monumentId: String = ""

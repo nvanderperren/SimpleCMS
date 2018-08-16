@@ -21,7 +21,7 @@ struct Seeder {
         item3.picture = UIImage(named:"boek")
         item4.picture = UIImage(named: "schilderij")
         item5.picture = UIImage(named: "kalimba")
-        return [item1, item2, item3, item4, item5]
+        return [item1, item2, item3, item4, item5] + ConversionService.service.getAllHeritageViewModels()
         
     }
     

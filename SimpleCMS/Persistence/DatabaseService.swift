@@ -20,23 +20,31 @@ class DatabaseService {
     
     func createArtefact(_ model: ArtefactViewModel){
         let artefact = Artefact(objectId: model.id, objectType: model.artefactType, name: model.name, photo: model.pictureURL, acquisitionMethod: model.acquisitionMethod!, acquisitionDate: model.acquisitionDate!, acquisitionSource: model.acquisitionSource!, depositPlace: nil, rightsStatus: model.rightsLicense!, creditLine: model.creditLine!, creator: model.creator, placeOfCreation: model.creationPlace, dateOfCreation: model.creationDate, period: model.creationPeriod, description: model.description, material: model.material, technique: model.technique, dimensions: nil)
+        artefact.primaryKey = model.primaryKey
+        print(artefact.primaryKey)
         saveObject(artefact)
         
     }
     
     func createMonument(_ model: MonumentViewModel){
         let monument = Monument(monumentId: model.id, name: model.name, type: model.monumentType, isProtected: model.isProtected, photo: model.pictureURL, location: model.monumentLocationMunicipality, rightsStatus: model.rightsLicense!, creditLine: model.creditLine!, creator: model.creator, period: model.period, description: model.description, style: model.style, material: model.material)
+        monument.primaryKey = model.primaryKey
+        print(monument.primaryKey)
         saveObject(monument)
         
     }
     
     func createFind(_ model: FindViewModel){
         let find = MetalDetectingFind(findId: model.id, name: model.name, objectType: model.objectType, photo: model.pictureURL, findDate: model.findDate, findPlaceType: model.findPlaceType, location: model.findPlace, material: model.material, technique: model.technique, inscription: model.inscription, description: model.description, objectDimensions: nil)
+        find.primaryKey = model.primaryKey
+        print(find.primaryKey)
         saveObject(find)
     }
     
     func createPublication(_ model: PublicationViewModel) {
         let publication = Publication(publicationId: model.id, title: model.name, author: model.author, photo: model.pictureURL, acquisitionMethod: model.acquisitionMethod!, acquisitionDate: model.acquisitionDate!, acquisitionSource: model.acquisitionSource!, depositPlace: nil, rightsLicense: model.rightsLicense!, creditLine: model.creditLine!, publisher: model.publisher, placeOfPublication: model.publicationPlace, yearOfPublication: model.publicationDate, genre: nil, shortDescription: model.description, numberOfPages: model.numberOfPages, edition: model.edition)
+        publication.primaryKey = model.primaryKey
+        print(publication.primaryKey)
         saveObject(publication)
     }
     

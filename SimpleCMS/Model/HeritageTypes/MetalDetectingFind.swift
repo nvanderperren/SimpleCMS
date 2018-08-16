@@ -12,6 +12,8 @@ import RealmSwift
 @objcMembers class MetalDetectingFind: Object {
     
     // MARK: Properties
+    dynamic var primaryKey: String = ""
+
     
     // identification
     dynamic var findId: String = ""

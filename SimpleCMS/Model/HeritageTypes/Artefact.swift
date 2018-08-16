@@ -12,6 +12,7 @@ import RealmSwift
 @objcMembers class Artefact: Object {
     
     // MARK: Properties
+    dynamic var primaryKey: String = ""
     
     // identification
     dynamic var objectId: String = ""

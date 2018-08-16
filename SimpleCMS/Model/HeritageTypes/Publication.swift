@@ -12,6 +12,8 @@ import RealmSwift
 @objcMembers class Publication: Object {
     
     // MARK: Properties
+    dynamic var primaryKey: String = ""
+
 
     // identification
     dynamic var publicationId: String = ""

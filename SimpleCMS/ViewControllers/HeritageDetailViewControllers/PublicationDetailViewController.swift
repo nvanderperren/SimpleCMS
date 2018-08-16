@@ -41,6 +41,9 @@ class PublicationDetailViewController: HeritageDetailViewController {
             return
         }
         publication = PublicationViewModel(id: heritageIdTextField.text!, author: authorTextField.text!, title: heritageNameTextField.text!, pictureURL: pictureURL, acquisitionMethod: acquisitionMethodTextField.text!, acquisitionSource: acquisitionSourceTextField.text!, acquisitionDate: acquisitionDateTextField.text!, rightsLicense: rightsLicenseTextField.text!, creditLine: creditLineTextField.text!, publisher: publisherTextField.text, publicationDate: publicationDateTextField.text, publicationPlace: publicationPlaceTextField.text, numberOfPages: numberOfPagesTextField.text, edition: editionTextField.text)
+        if let publication = publication {
+            publication.primaryKey = UUID().uuidString
+        }
     }
     
     

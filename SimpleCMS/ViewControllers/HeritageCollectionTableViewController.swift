@@ -21,8 +21,9 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        heritageObjects = seeder.heritageObjects
-        currentHeritageObjects = heritageObjects
+        heritageObjects = seeder.heritageObjects.sorted{$0.id < $1.id  }
+        heritageCollectionTableView.reloadData()
+        //currentHeritageObjects = heritageObjects
         categories = returnSortedCategoriesOfHeritageObjects()
         setupSearchBar()
     }
@@ -66,7 +67,7 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return currentHeritageObjects.count
+        return heritageObjects.count
     }
 
     
@@ -75,10 +76,10 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
             fatalError("Wrong TableViewCell")
         }
         // Configure the cell...
-        cell.objectIdLabel?.text = currentHeritageObjects[indexPath.row].id
-        cell.objectTitleLabel?.text = currentHeritageObjects[indexPath.row].name
-        cell.objectCategoryLabel?.text = currentHeritageObjects[indexPath.row].category
-        cell.objectImageView?.image = currentHeritageObjects[indexPath.row].picture ?? UIImage(named: "defaultPhoto")
+        cell.objectIdLabel?.text = heritageObjects[indexPath.row].id
+        cell.objectTitleLabel?.text = heritageObjects[indexPath.row].name
+        cell.objectCategoryLabel?.text = heritageObjects[indexPath.row].category
+        cell.objectImageView?.image = heritageObjects[indexPath.row].picture ?? UIImage(named: "defaultPhoto")
         return cell
     }
     
@@ -169,9 +170,8 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
     }
     
     private func addNewRowToTableView(with record: HeritageViewModel){
-        let newIndexPath = IndexPath(row: heritageObjects.count, section: 0)
+        let newIndexPath = IndexPath(row: heritageObjects.count-1, section: 0)
         heritageObjects.append(record)
-        currentHeritageObjects = heritageObjects
         heritageCollectionTableView.insertRows(at: [newIndexPath], with: .automatic)
         for object in heritageObjects {
             print(object.name)

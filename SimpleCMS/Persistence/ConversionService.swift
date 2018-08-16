@@ -15,12 +15,39 @@ class ConversionService {
     let database = DatabaseService.service
     
     func getAllHeritageViewModels() -> [HeritageViewModel] {
-        var viewModels = [HeritageViewModel]()
         let artefacts = convertToArtefactViewModel(with: database.getAllArtefacts())
-        for monument in Array(database.getAllMonuments()) {
-            viewModels.append(MonumentViewModel(id: monument.monumentId, name: monument.name, monumentType: monument.monumentType, pictureURL: monument.photo, protection: monument.isProtected, municipality: monument.location ?? "", street: nil, houseNumber: nil, postalCode: nil, license: monument.rightsStatus, creditLine: monument.creditLine, creator: monument.creator, period: monument.period, style: monument.style))
+        let monuments = convertToMonumentViewModel(with: database.getAllMonuments())
+        let publications = convertToPublicationViewModel(with: database.getAllPublications())
+        let finds = convertToFindViewModel(with: database.getAllFinds())
+        var viewModels = [HeritageViewModel]()
+        viewModels.append(contentsOf: artefacts)
+        viewModels.append(contentsOf: monuments)
+        viewModels.append(contentsOf: publications)
+        viewModels.append(contentsOf: finds)
+        return viewModels
+    }
+    
+    // MARK: Private converter methods
+    
+    private func convertToArtefactViewModel(with artefacts: Results<Artefact>) -> [ArtefactViewModel] {
+        var artefactViewModels = [ArtefactViewModel]()
+        for artefact in artefacts {
+            artefactViewModels.append(ArtefactViewModel(id: artefact.objectId, name: artefact.name, artefactType: artefact.objectType, pictureURL: artefact.photo, acquisitionSource: artefact.source, acquisitionMethod: artefact.method, acquisitionDate: artefact.date, rightsLicense: artefact.rightsStatus, creditLine: artefact.creditLine, creator: artefact.creator, creationPlace: artefact.placeOfCreation, creationDate: artefact.dateOfCreation, creationPeriod: artefact.period, size: nil))
         }
-        for publication in Array(database.getAllPublications()) {
+        return artefactViewModels
+    }
+    
+    private func convertToMonumentViewModel(with monuments: Results<Monument>) -> [MonumentViewModel] {
+        var monumentViewModels = [MonumentViewModel]()
+        for monument in monuments {
+            monumentViewModels.append(MonumentViewModel(id: monument.monumentId, name: monument.name, monumentType: monument.monumentType, pictureURL: monument.photo, protection: monument.isProtected, municipality: monument.location ?? "", street: nil, houseNumber: nil, postalCode: nil, license: monument.rightsStatus, creditLine: monument.creditLine, creator: monument.creator, period: monument.period, style: monument.style))
+        }
+        return monumentViewModels
+    }
+    
+    private func convertToPublicationViewModel(with publications: Results<Publication>) -> [PublicationViewModel] {
+        var publicationViewModels = [PublicationViewModel]()
+        for publication in publications {
             let pages: String?
             if let numberOfPages = publication.numberOfPages.value{
                 pages = String(numberOfPages)
@@ -34,22 +61,17 @@ class ConversionService {
             else {
                 edition = nil
             }
-            viewModels.append(PublicationViewModel(id: publication.publicationId, author: publication.author, title: publication.author, pictureURL: publication.photo, acquisitionMethod: publication.method, acquisitionSource: publication.source, acquisitionDate: publication.date, rightsLicense: publication.rightsStatus, creditLine: publication.creditLine, publisher: publication.publisher, publicationDate: publication.yearOfPublication, publicationPlace: publication.placeOfPublication, numberOfPages: pages, edition: edition))
+            publicationViewModels.append(PublicationViewModel(id: publication.publicationId, author: publication.author, title: publication.author, pictureURL: publication.photo, acquisitionMethod: publication.method, acquisitionSource: publication.source, acquisitionDate: publication.date, rightsLicense: publication.rightsStatus, creditLine: publication.creditLine, publisher: publication.publisher, publicationDate: publication.yearOfPublication, publicationPlace: publication.placeOfPublication, numberOfPages: pages, edition: edition))
         }
-        for find in Array(database.getAllFinds()) {
-            viewModels.append(FindViewModel(id: find.findId, name: find.name, objectType: find.objectType, pictureURL: find.photo, findDate: find.findDate, findPlaceType: find.findPlaceType, findPlace: find.location, inscription: find.inscription))
-        }
-        
-        return viewModels
+        return publicationViewModels
     }
     
-    func convertToArtefactViewModel(with artefacts: Results<Artefact>) -> [ArtefactViewModel] {
-        var viewModels = [ArtefactViewModel]()
-        for artefact in artefacts {
-            viewModels.append(ArtefactViewModel(id: artefact.objectId, name: artefact.name, artefactType: artefact.objectType, pictureURL: artefact.photo, acquisitionSource: artefact.source, acquisitionMethod: artefact.method, acquisitionDate: artefact.date, rightsLicense: artefact.rightsStatus, creditLine: artefact.creditLine, creator: artefact.creator, creationPlace: artefact.placeOfCreation, creationDate: artefact.dateOfCreation, creationPeriod: artefact.period, size: nil))
+    private func convertToFindViewModel(with finds: Results<MetalDetectingFind>) -> [FindViewModel] {
+        var findViewModels = [FindViewModel]()
+        for find in finds {
+            findViewModels.append(FindViewModel(id: find.findId, name: find.name, objectType: find.objectType, pictureURL: find.photo, findDate: find.findDate, findPlaceType: find.findPlaceType, findPlace: find.location, inscription: find.inscription))
         }
-        return viewModels
+        return findViewModels
     }
-    
    
 }

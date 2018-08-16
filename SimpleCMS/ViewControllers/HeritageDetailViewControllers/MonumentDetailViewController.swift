@@ -40,6 +40,9 @@ class MonumentDetailViewController: HeritageDetailViewController {
             return
         }
         monument = MonumentViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, monumentType: heritageTypeTextField.text!, pictureURL: pictureURL, protection: monumentIsProtectedSwitch.isOn, municipality: monumentMunicipalityTextField.text!, street: monumentStreetNameTextField.text!, houseNumber: nil, postalCode: nil, license: rightsLicenseTextField.text!, creditLine: creditLineTextField.text!, creator: monumentCreatorTextField.text, period: monumentCreationPeriodTextField.text, style: monumentStyleTextField.text)
+        if let monument = monument {
+            monument.primaryKey = UUID().uuidString
+        }
     }
     
     // MARK: ViewController methods

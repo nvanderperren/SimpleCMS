@@ -48,6 +48,9 @@ class ArtefactDetailViewController: HeritageDetailViewController {
             return
         }
         artefact = ArtefactViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, artefactType: heritageTypeTextField.text!, pictureURL: pictureURL, acquisitionSource: acquisitionSourceTextField.text!, acquisitionMethod: acquisitionMethodTextField.text!, acquisitionDate: acquisitionDateTextField.text!, rightsLicense: rightsLicenseTextField.text!, creditLine: creditLineTextField.text!, creator: artefactCreatorTextField.text, creationPlace: artefactCreationPlaceTextField.text, creationDate: artefactCreationDateTextField.text, creationPeriod: artefactCreationPeriodTextField.text, size: nil)
+        if let artefact = artefact {
+            artefact.primaryKey = UUID().uuidString
+        }
         print("item saved")
         print("\(artefact!.creditLine!)")
         
