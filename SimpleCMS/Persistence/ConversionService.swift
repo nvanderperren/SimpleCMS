@@ -51,7 +51,7 @@ class ConversionService {
     private func convertToArtefactViewModel(with artefacts: Results<Artefact>) -> [ArtefactViewModel] {
         var artefactViewModels = [ArtefactViewModel]()
         for artefact in artefacts {
-            artefactViewModels.append(ArtefactViewModel(id: artefact.objectId, name: artefact.name, artefactType: artefact.objectType, pictureURL: artefact.photo, acquisitionSource: artefact.source, acquisitionMethod: artefact.method, acquisitionDate: artefact.date, rightsLicense: artefact.rightsStatus, creditLine: artefact.creditLine, creator: artefact.creator, creationPlace: artefact.placeOfCreation, creationDate: artefact.dateOfCreation, creationPeriod: artefact.period, size: nil))
+            artefactViewModels.append(ArtefactViewModel(id: artefact.objectId, name: artefact.name, artefactType: artefact.objectType, pictureURL: artefact.photo, acquisitionSource: artefact.acquistionSource, acquisitionMethod: artefact.acquisitionMethod, acquisitionDate: artefact.acquistionDate, rightsLicense: artefact.rightsStatus, creditLine: artefact.creditLine, creator: artefact.creator, creationPlace: artefact.placeOfCreation, creationDate: artefact.dateOfCreation, creationPeriod: artefact.period, material: artefact.usedMaterial, technique: artefact.usedTechnique, description: artefact.description, size: nil))
         }
         return artefactViewModels
     }
@@ -98,9 +98,9 @@ class ConversionService {
         object.objectType = viewModel.artefactType
         object.name = viewModel.name
         object.photo = viewModel.pictureURL
-        object.method = viewModel.acquisitionMethod!
-        object.date = viewModel.acquisitionDate!
-        object.source = viewModel.acquisitionSource!
+        object.acquisitionMethod = viewModel.acquisitionMethod!
+        object.acquistionDate = viewModel.acquisitionDate!
+        object.acquistionSource = viewModel.acquisitionSource!
         object.rightsStatus = viewModel.rightsLicense!
         object.creditLine = viewModel.creditLine!
         object.creator = viewModel.creator

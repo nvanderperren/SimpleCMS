@@ -30,9 +30,17 @@ class PublicationDetailViewController: HeritageDetailViewController {
         return [heritageIdTextField, heritageNameTextField, authorTextField, acquisitionMethodTextField, acquisitionSourceTextField, acquisitionDateTextField, rightsLicenseTextField, creditLineTextField]
     }
     
-//    @IBAction func savePublicationItem(_ sender: UIBarButtonItem) {
-//        publication = PublicationViewModel(id: heritageIdTextField.text!, author: authorTextField.text!, title: heritageNameTextField.text!, acquisitionMethod: acquisitionMethodTextField.text!, acquisitionSource: acquisitionSourceTextField.text!, acquisitionDate: acquisitionDateTextField.text!, rightsLicense: rightsLicenseTextField.text!, creditLine: creditLineTextField.text!, publisher: publisherTextField.text, publicationDate: publicationDateTextField.text, publicationPlace: publicationPlaceTextField.text, numberOfPages: numberOfPagesTextField.text, edition: editionTextField.text)
-//    }
+    // MARK: ViewController methods
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print("Publication showing")
+        setupNavBar(for: publication)
+        setupTextFields(with: allTextFields, for: publication)
+        updateSaveButtonState(with: requiredTextFields)
+        if let publication = publication {
+            setupPublicationModel(publication)
+        }
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
@@ -47,23 +55,32 @@ class PublicationDetailViewController: HeritageDetailViewController {
     }
     
     
-    // MARK: ViewController methods
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        print("Publication showing")
-        setupNavBar(for: publication)
-        setupTextFields(with: allTextFields, for: publication)
-        updateSaveButtonState(with: requiredTextFields)
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
-    
     // MARK: TextFieldDelegate
     func textFieldDidEndEditing(_ textField: UITextField) {
         updateSaveButtonState(with: requiredTextFields)
+    }
+    
+    private func setupPublicationModel(_ publication: PublicationViewModel){
+        heritageIdTextField.text = publication.id
+        heritageNameTextField.text = publication.name
+        authorTextField.text = publication.author
+        heritageImageView.image = publication.picture
+        acquisitionMethodTextField.text = publication.acquisitionMethod
+        acquisitionSourceTextField.text = publication.acquisitionSource
+        acquisitionDateTextField.text = publication.acquisitionDate
+        rightsLicenseTextField.text = publication.rightsLicense
+        creditLineTextField.text = publication.creditLine
+        publisherTextField.text = publication.publisher
+        publicationDateTextField.text = publicationDateTextField.text
+        publicationPlaceTextField.text = publicationPlaceTextField.text
+        if let pages = publication.numberOfPages {
+            numberOfPagesTextField.text = String(pages)
+        }
+        if let edition = publication.edition {
+            editionTextField.text = String(edition)
+        }
+        contentTextField.text = publication.description
+        self.heritageId = publication.id
     }
     
     

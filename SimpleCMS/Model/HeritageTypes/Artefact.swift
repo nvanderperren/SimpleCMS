@@ -21,9 +21,9 @@ import RealmSwift
     dynamic var photo: String? = nil
     
     // acquisition
-    dynamic var method: String = "" //lijst
-    dynamic var date: String = ""
-    dynamic var source: String = ""
+    dynamic var acquisitionMethod: String = "" //lijst
+    dynamic var acquistionDate: String = ""
+    dynamic var acquistionSource: String = ""
     dynamic var depositPlace: String? = nil
     
     // charcteristics
@@ -50,9 +50,9 @@ import RealmSwift
         self.objectType = objectType
         self.name = name
         self.photo = photo
-        self.method = acquisitionMethod
-        self.date = acquisitionDate
-        self.source = acquisitionSource
+        self.acquisitionMethod = acquisitionMethod
+        self.acquistionDate = acquisitionDate
+        self.acquistionSource = acquisitionSource
         self.depositPlace = depositPlace
         if let dimensions = dimensions {
             self.objectDimensions.append(objectsIn: dimensions)
