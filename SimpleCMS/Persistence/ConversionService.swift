@@ -10,10 +10,13 @@ import Foundation
 import RealmSwift
 
 class ConversionService {
+    
+    // MARK: - Initializers and variables
     private init() {}
     static let service = ConversionService()
     let database = DatabaseService.service
     
+    // MARK: - Public methods
     func getAllHeritageViewModels() -> [HeritageViewModel] {
         let artefacts = convertToArtefactViewModel(with: database.getAllArtefacts())
         let monuments = convertToMonumentViewModel(with: database.getAllMonuments())
@@ -27,7 +30,23 @@ class ConversionService {
         return viewModels
     }
     
-    // MARK: Private converter methods
+    func convertToObject<T: Object>(_ object: T, with viewModel: HeritageViewModel){
+        switch (viewModel) {
+        case let viewModel as ArtefactViewModel:
+            convertFromArtefactViewModel(to: object as! Artefact, with: viewModel)
+        case let viewModel as MonumentViewModel:
+            convertFromMonumentViewModel(to: object as! Monument, with: viewModel)
+        case let viewModel as FindViewModel:
+            convertFromFindViewModel(to: object as! MetalDetectingFind, with: viewModel)
+        case let viewModel as PublicationViewModel:
+            convertFromPublicationViewModel(to: object as! Publication, with: viewModel)
+        default:
+            print("Error: this viewmodel doesn't exist!")
+        }
+        
+    }
+    
+    // MARK: - Private converter methods
     
     private func convertToArtefactViewModel(with artefacts: Results<Artefact>) -> [ArtefactViewModel] {
         var artefactViewModels = [ArtefactViewModel]()
@@ -72,6 +91,74 @@ class ConversionService {
             findViewModels.append(FindViewModel(id: find.findId, name: find.name, objectType: find.objectType, pictureURL: find.photo, findDate: find.findDate, findPlaceType: find.findPlaceType, findPlace: find.location, inscription: find.inscription))
         }
         return findViewModels
+    }
+    
+    private func convertFromArtefactViewModel(to object: Artefact, with viewModel: ArtefactViewModel) {
+        object.objectId = viewModel.id
+        object.objectType = viewModel.artefactType
+        object.name = viewModel.name
+        object.photo = viewModel.pictureURL
+        object.method = viewModel.acquisitionMethod!
+        object.date = viewModel.acquisitionDate!
+        object.source = viewModel.acquisitionSource!
+        object.rightsStatus = viewModel.rightsLicense!
+        object.creditLine = viewModel.creditLine!
+        object.creator = viewModel.creator
+        object.dateOfCreation = viewModel.creationDate
+        object.placeOfCreation = viewModel.creationPlace
+        object.period = viewModel.creationPeriod
+        object.objectDescription = viewModel.description
+        object.usedMaterial = viewModel.material
+        object.usedTechnique = viewModel.technique
+        
+    }
+    
+    private func convertFromMonumentViewModel(to object: Monument, with viewModel: MonumentViewModel) {
+        object.monumentId = viewModel.id
+        object.name = viewModel.name
+        object.monumentType = viewModel.monumentType
+        object.isProtected = viewModel.isProtected
+        object.photo = viewModel.pictureURL
+        object.location = viewModel.monumentLocationMunicipality
+        object.rightsStatus = viewModel.rightsLicense!
+        object.creditLine = viewModel.creditLine!
+        object.creator = viewModel.creator
+        object.period = viewModel.period
+        object.objectDescription = viewModel.description
+        object.style = viewModel.style
+        object.material = viewModel.material
+    }
+    
+    private func convertFromFindViewModel(to object: MetalDetectingFind, with viewModel: FindViewModel) {
+        object.findId = viewModel.id
+        object.name = viewModel.name
+        object.objectType = viewModel.objectType
+        object.photo = viewModel.pictureURL
+        object.findDate = viewModel.findDate
+        object.findPlaceType = viewModel.findPlaceType
+        object.location = viewModel.findPlace
+        object.material = viewModel.material
+        object.technique = viewModel.technique
+        object.inscription = viewModel.inscription
+        object.objectDescription = viewModel.description
+    }
+    
+    private func convertFromPublicationViewModel(to object: Publication, with viewModel: PublicationViewModel) {
+        object.publicationId = viewModel.id
+        object.title = viewModel.name
+        object.author = viewModel.author
+        object.photo = viewModel.pictureURL
+        object.method = viewModel.acquisitionMethod!
+        object.date = viewModel.acquisitionDate!
+        object.source = viewModel.acquisitionSource!
+        object.rightsStatus = viewModel.rightsLicense!
+        object.creditLine = viewModel.creditLine!
+        object.publisher = viewModel.publisher
+        object.placeOfPublication = viewModel.publicationPlace
+        object.yearOfPublication = viewModel.publicationDate
+        object.shortDescription = viewModel.description
+        object.numberOfPages.value = viewModel.numberOfPages
+        object.edition.value = viewModel.edition
     }
    
 }

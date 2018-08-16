@@ -16,61 +16,65 @@ class DatabaseService {
     
     var realm = try! Realm()
     
-    // MARK: CreateOperations
+    // MARK: - Create
     
-    func createArtefact(_ model: ArtefactViewModel){
-        let artefact = Artefact(objectId: model.id, objectType: model.artefactType, name: model.name, photo: model.pictureURL, acquisitionMethod: model.acquisitionMethod!, acquisitionDate: model.acquisitionDate!, acquisitionSource: model.acquisitionSource!, depositPlace: nil, rightsStatus: model.rightsLicense!, creditLine: model.creditLine!, creator: model.creator, placeOfCreation: model.creationPlace, dateOfCreation: model.creationDate, period: model.creationPeriod, description: model.description, material: model.material, technique: model.technique, dimensions: nil)
-        artefact.primaryKey = model.primaryKey
-        print(artefact.primaryKey)
-        saveObject(artefact)
+    func create(_ model: HeritageViewModel){
+        switch(model) {
+        case let model as ArtefactViewModel:
+            createArtefact(model)
+        case let model as PublicationViewModel:
+            createPublication(model)
+        case let model as FindViewModel:
+            createFind(model)
+        case let model as MonumentViewModel:
+            createMonument(model)
+        default:
+            print("error, this viewmodel doesn't exist")
+        }
         
     }
     
-    func createMonument(_ model: MonumentViewModel){
-        let monument = Monument(monumentId: model.id, name: model.name, type: model.monumentType, isProtected: model.isProtected, photo: model.pictureURL, location: model.monumentLocationMunicipality, rightsStatus: model.rightsLicense!, creditLine: model.creditLine!, creator: model.creator, period: model.period, description: model.description, style: model.style, material: model.material)
-        monument.primaryKey = model.primaryKey
-        print(monument.primaryKey)
-        saveObject(monument)
-        
+    // MARK: - Update
+    
+    func update(_ model: HeritageViewModel){
+        switch(model){
+        case let model as ArtefactViewModel:
+            let artefact = getAllArtefacts().filter{$0.primaryKey == model.primaryKey}.first
+            if let artefact = artefact {
+                updateObject(artefact, with: model)
+            }
+        case let model as MonumentViewModel:
+            let monument = getAllMonuments().filter{$0.primaryKey == model.primaryKey}.first
+            if let monument = monument {
+                updateObject(monument, with: model)
+            }
+        case let model as FindViewModel:
+            let find = getAllFinds().filter{$0.primaryKey == model.primaryKey}.first
+            if let find = find {
+                updateObject(find, with: model)
+            }
+        case let model as PublicationViewModel:
+            let publication = getAllPublications().filter{$0.primaryKey == model.primaryKey}.first
+            if let publication = publication {
+                updateObject(publication, with: model)
+            }
+        default:
+            print("Error: this viewmodel does not exist")
+        }
     }
     
-    func createFind(_ model: FindViewModel){
-        let find = MetalDetectingFind(findId: model.id, name: model.name, objectType: model.objectType, photo: model.pictureURL, findDate: model.findDate, findPlaceType: model.findPlaceType, location: model.findPlace, material: model.material, technique: model.technique, inscription: model.inscription, description: model.description, objectDimensions: nil)
-        find.primaryKey = model.primaryKey
-        print(find.primaryKey)
-        saveObject(find)
+    func delete<T: Object>(object: T) {
+        do {
+            try realm.write {
+                realm.delete(object)
+                print("object removed")
+            }
+        } catch {
+            print(error)
+        }
     }
     
-    func createPublication(_ model: PublicationViewModel) {
-        let publication = Publication(publicationId: model.id, title: model.name, author: model.author, photo: model.pictureURL, acquisitionMethod: model.acquisitionMethod!, acquisitionDate: model.acquisitionDate!, acquisitionSource: model.acquisitionSource!, depositPlace: nil, rightsLicense: model.rightsLicense!, creditLine: model.creditLine!, publisher: model.publisher, placeOfPublication: model.publicationPlace, yearOfPublication: model.publicationDate, genre: nil, shortDescription: model.description, numberOfPages: model.numberOfPages, edition: model.edition)
-        publication.primaryKey = model.primaryKey
-        print(publication.primaryKey)
-        saveObject(publication)
-    }
-    
-//    func updateArtefact(model: ArtefactViewModel) {
-//        var artefact = getAllArtefacts().filter{$0.identification!.id == model.id}.first
-//        do {
-//            try realm.write {
-//                artefact?.identification?.id = model.id
-//                artefact?.identification?.name = model.name
-//
-//            }
-//        }
-//        catch {
-//            print(error)
-//        }
-//        
-//
-//    }
-    
-    
-    func delete<T: Object>(object: T) {}
-    
-    
-    
-    
-    
+    // MARK: - Get methods
     
     func getAllArtefacts() -> Results<Artefact> {
         return realm.objects(Artefact.self)
@@ -88,7 +92,39 @@ class DatabaseService {
         return realm.objects(MetalDetectingFind.self)
     }
     
-    // MARK: Private methods
+    // MARK: - Private methdos
+    
+    // MARK: Private create methods
+    private func createArtefact(_ model: ArtefactViewModel){
+        let artefact = Artefact(objectId: model.id, objectType: model.artefactType, name: model.name, photo: model.pictureURL, acquisitionMethod: model.acquisitionMethod!, acquisitionDate: model.acquisitionDate!, acquisitionSource: model.acquisitionSource!, depositPlace: nil, rightsStatus: model.rightsLicense!, creditLine: model.creditLine!, creator: model.creator, placeOfCreation: model.creationPlace, dateOfCreation: model.creationDate, period: model.creationPeriod, description: model.description, material: model.material, technique: model.technique, dimensions: nil)
+        artefact.primaryKey = model.primaryKey
+        print(artefact.primaryKey)
+        saveObject(artefact)
+    }
+    
+    private func createMonument(_ model: MonumentViewModel){
+        let monument = Monument(monumentId: model.id, name: model.name, type: model.monumentType, isProtected: model.isProtected, photo: model.pictureURL, location: model.monumentLocationMunicipality, rightsStatus: model.rightsLicense!, creditLine: model.creditLine!, creator: model.creator, period: model.period, description: model.description, style: model.style, material: model.material)
+        monument.primaryKey = model.primaryKey
+        print(monument.primaryKey)
+        saveObject(monument)
+        
+    }
+    
+    private func createFind(_ model: FindViewModel){
+        let find = MetalDetectingFind(findId: model.id, name: model.name, objectType: model.objectType, photo: model.pictureURL, findDate: model.findDate, findPlaceType: model.findPlaceType, location: model.findPlace, material: model.material, technique: model.technique, inscription: model.inscription, description: model.description, objectDimensions: nil)
+        find.primaryKey = model.primaryKey
+        print(find.primaryKey)
+        saveObject(find)
+    }
+    
+    private func createPublication(_ model: PublicationViewModel) {
+        let publication = Publication(publicationId: model.id, title: model.name, author: model.author, photo: model.pictureURL, acquisitionMethod: model.acquisitionMethod!, acquisitionDate: model.acquisitionDate!, acquisitionSource: model.acquisitionSource!, depositPlace: nil, rightsLicense: model.rightsLicense!, creditLine: model.creditLine!, publisher: model.publisher, placeOfPublication: model.publicationPlace, yearOfPublication: model.publicationDate, genre: nil, shortDescription: model.description, numberOfPages: model.numberOfPages, edition: model.edition)
+        publication.primaryKey = model.primaryKey
+        print(publication.primaryKey)
+        saveObject(publication)
+    }
+    
+    // MARK: Private save and update methods
     
     private func saveObject<T: Object>(_ object: T){
         do {
@@ -98,6 +134,17 @@ class DatabaseService {
             }
         } catch {
             print(error)
+        }
+    }
+    
+    private func updateObject<T: Object>(_ object: T, with model: HeritageViewModel){
+        do {
+            try realm.write {
+                ConversionService.service.convertToObject(object, with: model)
+                print("object updated")
+            }
+        } catch {
+            print("error")
         }
     }
     

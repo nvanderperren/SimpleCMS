@@ -10,6 +10,7 @@ import UIKit
 
 class HeritageCollectionTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UITextFieldDelegate {
     
+    // MARK: - Properties
     var heritageObjects = [HeritageViewModel]()
     var currentHeritageObjects : [HeritageViewModel] = []
     private var seeder = Seeder()
@@ -18,41 +19,36 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
     var isSearching = false
     var categories: [String] = []
 
-    
+    // MARK: - ViewController method
     override func viewDidLoad() {
         super.viewDidLoad()
         heritageObjects = seeder.heritageObjects.sorted{$0.id < $1.id  }
-        heritageCollectionTableView.reloadData()
         //currentHeritageObjects = heritageObjects
         categories = returnSortedCategoriesOfHeritageObjects()
         setupSearchBar()
     }
     
-    // MARK: Navigation - Unwind Segues
+    // MARK: - Navigation - Unwind Segues
     @IBAction func unwindFromFindToHeritageCollection(sender: UIStoryboardSegue){
         if let sourceViewController = sender.source as? FindDetailViewController, let findObject = sourceViewController.find {
-            DatabaseService.service.createFind(findObject)
            addNewRowToTableView(with: findObject)
         }
     }
     
     @IBAction func unwindFromArtefactToHeritageCollection(sender: UIStoryboardSegue){
         if let sourceViewController = sender.source as? ArtefactDetailViewController, let artefactObject = sourceViewController.artefact {
-            DatabaseService.service.createArtefact(artefactObject)
             addNewRowToTableView(with: artefactObject)
         }
     }
     
     @IBAction func unwindFromMonumentToHeritageCollection(sender: UIStoryboardSegue){
         if let sourceViewController = sender.source as? MonumentDetailViewController, let monumentObject = sourceViewController.monument {
-            DatabaseService.service.createMonument(monumentObject)
             addNewRowToTableView(with: monumentObject)
         }
     }
     
     @IBAction func unwindFromPublicationToHeritageCollection(sender: UIStoryboardSegue){
         if let sourceViewController = sender.source as? PublicationDetailViewController, let publicationObject = sourceViewController.publication {
-            DatabaseService.service.createPublication(publicationObject)
             addNewRowToTableView(with: publicationObject)
         }
     }
@@ -170,6 +166,7 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
     }
     
     private func addNewRowToTableView(with record: HeritageViewModel){
+        DatabaseService.service.create(record)
         let newIndexPath = IndexPath(row: heritageObjects.count-1, section: 0)
         heritageObjects.append(record)
         heritageCollectionTableView.insertRows(at: [newIndexPath], with: .automatic)
