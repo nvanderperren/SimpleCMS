@@ -7,17 +7,15 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct Rights {
-    var status: String //lijst
-    var creditLine: String?
+@objcMembers class Rights: Object {
+    dynamic var status: String = "" //lijst
+    dynamic var creditLine: String? = nil
     
-    init(status: String) {
+    convenience init(status: String, creditLine: String) {
+        self.init()
         self.status = status
-    }
-    
-    init(status: String, creditLine: String) {
-        self.init(status: status)
         self.creditLine = creditLine
     }
 }

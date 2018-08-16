@@ -9,14 +9,15 @@
 import Foundation
 import RealmSwift
 
-struct Acquisition {
-    var method: String //lijst
-    var date: Date
-    var source: String
-    var depositPlace: String?
+@objcMembers class Acquisition: Object {
+    dynamic var method: String = "" //lijst
+    dynamic var date: Date = Date()
+    dynamic var source: String = ""
+    dynamic var depositPlace: String? = nil
     
     
-    init(method: String, date: Date, source: String, depositPlace: String?){
+    convenience init(method: String, date: Date, source: String, depositPlace: String?){
+        self.init()
         self.method = method
         self.date = date
         self.source = source

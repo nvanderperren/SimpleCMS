@@ -7,11 +7,20 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct HeritageIdentification {
-    var id: String
-    var name: String
-    var type: String?
-    var photo: String?
+@objcMembers class HeritageIdentification: Object {
+    dynamic var id: String = ""
+    dynamic var name: String = ""
+    dynamic var type: String? = nil
+    dynamic var photo: String? = nil
+    
+    convenience init(id: String, name: String, type: String?, photo: String?){
+        self.init()
+        self.id = id
+        self.name = name
+        self.type = type
+        self.photo = photo
+    }
     
 }

@@ -7,16 +7,18 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct Location {
-    var municipality: String //lijst
-    var postalCode: String //lijst
-    var street: String? //lijst
-    var houseNumber: String? //lijst
+@objcMembers class Location: Object {
+    dynamic var municipality: String = "" //lijst
+    dynamic var postalCode: String = "" //lijst
+    dynamic var street: String? = nil //lijst
+    dynamic var houseNumber: String? = nil //lijst
     
     // placesAPI =  AIzaSyCZ2U06exSk2RHvOVEJs-pBFbbxaD3z8QE
     
-    init(municipality: String, postalCode: String, street: String?, houseNumber: String?){
+    convenience init(municipality: String, postalCode: String, street: String?, houseNumber: String?){
+        self.init()
         self.municipality = municipality
         self.postalCode = postalCode
         self.street = street

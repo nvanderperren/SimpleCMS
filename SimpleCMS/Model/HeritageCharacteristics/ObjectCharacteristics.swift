@@ -7,12 +7,22 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct ObjectCharacteristics {
-    var usedMaterial: String?
-    var usedTechnique: String?
-    var inscription: String?
-    var description: String?
-    var style: String?
+@objcMembers class ObjectCharacteristics: Object {
+    dynamic var usedMaterial: String? = nil
+    dynamic var usedTechnique: String? = nil
+    dynamic var inscription: String? = nil
+    dynamic var objectDescription: String? = nil
+    dynamic var style: String? = nil
+    
+    convenience init(usedMaterial: String?, usedTechnique: String?, inscription: String?, description: String?, style: String?) {
+        self.init()
+        self.usedMaterial = usedMaterial
+        self.usedTechnique = usedTechnique
+        self.inscription = inscription
+        self.objectDescription = description
+        self.style = style
+    }
 
 }

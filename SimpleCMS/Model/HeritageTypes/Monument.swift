@@ -7,26 +7,28 @@
 //
 
 import Foundation
+import RealmSwift
 
-class Monument {
+@objcMembers class Monument: Object {
     
     // MARK: Properties
     
     // identification
-    var identificaion: HeritageIdentification
+    dynamic var identification: HeritageIdentification? = nil
     
     // characteristics
-    var location: Location //via webservice?
-    var characteristics: ObjectCharacteristics
+    dynamic var location: Location? = nil //via webservice?
+    dynamic var characteristics: ObjectCharacteristics? = nil
     // creation
-    var creation: ObjectCreation
+    dynamic var creation: ObjectCreation? = nil
     
     // rights
-    var rights: Rights
+    dynamic var rights: Rights? = nil
     
     //MARK: Initializers
-    init(monumentId: String, name: String, type: String, photo: String?, location: Location, rightsStatus: String, creditLine: String, creator: String?, period: String?, description: String?, style: String?, material: String?) {
-        self.identificaion = HeritageIdentification(id: monumentId, name: name, type: type, photo: photo)
+    convenience init(monumentId: String, name: String, type: String, photo: String?, location: Location, rightsStatus: String, creditLine: String, creator: String?, period: String?, description: String?, style: String?, material: String?) {
+        self.init()
+        self.identification = HeritageIdentification(id: monumentId, name: name, type: type, photo: photo)
         self.rights = Rights(status: rightsStatus, creditLine: creditLine)
         self.location = location
         self.creation = ObjectCreation(creator: creator, placeOfCreation: nil, dateOfCreation: nil, period: period)

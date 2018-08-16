@@ -7,29 +7,30 @@
 //
 
 import Foundation
+import RealmSwift
 
-class MetalDetectingFind {
+@objcMembers class MetalDetectingFind: Object {
     
     // MARK: Properties
     
     // identification
-    var id: HeritageIdentification
+    dynamic var id: HeritageIdentification? = nil
     
     // characteristics
-    var objectCharacteristics: ObjectCharacteristics
-    var objectDimensions: [ObjectDimension]?
+    dynamic var objectCharacteristics: ObjectCharacteristics? = nil
+    dynamic var objectDimensions: [ObjectDimension]? = nil
     
     // find
-    private var findEvent: FindEvent
+    dynamic var findEvent: FindEvent? = nil
     
     // acquisition
-    var acquisition: Acquisition?
+    dynamic var acquisition: Acquisition? = nil
     
     
     // MARK: Initializers
     
-    init(findId: String, name: String, objectType: String, photo: String?, acquisition: Acquisition?, publisher: String?, findDate: Date?, findPlaceType: String?, location: Location?, material: String?, technique: String?, inscription: String?, description: String?, objectDimensions: [ObjectDimension]?){
-        
+    convenience init(findId: String, name: String, objectType: String, photo: String?, acquisition: Acquisition?, publisher: String?, findDate: Date?, findPlaceType: String?, location: Location?, material: String?, technique: String?, inscription: String?, description: String?, objectDimensions: [ObjectDimension]?){
+        self.init()
         self.id = HeritageIdentification(id: findId, name: name, type: objectType, photo: photo)
         self.acquisition = acquisition
         self.findEvent = FindEvent(findDate: findDate, findPlaceType: findPlaceType, location: location)
@@ -38,13 +39,20 @@ class MetalDetectingFind {
         
     }
     
-    private struct FindEvent {
-        var findDate: Date?
-        var findPlaceType: String?
-        var location: Location?
+    
+}
+
+@objcMembers class FindEvent: Object {
+    dynamic var findDate: Date? = nil
+    dynamic var findPlaceType: String? = nil
+    dynamic var location: Location? = nil
+    
+    convenience init(findDate: Date?, findPlaceType: String?, location: Location?){
+        self.init()
+        self.findDate = findDate
+        self.findPlaceType = findPlaceType
+        self.location = location
     }
-    
-    
 }
 
 

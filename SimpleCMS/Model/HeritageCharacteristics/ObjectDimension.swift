@@ -7,13 +7,15 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct ObjectDimension {
-    var dimensionType : String
-    var unit : String
-    var value : Double
+@objcMembers class ObjectDimension: Object {
+    dynamic var dimensionType: String = ""
+    dynamic var unit: String = ""
+    dynamic var value: Double = 0
     
-    init(dimensionType: ObjectDimensionType.RawValue, value: Double, unit: ObjectDimensionUnit.RawValue) {
+    convenience init(dimensionType: ObjectDimensionType.RawValue, value: Double, unit: ObjectDimensionUnit.RawValue) {
+        self.init()
         self.dimensionType = dimensionType
         self.value = value
         self.unit = unit

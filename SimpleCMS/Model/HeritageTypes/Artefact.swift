@@ -7,30 +7,32 @@
 //
 
 import Foundation
+import RealmSwift
 
-class Artefact {
+@objcMembers class Artefact: Object {
     
     // MARK: Properties
     
-    // identification - dit komt onder HeritageObject
-    var identification: HeritageIdentification
+    // identification
+    dynamic var identification: HeritageIdentification? = nil
     
     // charcteristics
-    var objectDimensions: [ObjectDimension]?
-    var objectCharacteristics: ObjectCharacteristics?
+    dynamic var objectDimensions: [ObjectDimension]? = nil
+    dynamic var objectCharacteristics: ObjectCharacteristics? = nil
     
     // creation
-    var objectCreation: ObjectCreation?
+    dynamic var objectCreation: ObjectCreation? = nil
     
     // collection management
-    var acquisition: Acquisition
+    dynamic var acquisition: Acquisition? = nil
     
     // rights
-    var rights: Rights
+    dynamic var rights: Rights? = nil
     
     
     // MARK: Initializers
-    init(objectId: String, objectType: String, name: String, photo: String?, acquisitionMethod: String, acquisitionDate: Date, acquisitionSource: String, depositPlace: String?, rightsStatus: String, creditLine: String, creator: String?, placeOfCreation: String?, dateOfCreation: Date?, period: String?, description: String?, material: String?, techique: String?, dimensions: [ObjectDimension]?) {
+    convenience init(objectId: String, objectType: String, name: String, photo: String?, acquisitionMethod: String, acquisitionDate: Date, acquisitionSource: String, depositPlace: String?, rightsStatus: String, creditLine: String, creator: String?, placeOfCreation: String?, dateOfCreation: Date?, period: String?, description: String?, material: String?, techique: String?, dimensions: [ObjectDimension]?) {
+        self.init()
         self.identification = HeritageIdentification(id: objectId, name: name, type: objectType, photo: photo)
         self.acquisition = Acquisition(method: acquisitionMethod, date: acquisitionDate, source: acquisitionSource, depositPlace: depositPlace)
         self.rights = Rights(status: rightsStatus, creditLine: creditLine)

@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import Realm
 
 @objcMembers class HeritageObject: Object {
     // MARK:- Properties
@@ -15,16 +16,29 @@ import RealmSwift
     // source: https://www.projectcest.be/wiki/Publicatie:PACKED_Dataprofielen
     dynamic var id: String = ""
     dynamic var name: String = ""
-    dynamic var category: String = ""
     dynamic var photo: String? = nil
     
     // MARK: - Initializers
-    convenience init(id: String, name: String, category: HeritageObjectCategory, photo: String?){
+    convenience init(id: String, name: String, photo: String?){
         self.init()
         self.id = id
         self.name = name
-        self.category = category.rawValue
         self.photo = photo
     }
+    
+    required init() {
+        super.init()
+    }
+    
+    required init(realm: RLMRealm, schema: RLMObjectSchema) {
+        super.init(realm: realm, schema: schema)
+    }
+    
+    required init(value: Any, schema: RLMSchema) {
+        super.init(value: value, schema: schema)
+    }
+    
+    
+    
     
 }
