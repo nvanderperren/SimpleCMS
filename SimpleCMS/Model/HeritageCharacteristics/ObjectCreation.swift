@@ -12,10 +12,10 @@ import RealmSwift
 @objcMembers class ObjectCreation: Object {
     dynamic var creator: String? = nil
     dynamic var placeOfCreation: String? = nil
-    dynamic var dateOfCreation: Date? = nil
+    dynamic var dateOfCreation: String? = nil
     dynamic var period: String? = nil
     
-    convenience init(creator: String?, placeOfCreation: String?, dateOfCreation: Date?, period: String?){
+    convenience init(creator: String?, placeOfCreation: String?, dateOfCreation: String?, period: String?){
         self.init()
         self.creator = creator
         self.placeOfCreation = placeOfCreation

@@ -14,25 +14,42 @@ import RealmSwift
     // MARK: Properties
     
     // identification
-    dynamic var identification: HeritageIdentification? = nil
+    dynamic var monumentId: String = ""
+    dynamic var name: String = ""
+    dynamic var monumentType: String = ""
+    dynamic var isProtected: Bool = false
+    dynamic var photo: String? = nil
     
     // characteristics
-    dynamic var location: Location? = nil //via webservice?
-    dynamic var characteristics: ObjectCharacteristics? = nil
+    dynamic var location: String? = nil //via webservice?
+    dynamic var objectDescription: String? = nil
+    dynamic var style: String? = nil
+    dynamic var material: String? = nil
+    
     // creation
-    dynamic var creation: ObjectCreation? = nil
+    dynamic var creator: String? = nil
+    dynamic var period: String? = nil
     
     // rights
-    dynamic var rights: Rights? = nil
+    dynamic var rightsStatus: String = ""
+    dynamic var creditLine: String = ""
     
     //MARK: Initializers
-    convenience init(monumentId: String, name: String, type: String, photo: String?, location: Location, rightsStatus: String, creditLine: String, creator: String?, period: String?, description: String?, style: String?, material: String?) {
+    convenience init(monumentId: String, name: String, type: String, isProtected: Bool, photo: String?, location: String, rightsStatus: String, creditLine: String, creator: String?, period: String?, description: String?, style: String?, material: String?) {
         self.init()
-        self.identification = HeritageIdentification(id: monumentId, name: name, type: type, photo: photo)
-        self.rights = Rights(status: rightsStatus, creditLine: creditLine)
+        self.monumentId = monumentId
+        self.name = name
+        self.monumentType = type
+        self.isProtected = isProtected
+        self.photo = photo
         self.location = location
-        self.creation = ObjectCreation(creator: creator, placeOfCreation: nil, dateOfCreation: nil, period: period)
-        self.characteristics = ObjectCharacteristics(usedMaterial: material, usedTechnique: nil, inscription: nil, description: description, style: style)
+        self.rightsStatus = rightsStatus
+        self.creditLine = creditLine
+        self.creator = creator
+        self.period = period
+        self.objectDescription = description
+        self.style = style
+        self.material = material
     }
     
     

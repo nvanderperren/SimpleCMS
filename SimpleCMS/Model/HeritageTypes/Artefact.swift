@@ -14,33 +14,58 @@ import RealmSwift
     // MARK: Properties
     
     // identification
-    dynamic var identification: HeritageIdentification? = nil
+    dynamic var objectId: String = ""
+    dynamic var objectType: String = ""
+    dynamic var name: String = ""
+    dynamic var photo: String? = nil
+    
+    // acquisition
+    dynamic var method: String = "" //lijst
+    dynamic var date: String = ""
+    dynamic var source: String = ""
+    dynamic var depositPlace: String? = nil
     
     // charcteristics
-    dynamic var objectDimensions: [ObjectDimension]? = nil
-    dynamic var objectCharacteristics: ObjectCharacteristics? = nil
+    dynamic var objectDimensions = List<ObjectDimension>()
+    dynamic var usedMaterial: String? = nil
+    dynamic var usedTechnique: String? = nil
+    dynamic var objectDescription: String? = nil
     
     // creation
-    dynamic var objectCreation: ObjectCreation? = nil
-    
-    // collection management
-    dynamic var acquisition: Acquisition? = nil
+    dynamic var creator: String? = nil
+    dynamic var placeOfCreation: String? = nil
+    dynamic var dateOfCreation: String? = nil
+    dynamic var period: String? = nil
     
     // rights
-    dynamic var rights: Rights? = nil
+    dynamic var rightsStatus: String = "" //lijst
+    dynamic var creditLine: String = ""
     
     
     // MARK: Initializers
-    convenience init(objectId: String, objectType: String, name: String, photo: String?, acquisitionMethod: String, acquisitionDate: Date, acquisitionSource: String, depositPlace: String?, rightsStatus: String, creditLine: String, creator: String?, placeOfCreation: String?, dateOfCreation: Date?, period: String?, description: String?, material: String?, techique: String?, dimensions: [ObjectDimension]?) {
+    convenience init(objectId: String, objectType: String, name: String, photo: String?, acquisitionMethod: String, acquisitionDate: String, acquisitionSource: String, depositPlace: String?, rightsStatus: String, creditLine: String, creator: String?, placeOfCreation: String?, dateOfCreation: String?, period: String?, description: String?, material: String?, technique: String?, dimensions: [ObjectDimension]?) {
         self.init()
-        self.identification = HeritageIdentification(id: objectId, name: name, type: objectType, photo: photo)
-        self.acquisition = Acquisition(method: acquisitionMethod, date: acquisitionDate, source: acquisitionSource, depositPlace: depositPlace)
-        self.rights = Rights(status: rightsStatus, creditLine: creditLine)
-        self.objectCreation = ObjectCreation(creator: creator, placeOfCreation: placeOfCreation, dateOfCreation: dateOfCreation, period: period)
-        self.objectCharacteristics = ObjectCharacteristics(usedMaterial: material, usedTechnique: techique, inscription: nil, description: description, style: nil)
-        self.objectDimensions = dimensions
+        self.objectId = objectId
+        self.objectType = objectType
+        self.name = name
+        self.photo = photo
+        self.method = acquisitionMethod
+        self.date = acquisitionDate
+        self.source = acquisitionSource
+        self.depositPlace = depositPlace
+        if let dimensions = dimensions {
+            self.objectDimensions.append(objectsIn: dimensions)
+        }
+        self.rightsStatus = rightsStatus
+        self.creditLine = creditLine
+        self.creator = creator
+        self.placeOfCreation = placeOfCreation
+        self.dateOfCreation = dateOfCreation
+        self.period = period
+        self.objectDescription = description
+        self.usedMaterial = material
+        self.usedTechnique = technique
+        
     }
-    
-    
     
 }

@@ -14,45 +14,49 @@ import RealmSwift
     // MARK: Properties
     
     // identification
-    dynamic var id: HeritageIdentification? = nil
+    dynamic var findId: String = ""
+    dynamic var name: String = ""
+    dynamic var objectType: String = ""
+    dynamic var photo: String? = nil
     
     // characteristics
-    dynamic var objectCharacteristics: ObjectCharacteristics? = nil
-    dynamic var objectDimensions: [ObjectDimension]? = nil
+    dynamic var material: String? = nil
+    dynamic var technique: String? = nil
+    dynamic var inscription: String? = nil
+    dynamic var objectDescription: String? = nil
+    dynamic var objectDimensions = List<ObjectDimension>()
     
     // find
-    dynamic var findEvent: FindEvent? = nil
+    dynamic var findDate: String? = nil
+    dynamic var findPlaceType: String? = nil
+    dynamic var location: String? = nil
     
     // acquisition
-    dynamic var acquisition: Acquisition? = nil
+    // dynamic var acquisition: Acquisition? = nil
     
     
     // MARK: Initializers
     
-    convenience init(findId: String, name: String, objectType: String, photo: String?, acquisition: Acquisition?, publisher: String?, findDate: Date?, findPlaceType: String?, location: Location?, material: String?, technique: String?, inscription: String?, description: String?, objectDimensions: [ObjectDimension]?){
+    convenience init(findId: String, name: String, objectType: String, photo: String?, findDate: String?, findPlaceType: String?, location: String?, material: String?, technique: String?, inscription: String?, description: String?, objectDimensions: [ObjectDimension]?){
         self.init()
-        self.id = HeritageIdentification(id: findId, name: name, type: objectType, photo: photo)
-        self.acquisition = acquisition
-        self.findEvent = FindEvent(findDate: findDate, findPlaceType: findPlaceType, location: location)
-        self.objectCharacteristics = ObjectCharacteristics(usedMaterial: material, usedTechnique: technique, inscription: inscription, description: description, style: nil)
-        self.objectDimensions = objectDimensions
+        self.findId = findId
+        self.name = name
+        self.objectType = objectType
+        self.photo = photo
+        self.findDate = findDate
+        self.findPlaceType = findPlaceType
+        self.location = location
+        self.material = material
+        self.technique = technique
+        self.inscription = inscription
+        self.objectDescription = description
+        if let dimensions = objectDimensions {
+            self.objectDimensions.append(objectsIn: dimensions)     
+        }
         
     }
     
     
-}
-
-@objcMembers class FindEvent: Object {
-    dynamic var findDate: Date? = nil
-    dynamic var findPlaceType: String? = nil
-    dynamic var location: Location? = nil
-    
-    convenience init(findDate: Date?, findPlaceType: String?, location: Location?){
-        self.init()
-        self.findDate = findDate
-        self.findPlaceType = findPlaceType
-        self.location = location
-    }
 }
 
 

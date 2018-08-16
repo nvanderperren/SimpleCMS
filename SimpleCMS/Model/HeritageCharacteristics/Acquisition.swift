@@ -11,12 +11,12 @@ import RealmSwift
 
 @objcMembers class Acquisition: Object {
     dynamic var method: String = "" //lijst
-    dynamic var date: Date = Date()
+    dynamic var date: String = ""
     dynamic var source: String = ""
     dynamic var depositPlace: String? = nil
     
     
-    convenience init(method: String, date: Date, source: String, depositPlace: String?){
+    convenience init(method: String, date: String, source: String, depositPlace: String?){
         self.init()
         self.method = method
         self.date = date

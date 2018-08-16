@@ -30,24 +30,28 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
     // MARK: Navigation - Unwind Segues
     @IBAction func unwindFromFindToHeritageCollection(sender: UIStoryboardSegue){
         if let sourceViewController = sender.source as? FindDetailViewController, let findObject = sourceViewController.find {
+            DatabaseService.service.createFind(findObject)
            addNewRowToTableView(with: findObject)
         }
     }
     
     @IBAction func unwindFromArtefactToHeritageCollection(sender: UIStoryboardSegue){
         if let sourceViewController = sender.source as? ArtefactDetailViewController, let artefactObject = sourceViewController.artefact {
+            DatabaseService.service.createArtefact(artefactObject)
             addNewRowToTableView(with: artefactObject)
         }
     }
     
     @IBAction func unwindFromMonumentToHeritageCollection(sender: UIStoryboardSegue){
         if let sourceViewController = sender.source as? MonumentDetailViewController, let monumentObject = sourceViewController.monument {
+            DatabaseService.service.createMonument(monumentObject)
             addNewRowToTableView(with: monumentObject)
         }
     }
     
     @IBAction func unwindFromPublicationToHeritageCollection(sender: UIStoryboardSegue){
         if let sourceViewController = sender.source as? PublicationDetailViewController, let publicationObject = sourceViewController.publication {
+            DatabaseService.service.createPublication(publicationObject)
             addNewRowToTableView(with: publicationObject)
         }
     }
