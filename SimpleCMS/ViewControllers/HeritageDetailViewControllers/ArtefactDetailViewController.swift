@@ -21,12 +21,14 @@ class ArtefactDetailViewController: HeritageDetailViewController {
     @IBOutlet weak var artefactTechniqueTextField: UITextField!
     
     var requiredFields: [UITextField] {
-        return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionDateTextField, acquisitionSourceTextField, acquisitionMethodTextField, rightsLicenseTextField, creditLineTextField]
+        return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionSourceTextField, rightsLicenseTextField, creditLineTextField]
     }
     
     var allTextFields: [UITextField] {
-        return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionMethodTextField, acquisitionSourceTextField, acquisitionDateTextField, rightsLicenseTextField,  creditLineTextField, artefactCreatorTextField, artefactCreationPlaceTextField, artefactCreationDateTextField, artefactCreationPeriodTextField,heritageDescriptionTextField, heritageMaterialTextField, artefactTechniqueTextField]
+        return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionSourceTextField, rightsLicenseTextField,  creditLineTextField, artefactCreatorTextField, artefactCreationPlaceTextField, artefactCreationDateTextField, artefactCreationPeriodTextField,heritageDescriptionTextField, heritageMaterialTextField, artefactTechniqueTextField]
     }
+    
+    
     
     // MARK: - ViewController methods
     override func viewDidLoad() {
@@ -35,6 +37,8 @@ class ArtefactDetailViewController: HeritageDetailViewController {
         setupNavBar(for: artefact)
         setupTextFields(with: allTextFields, for: artefact)
         updateSaveButtonState(with: requiredFields)
+//        acquisitionMethodPicker.delegate = self
+//        acquisitionMethodPicker.dataSource = self
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         if let artefact = artefact {
@@ -47,6 +51,7 @@ class ArtefactDetailViewController: HeritageDetailViewController {
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        updateAcquistionVariables()
         super.prepare(for: segue, sender: sender)
         print(segue.identifier!)
         switch(segue.identifier) {
@@ -94,9 +99,10 @@ class ArtefactDetailViewController: HeritageDetailViewController {
         heritageNameTextField.text = artefact.name
         heritageTypeTextField.text = artefact.artefactType
         heritageImageView.image = artefact.picture
-        acquisitionMethodTextField.text = artefact.acquisitionMethod
+        let acquistionMethodStatus = acquisitionMethods.index(of: artefact.acquisitionMethod ?? "Kies methode")
+        acquisitionMethodPicker.selectRow(acquistionMethodStatus!, inComponent: 0, animated: true)
         acquisitionSourceTextField.text = artefact.acquisitionSource
-        acquisitionDateTextField.text = artefact.acquisitionDate
+        //acquisitionDateTextField.text = artefact.acquisitionDate
         rightsLicenseTextField.text = artefact.rightsLicense
         creditLineTextField.text = artefact.creditLine
         artefactCreatorTextField.text = artefact.creator
@@ -107,6 +113,8 @@ class ArtefactDetailViewController: HeritageDetailViewController {
         heritageMaterialTextField.text = artefact.material
         artefactTechniqueTextField.text = artefact.technique
         self.heritageId = artefact.id
+        self.acquisitionMethod = artefact.acquisitionMethod
+        self.acquisitionDate = acquisitionDate
     }
     
     private func updateViewModel() {
@@ -114,10 +122,10 @@ class ArtefactDetailViewController: HeritageDetailViewController {
             artefact.id = heritageId!
             artefact.name = heritageNameTextField.text!
             artefact.artefactType = heritageTypeTextField.text!
-            artefact.acquisitionMethod = acquisitionMethodTextField.text!
-            artefact.acquisitionDate = acquisitionMethodTextField.text!
+            artefact.acquisitionMethod = acquisitionMethod
+            artefact.acquisitionDate = "datum"
             artefact.acquisitionSource = acquisitionSourceTextField.text!
-            artefact.acquisitionDate = acquisitionDateTextField.text!
+            artefact.acquisitionDate = acquisitionDate
             artefact.rightsLicense = rightsLicenseTextField.text!
             artefact.creditLine = creditLineTextField.text
             artefact.creator = artefactCreatorTextField.text
@@ -130,10 +138,11 @@ class ArtefactDetailViewController: HeritageDetailViewController {
             artefact.pictureURL = pictureURL
         }
         else {
-            artefact = ArtefactViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, artefactType: heritageTypeTextField.text!, pictureURL: pictureURL, acquisitionSource: acquisitionSourceTextField.text!, acquisitionMethod: acquisitionMethodTextField.text!, acquisitionDate: acquisitionDateTextField.text!, rightsLicense: rightsLicenseTextField.text!, creditLine: creditLineTextField.text!, creator: artefactCreatorTextField.text, creationPlace: artefactCreationPlaceTextField.text, creationDate: artefactCreationDateTextField.text, creationPeriod: artefactCreationPeriodTextField.text, material: heritageMaterialTextField.text, technique: artefactTechniqueTextField.text, description: heritageDescriptionTextField.text, size: nil)
+            artefact = ArtefactViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, artefactType: heritageTypeTextField.text!, pictureURL: pictureURL, acquisitionSource: acquisitionSourceTextField.text!, acquisitionMethod: acquisitionMethod ?? "methode", acquisitionDate: "datum", rightsLicense: rightsLicenseTextField.text!, creditLine: creditLineTextField.text!, creator: artefactCreatorTextField.text, creationPlace: artefactCreationPlaceTextField.text, creationDate: artefactCreationDateTextField.text, creationPeriod: artefactCreationPeriodTextField.text, material: heritageMaterialTextField.text, technique: artefactTechniqueTextField.text, description: heritageDescriptionTextField.text, size: nil)
         }
-        
-        
     }
-
+    
+    
 }
+
+

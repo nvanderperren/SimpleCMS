@@ -19,13 +19,19 @@ class FindDetailViewController: HeritageDetailViewController {
     @IBOutlet weak var findTechniqueTextField: UITextField!
     @IBOutlet weak var findInscriptionTextField: UITextField!
     @IBOutlet weak var findPlaceTypePickerField: UIPickerView!
+    private var findPlaceType: String? {
+        didSet {
+            if (findPlaceType == "Kies type") {
+                findPlaceType = nil
+            }
+        }
+    }
     private var findPlaceTypes = Seeder.service.getHeritagePlaceTypes()
-    private var findPlaceType: String?
     
     
     
     private var allTextFields: [UITextField] {
-        return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionMethodTextField, acquisitionSourceTextField, acquisitionDateTextField, findDateTextField, findLocationTextField ,heritageDescriptionTextField, heritageMaterialTextField, findTechniqueTextField, findInscriptionTextField]
+        return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionSourceTextField, findDateTextField, findLocationTextField, heritageDescriptionTextField, heritageMaterialTextField, findTechniqueTextField, findInscriptionTextField]
     }
     
     private var requiredTextFields: [UITextField] {
@@ -42,8 +48,6 @@ class FindDetailViewController: HeritageDetailViewController {
         updateSaveButtonState(with: requiredTextFields)
         if let find = find {
             setupFindModel(find)
-        } else {
-            findPlaceTypePickerField.selectRow(0, inComponent: 0, animated: false)
         }
         
     }
@@ -100,11 +104,12 @@ class FindDetailViewController: HeritageDetailViewController {
         heritageNameTextField.text = find.name
         heritageTypeTextField.text = find.objectType
         heritageImageView.image = find.picture
-        acquisitionMethodTextField.text = find.acquisitionMethod
+        let acquistionMethodStatus = acquisitionMethods.index(of: find.acquisitionMethod ?? "Kies methode")
+        acquisitionMethodPicker.selectRow(acquistionMethodStatus!, inComponent: 0, animated: true)
         acquisitionSourceTextField.text = find.acquisitionSource
-        acquisitionDateTextField.text = find.acquisitionDate
+        //acquisitionDateTextField.text = find.acquisitionDate
         findDateTextField.text = find.findDate
-        let findplaceStatus = findPlaceTypes.index(of: find.findPlaceType ?? "Kies vondstplaatstype")
+        let findplaceStatus = findPlaceTypes.index(of: find.findPlaceType ?? "Kies type")
         findPlaceTypePickerField.selectRow(findplaceStatus!, inComponent: 0, animated: true)
         findLocationTextField.text = find.findPlace
         heritageDescriptionTextField.text = find.description
@@ -115,14 +120,13 @@ class FindDetailViewController: HeritageDetailViewController {
     }
     
     private func updateViewModel() {
-        updateFindPlaceType()
         if let find = find {
             find.id = heritageId!
             find.name = heritageNameTextField.text!
             find.objectType = heritageTypeTextField.text!
-            find.acquisitionMethod = acquisitionMethodTextField.text
+            find.acquisitionMethod = acquisitionMethod
             find.acquisitionSource = acquisitionSourceTextField.text
-            find.acquisitionDate = acquisitionDateTextField.text
+            find.acquisitionDate = nil
             find.findDate = findDateTextField.text
             find.findPlaceType = findPlaceType
             find.findPlace = findLocationTextField.text
@@ -136,29 +140,50 @@ class FindDetailViewController: HeritageDetailViewController {
         }
     }
     
-    private func updateFindPlaceType() {
-        findPlaceType = findPlaceTypes[findPlaceTypePickerField.selectedRow(inComponent: 0)]
-        if findPlaceType == "Kies type" {
-            findPlaceType = nil
+    override func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        switch (pickerView.tag){
+        default:
+            return 1
         }
     }
     
+    override func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        switch (pickerView.tag){
+        case 0:
+            return acquisitionMethods.count
+        case 1:
+            return findPlaceTypes.count
+        default:
+            fatalError()
+        }
+    }
     
+    override func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch (pickerView.tag){
+        case 0:
+            acquisitionMethod = acquisitionMethods[row]
+            print(acquisitionMethod ?? "method is nil")
+        case 1:
+            findPlaceType = findPlaceTypes[row]
+            print(findPlaceType ?? "findplacetype is nil")
+        default:
+            fatalError()
+        }
+        
+    }
+    
+    override func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        switch (pickerView.tag){
+        case 0:
+            return acquisitionMethods[row]
+        case 1:
+            return findPlaceTypes[row]
+        default:
+            fatalError()
+        }
+        
+    }
 }
 
-extension FindDetailViewController: UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return findPlaceTypes.count
-    }
-}
 
-extension FindDetailViewController: UIPickerViewDelegate {
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return findPlaceTypes[row]
-    }
-    
-}

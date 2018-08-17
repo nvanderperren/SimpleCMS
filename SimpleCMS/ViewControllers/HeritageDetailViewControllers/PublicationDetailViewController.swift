@@ -23,11 +23,11 @@ class PublicationDetailViewController: HeritageDetailViewController {
     @IBOutlet weak var editionTextField: UITextField!
     
     private var allTextFields: [UITextField] {
-        return [heritageIdTextField, heritageNameTextField, authorTextField, acquisitionMethodTextField, acquisitionSourceTextField, acquisitionDateTextField, rightsLicenseTextField, creditLineTextField, publisherTextField, publicationDateTextField, publicationPlaceTextField, numberOfPagesTextField, contentTextField, editionTextField]
+        return [heritageIdTextField, heritageNameTextField, authorTextField, acquisitionSourceTextField, rightsLicenseTextField, creditLineTextField, publisherTextField, publicationDateTextField, publicationPlaceTextField, numberOfPagesTextField, contentTextField, editionTextField]
     }
     
     private var requiredTextFields: [UITextField] {
-        return [heritageIdTextField, heritageNameTextField, authorTextField, acquisitionMethodTextField, acquisitionSourceTextField, acquisitionDateTextField, rightsLicenseTextField, creditLineTextField]
+        return [heritageIdTextField, heritageNameTextField, authorTextField, acquisitionSourceTextField, rightsLicenseTextField, creditLineTextField]
     }
     
     // MARK: - ViewController methods
@@ -91,9 +91,10 @@ class PublicationDetailViewController: HeritageDetailViewController {
         heritageNameTextField.text = publication.name
         authorTextField.text = publication.author
         heritageImageView.image = publication.picture
-        acquisitionMethodTextField.text = publication.acquisitionMethod
+        let acquistionMethodStatus = acquisitionMethods.index(of: publication.acquisitionMethod ?? "Kies methode")
+        acquisitionMethodPicker.selectRow(acquistionMethodStatus!, inComponent: 0, animated: true)
         acquisitionSourceTextField.text = publication.acquisitionSource
-        acquisitionDateTextField.text = publication.acquisitionDate
+        //acquisitionDateTextField.text = publication.acquisitionDate
         rightsLicenseTextField.text = publication.rightsLicense
         creditLineTextField.text = publication.creditLine
         publisherTextField.text = publication.publisher
@@ -114,9 +115,9 @@ class PublicationDetailViewController: HeritageDetailViewController {
             publication.id = heritageId!
             publication.name = heritageNameTextField.text!
             publication.author = authorTextField.text!
-            publication.acquisitionMethod = acquisitionMethodTextField.text!
+            publication.acquisitionMethod = acquisitionMethod!
             publication.acquisitionSource = acquisitionSourceTextField.text!
-            publication.acquisitionDate = acquisitionDateTextField.text!
+            publication.acquisitionDate = "datum"
             publication.rightsLicense = rightsLicenseTextField.text!
             publication.creditLine =  creditLineTextField.text!
             publication.publisher = publisherTextField.text
@@ -132,7 +133,7 @@ class PublicationDetailViewController: HeritageDetailViewController {
             publication.pictureURL = pictureURL
         }
         else {
-            publication = PublicationViewModel(id: heritageIdTextField.text!, author: authorTextField.text!, title: heritageNameTextField.text!, pictureURL: pictureURL, acquisitionMethod: acquisitionMethodTextField.text!, acquisitionSource: acquisitionSourceTextField.text!, acquisitionDate: acquisitionDateTextField.text!, rightsLicense: rightsLicenseTextField.text!, creditLine: creditLineTextField.text!, publisher: publisherTextField.text, publicationDate: publicationDateTextField.text, publicationPlace: publicationPlaceTextField.text, numberOfPages: numberOfPagesTextField.text, edition: editionTextField.text)
+            publication = PublicationViewModel(id: heritageIdTextField.text!, author: authorTextField.text!, title: heritageNameTextField.text!, pictureURL: pictureURL, acquisitionMethod: acquisitionMethod!, acquisitionSource: acquisitionSourceTextField.text!, acquisitionDate: "een datum", rightsLicense: rightsLicenseTextField.text!, creditLine: creditLineTextField.text!, publisher: publisherTextField.text, publicationDate: publicationDateTextField.text, publicationPlace: publicationPlaceTextField.text, numberOfPages: numberOfPagesTextField.text, edition: editionTextField.text)
         }
     }
     

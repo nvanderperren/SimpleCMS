@@ -218,9 +218,10 @@ struct Seeder {
             "Gewei",
             "Hoorn",
             "Leer",
-            "Houtskool"     
+            "Houtskool"
         ]
     }
+    
     
     
 }

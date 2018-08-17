@@ -200,7 +200,6 @@
 			children = (
 				6E04E401211AF5930054535F /* HeritageTypes */,
 				6E04E402211AF5AB0054535F /* HeritageCharacteristics */,
-				6EFDFF8E2114EBC000B4D171 /* Seeder.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -222,6 +221,7 @@
 				6EFA83DF210E006D002E305D /* SimpleCMS.xcdatamodeld */,
 				6EB46DAA21258BCB007CCAAA /* DatabaseService.swift */,
 				6EB46DAC2125BC1B007CCAAA /* ConversionService.swift */,
+				6EFDFF8E2114EBC000B4D171 /* Seeder.swift */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";

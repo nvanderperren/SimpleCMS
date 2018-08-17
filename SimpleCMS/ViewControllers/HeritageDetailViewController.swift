@@ -15,32 +15,52 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
     var heritageId: String?
     var heritageName: String?
     var pictureURL: String?
+    var acquisitionMethods = Seeder.service.getAcquisitionMethods()
+    var acquisitionMethod: String? {
+        didSet {
+            if (acquisitionMethod == "Kies methode") {
+                acquisitionMethod = nil
+            }
+        }
+    }
+    var acquisitionDate: String?
     
     @IBOutlet weak var heritageIdTextField: UITextField!
     @IBOutlet weak var heritageNameTextField: UITextField!
     @IBOutlet weak var heritageTypeTextField: UITextField!
     @IBOutlet weak var heritageImageView: UIImageView!
-    @IBOutlet weak var acquisitionMethodTextField: UITextField!
     @IBOutlet weak var acquisitionSourceTextField: UITextField!
-    @IBOutlet weak var acquisitionDateTextField: UITextField!
     @IBOutlet weak var rightsLicenseTextField: UITextField!
     @IBOutlet weak var creditLineTextField: UITextField!
     @IBOutlet weak var heritageDescriptionTextField: UITextField!
     @IBOutlet weak var heritageMaterialTextField: UITextField!
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var acquisitionMethodPicker: UIPickerView!
+    
+    @IBOutlet weak var acquistionDatePicker: UIDatePicker!
+    
+    @IBAction func acquistionDateChanged(_ sender: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        dateFormatter.locale = Locale(identifier: "nl_BE")
+        acquisitionDate = dateFormatter.string(from: acquistionDatePicker.date)
+        print(acquisitionDate ?? "no date???")
+        
+    }
+    
     
     
     // MARK: - ViewController methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        acquistionDatePicker.maximumDate = Date()
         setupTableView()
         updateFields()
 //        setupAllTextFields()
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     // MARK: - Camera en Photo methods
@@ -51,9 +71,7 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
     @IBAction func takePicture(_ sender: UIButton) {
         
         if !UIImagePickerController.isSourceTypeAvailable(.camera) {
-            let alertController = UIAlertController(title: nil, message: "Het toestel heeft geen camera.", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default)
-            alertController.addAction(okAction)
+            let alertController = createAlertsWithOneAction(has: "Het toestel heeft geen camera.")
             self.present(alertController, animated: true)
             
         }
@@ -152,6 +170,44 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
     
     
     
+    private func checkForNumericValue(_ value: String){
+        guard Double(value) != nil else {
+            let alertController = createAlertsWithOneAction(has: "Geef een getal in.")
+            self.present(alertController, animated: true)
+            return
+        }
+        print("value is a number")
+    }
+    
+    private func checkIfStringHasEnoughCharacters(_ value: String, count: Int){
+        guard value.count < count || value.count > count else {
+            let alertController = createAlertsWithOneAction(has: "Geef \(count) tekens in")
+            self.present(alertController, animated: true)
+            return
+        }
+        print("genoeg tekens")
+    }
+    
+    private func createAlertsWithOneAction(has message: String) -> UIAlertController{
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(okAction)
+        return alertController
+    }
+    
+    func updateAcquistionVariables() {
+        let index = acquisitionMethodPicker.selectedRow(inComponent: 0)
+        if (index != 0) {
+            acquisitionMethod = acquisitionMethods[index]
+        } else {
+            acquisitionMethod = nil
+        }
+        
+    }
+        
+    
+    
+    
 //    // use this in the main table view or in viewmodel
 //    private func loadImage(with pathAbsoluteString: String){
 //        let url = URL(string: pathAbsoluteString)
@@ -164,5 +220,24 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
 //        }
 //    }
     
+}
+extension HeritageDetailViewController: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
     
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return acquisitionMethods.count
+    }
+}
+
+extension HeritageDetailViewController: UIPickerViewDelegate {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        acquisitionMethod = acquisitionMethods[row]
+        print(acquisitionMethod ?? "method is nil")
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return acquisitionMethods[row]
+    }
 }
