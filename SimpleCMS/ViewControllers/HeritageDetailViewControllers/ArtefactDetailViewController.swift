@@ -51,7 +51,7 @@ class ArtefactDetailViewController: HeritageDetailViewController {
         print(segue.identifier!)
         switch(segue.identifier) {
         case "did add artefact"?:
-            artefact = ArtefactViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, artefactType: heritageTypeTextField.text!, pictureURL: pictureURL, acquisitionSource: acquisitionSourceTextField.text!, acquisitionMethod: acquisitionMethodTextField.text!, acquisitionDate: acquisitionDateTextField.text!, rightsLicense: rightsLicenseTextField.text!, creditLine: creditLineTextField.text!, creator: artefactCreatorTextField.text, creationPlace: artefactCreationPlaceTextField.text, creationDate: artefactCreationDateTextField.text, creationPeriod: artefactCreationPeriodTextField.text, material: heritageMaterialTextField.text, technique: artefactTechniqueTextField.text, description: heritageDescriptionTextField.text, size: nil)
+            updateViewModel()
             guard let artefact = artefact else {
                 fatalError("something went wrong, artefact is nil")
             }
@@ -60,10 +60,11 @@ class ArtefactDetailViewController: HeritageDetailViewController {
             print("item saved")
             print("\(artefact.creditLine!)")
         case "did edit artefact"?:
+            updateViewModel()
             guard let artefact = artefact else {
                 fatalError("Something went wrong, artefact is nil")
             }
-            DatabaseService.service.update(artefact)
+            DatabaseService.service.update(artefact, with: .update)
         default:
             fatalError("Unknown segue")
             
@@ -107,6 +108,32 @@ class ArtefactDetailViewController: HeritageDetailViewController {
         artefactTechniqueTextField.text = artefact.technique
         self.heritageId = artefact.id
     }
-
+    
+    private func updateViewModel() {
+        if let artefact = artefact {
+            artefact.id = heritageId!
+            artefact.name = heritageNameTextField.text!
+            artefact.artefactType = heritageTypeTextField.text!
+            artefact.acquisitionMethod = acquisitionMethodTextField.text!
+            artefact.acquisitionDate = acquisitionMethodTextField.text!
+            artefact.acquisitionSource = acquisitionSourceTextField.text!
+            artefact.acquisitionDate = acquisitionDateTextField.text!
+            artefact.rightsLicense = rightsLicenseTextField.text!
+            artefact.creditLine = creditLineTextField.text
+            artefact.creator = artefactCreatorTextField.text
+            artefact.creationDate = artefactCreationDateTextField.text
+            artefact.creationPlace = artefactCreationPlaceTextField.text
+            artefact.creationPeriod = artefactCreationPeriodTextField.text
+            artefact.description = heritageDescriptionTextField.text
+            artefact.material = heritageMaterialTextField.text
+            artefact.technique = artefactTechniqueTextField.text
+            artefact.pictureURL = pictureURL
+        }
+        else {
+            artefact = ArtefactViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, artefactType: heritageTypeTextField.text!, pictureURL: pictureURL, acquisitionSource: acquisitionSourceTextField.text!, acquisitionMethod: acquisitionMethodTextField.text!, acquisitionDate: acquisitionDateTextField.text!, rightsLicense: rightsLicenseTextField.text!, creditLine: creditLineTextField.text!, creator: artefactCreatorTextField.text, creationPlace: artefactCreationPlaceTextField.text, creationDate: artefactCreationDateTextField.text, creationPeriod: artefactCreationPeriodTextField.text, material: heritageMaterialTextField.text, technique: artefactTechniqueTextField.text, description: heritageDescriptionTextField.text, size: nil)
+        }
+        
+        
+    }
 
 }

@@ -51,7 +51,10 @@ class ConversionService {
     private func convertToArtefactViewModel(with artefacts: Results<Artefact>) -> [ArtefactViewModel] {
         var artefactViewModels = [ArtefactViewModel]()
         for artefact in artefacts {
-            artefactViewModels.append(ArtefactViewModel(id: artefact.objectId, name: artefact.name, artefactType: artefact.objectType, pictureURL: artefact.photo, acquisitionSource: artefact.acquistionSource, acquisitionMethod: artefact.acquisitionMethod, acquisitionDate: artefact.acquistionDate, rightsLicense: artefact.rightsStatus, creditLine: artefact.creditLine, creator: artefact.creator, creationPlace: artefact.placeOfCreation, creationDate: artefact.dateOfCreation, creationPeriod: artefact.period, material: artefact.usedMaterial, technique: artefact.usedTechnique, description: artefact.description, size: nil))
+            let artefactModel = ArtefactViewModel(id: artefact.objectId, name: artefact.name, artefactType: artefact.objectType, pictureURL: artefact.photo, acquisitionSource: artefact.acquistionSource, acquisitionMethod: artefact.acquisitionMethod, acquisitionDate: artefact.acquistionDate, rightsLicense: artefact.rightsStatus, creditLine: artefact.creditLine, creator: artefact.creator, creationPlace: artefact.placeOfCreation, creationDate: artefact.dateOfCreation, creationPeriod: artefact.period, material: artefact.usedMaterial, technique: artefact.usedTechnique, description: artefact.description, size: nil)
+            artefactModel.primaryKey = artefact.primaryKey
+            artefactViewModels.append(artefactModel)
+            
         }
         return artefactViewModels
     }
@@ -59,7 +62,9 @@ class ConversionService {
     private func convertToMonumentViewModel(with monuments: Results<Monument>) -> [MonumentViewModel] {
         var monumentViewModels = [MonumentViewModel]()
         for monument in monuments {
-            monumentViewModels.append(MonumentViewModel(id: monument.monumentId, name: monument.name, monumentType: monument.monumentType, pictureURL: monument.photo, protection: monument.isProtected, municipality: monument.location ?? "", street: nil, houseNumber: nil, postalCode: nil, license: monument.rightsStatus, creditLine: monument.creditLine, creator: monument.creator, period: monument.period, style: monument.style))
+            let monumentModel = MonumentViewModel(id: monument.monumentId, name: monument.name, monumentType: monument.monumentType, pictureURL: monument.photo, protection: monument.isProtected, municipality: monument.location ?? "", street: nil, houseNumber: nil, postalCode: nil, license: monument.rightsStatus, creditLine: monument.creditLine, creator: monument.creator, period: monument.period, style: monument.style)
+            monumentModel.primaryKey = monument.primaryKey
+            monumentViewModels.append(monumentModel)
         }
         return monumentViewModels
     }
@@ -80,7 +85,9 @@ class ConversionService {
             else {
                 edition = nil
             }
-            publicationViewModels.append(PublicationViewModel(id: publication.publicationId, author: publication.author, title: publication.author, pictureURL: publication.photo, acquisitionMethod: publication.method, acquisitionSource: publication.source, acquisitionDate: publication.date, rightsLicense: publication.rightsStatus, creditLine: publication.creditLine, publisher: publication.publisher, publicationDate: publication.yearOfPublication, publicationPlace: publication.placeOfPublication, numberOfPages: pages, edition: edition))
+            let publicationModel = PublicationViewModel(id: publication.publicationId, author: publication.author, title: publication.author, pictureURL: publication.photo, acquisitionMethod: publication.method, acquisitionSource: publication.source, acquisitionDate: publication.date, rightsLicense: publication.rightsStatus, creditLine: publication.creditLine, publisher: publication.publisher, publicationDate: publication.yearOfPublication, publicationPlace: publication.placeOfPublication, numberOfPages: pages, edition: edition)
+            publicationModel.primaryKey = publication.primaryKey
+            publicationViewModels.append(publicationModel)
         }
         return publicationViewModels
     }
@@ -88,7 +95,9 @@ class ConversionService {
     private func convertToFindViewModel(with finds: Results<MetalDetectingFind>) -> [FindViewModel] {
         var findViewModels = [FindViewModel]()
         for find in finds {
-            findViewModels.append(FindViewModel(id: find.findId, name: find.name, objectType: find.objectType, pictureURL: find.photo, findDate: find.findDate, findPlaceType: find.findPlaceType, findPlace: find.location, inscription: find.inscription))
+            let findModel = FindViewModel(id: find.findId, name: find.name, objectType: find.objectType, pictureURL: find.photo, findDate: find.findDate, findPlaceType: find.findPlaceType, findPlace: find.location, inscription: find.inscription)
+            findModel.primaryKey = find.primaryKey
+            findViewModels.append(findModel)
         }
         return findViewModels
     }
@@ -110,7 +119,8 @@ class ConversionService {
         object.objectDescription = viewModel.description
         object.usedMaterial = viewModel.material
         object.usedTechnique = viewModel.technique
-        
+        print(object.creator!)
+        print(viewModel.creator!)
     }
     
     private func convertFromMonumentViewModel(to object: Monument, with viewModel: MonumentViewModel) {

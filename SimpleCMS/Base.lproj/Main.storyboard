@@ -117,10 +117,10 @@
                     <connections>
                         <outlet property="heritageCollectionTableView" destination="r5H-a4-UWw" id="CRe-U7-aTK"/>
                         <outlet property="searchBar" destination="sjl-2e-Ta2" id="g7K-Mj-ujf"/>
-                        <segue destination="955-W2-4yZ" kind="show" identifier="Show artefact" id="HjC-1w-WlV"/>
-                        <segue destination="h0n-5C-3Cn" kind="show" identifier="Show find" id="crS-mo-3BM"/>
-                        <segue destination="SRi-xV-LCj" kind="show" identifier="Show monument" id="Vze-e0-vja"/>
-                        <segue destination="tke-Og-C3Q" kind="show" identifier="Show publication" id="Mkd-s4-g3z"/>
+                        <segue destination="955-W2-4yZ" kind="show" identifier="show artefact" id="HjC-1w-WlV"/>
+                        <segue destination="h0n-5C-3Cn" kind="show" identifier="show find" id="crS-mo-3BM"/>
+                        <segue destination="SRi-xV-LCj" kind="show" identifier="show monument" id="Vze-e0-vja"/>
+                        <segue destination="tke-Og-C3Q" kind="show" identifier="show publication" id="Mkd-s4-g3z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QfJ-ct-o1q" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2929,9 +2929,9 @@
         <image name="defaultPhoto" width="540" height="540"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="WzS-l2-SE3"/>
-        <segue reference="CGS-ot-1Rk"/>
-        <segue reference="h5H-rL-0Qd"/>
-        <segue reference="kWo-Sw-FX4"/>
+        <segue reference="Mkd-s4-g3z"/>
+        <segue reference="Vze-e0-vja"/>
+        <segue reference="HjC-1w-WlV"/>
+        <segue reference="crS-mo-3BM"/>
     </inferredMetricsTieBreakers>
 </document>

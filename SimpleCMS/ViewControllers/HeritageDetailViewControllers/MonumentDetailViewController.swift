@@ -60,7 +60,7 @@ class MonumentDetailViewController: HeritageDetailViewController {
             guard let monument = monument else {
                 fatalError("monument is nil")
             }
-            DatabaseService.service.update(monument)
+            DatabaseService.service.update(monument, with: .update)
         default:
             fatalError("Unknown segue")
             

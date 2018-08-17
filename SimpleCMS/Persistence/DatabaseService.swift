@@ -34,43 +34,54 @@ class DatabaseService {
         
     }
     
-    // MARK: - Update
+    // MARK: - Update & Delete
     
-    func update(_ model: HeritageViewModel){
+    func update(_ model: HeritageViewModel, with method: updateMethod) {
         switch(model){
         case let model as ArtefactViewModel:
             let artefact = getAllArtefacts().filter{$0.primaryKey == model.primaryKey}.first
+            print(artefact!.name)
             if let artefact = artefact {
-                updateObject(artefact, with: model)
+                switch (method){
+                case .update:
+                    updateObject(artefact, with: model)
+                case .delete:
+                    deleteObject(artefact)
+                }
+                
             }
         case let model as MonumentViewModel:
             let monument = getAllMonuments().filter{$0.primaryKey == model.primaryKey}.first
             if let monument = monument {
-                updateObject(monument, with: model)
+                switch (method){
+                case .update:
+                    updateObject(monument, with: model)
+                case .delete:
+                    deleteObject(monument)
+                }
             }
         case let model as FindViewModel:
             let find = getAllFinds().filter{$0.primaryKey == model.primaryKey}.first
             if let find = find {
-                updateObject(find, with: model)
+                switch (method){
+                case .update:
+                    updateObject(find, with: model)
+                case .delete:
+                    deleteObject(find)
+                }
             }
         case let model as PublicationViewModel:
             let publication = getAllPublications().filter{$0.primaryKey == model.primaryKey}.first
             if let publication = publication {
-                updateObject(publication, with: model)
+                switch (method){
+                case .update:
+                    updateObject(publication, with: model)
+                case .delete:
+                    deleteObject(publication)
+                }
             }
         default:
             print("Error: this viewmodel does not exist")
-        }
-    }
-    
-    func delete<T: Object>(object: T) {
-        do {
-            try realm.write {
-                realm.delete(object)
-                print("object removed")
-            }
-        } catch {
-            print(error)
         }
     }
     
@@ -141,6 +152,7 @@ class DatabaseService {
         do {
             try realm.write {
                 ConversionService.service.convertToObject(object, with: model)
+                print(model.id)
                 print("object updated")
             }
         } catch {
@@ -148,4 +160,21 @@ class DatabaseService {
         }
     }
     
+    private func deleteObject<T: Object>(_ object: T) {
+        do {
+            try realm.write {
+                realm.delete(object)
+                print("object removed")
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
 }
+
+enum updateMethod {
+    case delete
+    case update
+}
+

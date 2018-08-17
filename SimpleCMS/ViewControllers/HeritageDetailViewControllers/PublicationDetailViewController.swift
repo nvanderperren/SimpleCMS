@@ -61,7 +61,7 @@ class PublicationDetailViewController: HeritageDetailViewController {
             guard let publication = publication else {
                 fatalError("publication is nil")
             }
-            DatabaseService.service.update(publication)
+            DatabaseService.service.update(publication, with: .update)
         default:
             fatalError("unknown segue")
         }

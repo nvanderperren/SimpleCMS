@@ -27,6 +27,7 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
         currentHeritageObjects = heritageObjects
         categories = returnSortedCategoriesOfHeritageObjects()
         setupSearchBar()
+        heritageCollectionTableView.reloadData()
     }
     
     // MARK: - Navigation
@@ -39,6 +40,8 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
                 addNewRowToTableView(with: findObject)
             }
         case "did edit find":
+            heritageObjects = seeder.heritageObjects
+            currentHeritageObjects = heritageObjects
             heritageCollectionTableView.reloadRows(at: [indexPathToEdit], with: .automatic)
         default:
             fatalError("Something went wrong!")
@@ -87,26 +90,38 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
     // MARK: Segue to other viewcontrollers
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch(segue.identifier){
-        case "Show artefact":
+        case "show artefact":
             let destinationController = segue.destination as! ArtefactDetailViewController
-            let selection = heritageCollectionTableView.indexPathForSelectedRow!
-            destinationController.artefact = heritageObjects[selection.row] as? ArtefactViewModel
-            heritageCollectionTableView.deselectRow(at: selection, animated: true)
-        case "Show find":
+            if let selection = heritageCollectionTableView.indexPathForSelectedRow {
+                destinationController.artefact = heritageObjects[selection.row] as? ArtefactViewModel
+                heritageCollectionTableView.deselectRow(at: selection, animated: true)
+            } else {
+                destinationController.artefact = heritageObjects[indexPathToEdit.row] as? ArtefactViewModel
+            }
+        case "show find":
             let destinationController = segue.destination as! FindDetailViewController
-            let selection = heritageCollectionTableView.indexPathForSelectedRow!
-            destinationController.find = heritageObjects[selection.row] as? FindViewModel
-            heritageCollectionTableView.deselectRow(at: selection, animated: true)
-        case "Show monument":
+            if let selection = heritageCollectionTableView.indexPathForSelectedRow {
+                destinationController.find = heritageObjects[selection.row] as? FindViewModel
+                heritageCollectionTableView.deselectRow(at: selection, animated: true)
+            } else {
+                destinationController.find = heritageObjects[indexPathToEdit.row] as? FindViewModel
+            }
+        case "show monument":
             let destinationController = segue.destination as! MonumentDetailViewController
-            let selection = heritageCollectionTableView.indexPathForSelectedRow!
-            destinationController.monument = heritageObjects[selection.row] as? MonumentViewModel
-            heritageCollectionTableView.deselectRow(at: selection, animated: true)
-        case "Show publication":
+            if let selection = heritageCollectionTableView.indexPathForSelectedRow {
+                destinationController.monument = heritageObjects[selection.row] as? MonumentViewModel
+                heritageCollectionTableView.deselectRow(at: selection, animated: true)
+            } else {
+                destinationController.monument = heritageObjects[indexPathToEdit.row] as? MonumentViewModel
+            }
+        case "show publication":
             let destinationController = segue.destination as! PublicationDetailViewController
-            let selection = heritageCollectionTableView.indexPathForSelectedRow!
-            destinationController.publication = heritageObjects[selection.row] as? PublicationViewModel
-            heritageCollectionTableView.deselectRow(at: selection, animated: true)
+            if let selection = heritageCollectionTableView.indexPathForSelectedRow {
+                destinationController.publication = heritageObjects[selection.row] as? PublicationViewModel
+                heritageCollectionTableView.deselectRow(at: selection, animated: true)
+            } else {
+                destinationController.publication = heritageObjects[indexPathToEdit.row] as? PublicationViewModel
+            }
         case "add item":
             print("item will be added")
         default:
@@ -149,16 +164,38 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
         }
         switch(cell.objectCategoryLabel.text){
         case HeritageObjectCategory.artefact.rawValue:
-            performSegue(withIdentifier: "Show artefact", sender: HeritageCollectionTableViewController())
+            performSegue(withIdentifier: "show artefact", sender: HeritageCollectionTableViewController())
         case HeritageObjectCategory.monument.rawValue:
-            performSegue(withIdentifier: "Show monument", sender: HeritageCollectionTableViewController())
+            performSegue(withIdentifier: "show monument", sender: HeritageCollectionTableViewController())
         case HeritageObjectCategory.metalDetectingFind.rawValue:
-            performSegue(withIdentifier: "Show find", sender: HeritageCollectionTableViewController())
+            performSegue(withIdentifier: "show find", sender: HeritageCollectionTableViewController())
         case HeritageObjectCategory.publication.rawValue:
-            performSegue(withIdentifier: "Show publication", sender: HeritageCollectionTableViewController())
+            performSegue(withIdentifier: "show publication", sender: HeritageCollectionTableViewController())
         default:
             fatalError("Problemen!")
         }
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let editAction = UIContextualAction(style: .normal, title: "Edit", handler: {(action, view, completionHandler) in
+            self.indexPathToEdit = indexPath
+            guard let cell = self.heritageCollectionTableView.cellForRow(at: self.indexPathToEdit) as? HeritageObjectTableViewCell else {
+                fatalError("Wrong TableViewCell")
+            }
+            let object = self.getSegueIdentifier(with: HeritageObjectCategory(rawValue: cell.objectCategoryLabel.text!)!)
+            self.performSegue(withIdentifier: "show \(object)", sender: self)
+            completionHandler(true)
+        })
+        editAction.backgroundColor = UIColor.yellow
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete", handler: {(action, view, completionHandler) in
+            let heritageObject = self.currentHeritageObjects[indexPath.row]
+            DatabaseService.service.update(heritageObject, with: .delete)
+            self.currentHeritageObjects.remove(at: indexPath.row)
+            self.heritageObjects = self.currentHeritageObjects
+            self.heritageCollectionTableView.deleteRows(at: [indexPath], with: .fade)
+            completionHandler(true)
+        })
+        return UISwipeActionsConfiguration(actions: [editAction, deleteAction])
     }
     
     // MARK: - Search bar methods
@@ -254,6 +291,19 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
         heritageCollectionTableView.insertRows(at: [newIndexPath], with: .automatic)
         for object in heritageObjects {
             print(object.name)
+        }
+    }
+    
+    private func getSegueIdentifier(with category: HeritageObjectCategory) -> String {
+        switch(category){
+        case .artefact:
+            return "artefact"
+        case .monument:
+            return "monument"
+        case .metalDetectingFind:
+            return "find"
+        case .publication:
+            return "publication"
         }
     }
 

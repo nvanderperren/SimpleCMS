@@ -62,7 +62,7 @@ class FindDetailViewController: HeritageDetailViewController {
             guard let find = find else {
                 fatalError("find is nil")
             }
-            DatabaseService.service.update(find)
+            DatabaseService.service.update(find, with: .update)
         default:
             fatalError("Unknown segue")
         }
