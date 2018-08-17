@@ -20,6 +20,8 @@ class FindDetailViewController: HeritageDetailViewController {
     @IBOutlet weak var findTechniqueTextField: UITextField!
     @IBOutlet weak var findInscriptionTextField: UITextField!
     
+    let backButton = UIBarButtonItem()
+    
     private var allTextFields: [UITextField] {
         return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionMethodTextField, acquisitionSourceTextField, acquisitionDateTextField, findDateTextField, findLocationTextField, findPlaceTypeTextField,heritageDescriptionTextField, heritageMaterialTextField, findTechniqueTextField, findInscriptionTextField]
     }
@@ -51,6 +53,8 @@ class FindDetailViewController: HeritageDetailViewController {
         updateSaveButtonState(with: requiredTextFields)
         if let find = find {
             setupFindModel(find)
+            backButton.title = "Back"
+            self.navigationItem.backBarButtonItem = backButton
         }
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.

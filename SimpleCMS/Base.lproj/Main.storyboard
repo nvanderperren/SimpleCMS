@@ -118,7 +118,7 @@
                         <outlet property="heritageCollectionTableView" destination="r5H-a4-UWw" id="CRe-U7-aTK"/>
                         <outlet property="searchBar" destination="sjl-2e-Ta2" id="g7K-Mj-ujf"/>
                         <segue destination="955-W2-4yZ" kind="show" identifier="Show artefact" id="HjC-1w-WlV"/>
-                        <segue destination="h0n-5C-3Cn" kind="showDetail" identifier="Show find" id="crS-mo-3BM"/>
+                        <segue destination="h0n-5C-3Cn" kind="show" identifier="Show find" id="crS-mo-3BM"/>
                         <segue destination="SRi-xV-LCj" kind="show" identifier="Show monument" id="Vze-e0-vja"/>
                         <segue destination="tke-Og-C3Q" kind="show" identifier="Show publication" id="Mkd-s4-g3z"/>
                     </connections>
@@ -245,15 +245,15 @@
                         <outlet property="nameHeritageTextField" destination="569-uU-LyR" id="TYG-x5-VA5"/>
                         <outlet property="registrationButton" destination="LDC-qE-EQQ" id="TXp-sy-GUP"/>
                         <outlet property="typeHeritageSegmentControl" destination="WNO-7G-Mgq" id="1Do-Aw-Aq4"/>
-                        <segue destination="ctD-yS-odP" kind="presentation" identifier="Add monument" id="PJd-pF-MSv"/>
-                        <segue destination="aqP-NE-dij" kind="presentation" identifier="Add find" id="1tA-0A-PQZ"/>
-                        <segue destination="0V3-Nk-JIb" kind="presentation" identifier="Add publication" modalPresentationStyle="formSheet" id="OyS-KC-A2F"/>
-                        <segue destination="6es-e9-uCL" kind="presentation" identifier="Add artefact" id="Lxb-cA-bva"/>
+                        <segue destination="h0n-5C-3Cn" kind="show" identifier="Add find" id="kWo-Sw-FX4"/>
+                        <segue destination="SRi-xV-LCj" kind="show" identifier="Add monument" id="CGS-ot-1Rk"/>
+                        <segue destination="tke-Og-C3Q" kind="show" identifier="Add publication" id="WzS-l2-SE3"/>
+                        <segue destination="955-W2-4yZ" kind="show" identifier="Add artefact" id="h5H-rL-0Qd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GWn-zN-NTv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2843" y="-6"/>
+            <point key="canvasLocation" x="3016" y="67"/>
         </scene>
         <!--Find Detail View Controller-->
         <scene sceneID="SEt-2Z-rQ3">
@@ -883,11 +883,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="9H6-Dd-Frp">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="VQ1-ba-dGo">
-                            <connections>
-                                <action selector="cancel:" destination="h0n-5C-3Cn" id="tQj-v7-9rl"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="k1U-ii-SpX">
                             <connections>
                                 <segue destination="YpS-6u-lef" kind="unwind" unwindAction="unwindFromFindToHeritageCollectionWithSender:" id="Bfi-3w-msR"/>
@@ -915,7 +910,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rqj-P5-vUZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="YpS-6u-lef" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4794" y="-815"/>
+            <point key="canvasLocation" x="4483" y="-650"/>
         </scene>
         <!--Artefact Detail View Controller-->
         <scene sceneID="Nar-Yp-d9t">
@@ -1615,11 +1610,6 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="5X2-kj-Vo3">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Pb8-1x-KeR">
-                            <connections>
-                                <action selector="cancel:" destination="955-W2-4yZ" id="CY4-uG-r9a"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="Mv1-MN-svp">
                             <connections>
                                 <segue destination="tr3-Ug-RlW" kind="unwind" unwindAction="unwindFromArtefactToHeritageCollectionWithSender:" id="sTS-vs-CJ6"/>
@@ -1650,7 +1640,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5ME-v8-ep6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="tr3-Ug-RlW" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2223" y="-932"/>
+            <point key="canvasLocation" x="2922" y="-944"/>
         </scene>
         <!--Monument Detail View Controller-->
         <scene sceneID="XVm-nL-Bgo">
@@ -2177,11 +2167,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="r4K-z1-ChD">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="AFF-Vc-1DH">
-                            <connections>
-                                <action selector="cancel:" destination="SRi-xV-LCj" id="3TV-my-mLw"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="qjb-4s-hru">
                             <connections>
                                 <segue destination="jmz-Cq-6LJ" kind="unwind" unwindAction="unwindFromMonumentToHeritageCollectionWithSender:" id="D97-f1-caA"/>
@@ -2209,7 +2194,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DF8-Vd-iND" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="jmz-Cq-6LJ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3136" y="1209"/>
+            <point key="canvasLocation" x="3367" y="1074"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="NX5-9a-tSc">
@@ -2883,11 +2868,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="ik3-iH-wxh">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="bIH-d5-o0f">
-                            <connections>
-                                <action selector="cancel:" destination="tke-Og-C3Q" id="vQV-SS-y5t"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="WuD-az-CO8">
                             <connections>
                                 <segue destination="tc0-h4-TIt" kind="unwind" unwindAction="unwindFromPublicationToHeritageCollectionWithSender:" id="9nN-73-tgT"/>
@@ -2916,79 +2896,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D75-He-9f7" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="tc0-h4-TIt" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="851" y="1208"/>
-        </scene>
-        <!--Navigation artefact-->
-        <scene sceneID="ZmV-7O-N9X">
-            <objects>
-                <navigationController title="Navigation artefact" automaticallyAdjustsScrollViewInsets="NO" id="6es-e9-uCL" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="mzM-Qv-kKC">
-                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="955-W2-4yZ" kind="relationship" relationship="rootViewController" id="swC-aE-vNh"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SL2-7k-yg3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1325" y="-933"/>
-        </scene>
-        <!--Navigation monument-->
-        <scene sceneID="DVk-Oj-xty">
-            <objects>
-                <navigationController title="Navigation monument" automaticallyAdjustsScrollViewInsets="NO" id="ctD-yS-odP" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="471-hb-rd3">
-                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="SRi-xV-LCj" kind="relationship" relationship="rootViewController" id="xqJ-cg-AE8"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="npg-Tb-pDg" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2242" y="1208"/>
-        </scene>
-        <!--Navigation find-->
-        <scene sceneID="Vma-8V-ooh">
-            <objects>
-                <navigationController title="Navigation find" automaticallyAdjustsScrollViewInsets="NO" id="aqP-NE-dij" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="flI-oV-2HK">
-                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="h0n-5C-3Cn" kind="relationship" relationship="rootViewController" id="4pX-cf-fQx"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yHo-C1-uIb" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3897" y="-815"/>
-        </scene>
-        <!--Navigation publication-->
-        <scene sceneID="XsI-Dr-0Yk">
-            <objects>
-                <navigationController title="Navigation publication" automaticallyAdjustsScrollViewInsets="NO" id="0V3-Nk-JIb" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TuS-gO-Czu">
-                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="tke-Og-C3Q" kind="relationship" relationship="rootViewController" id="Web-gM-KWO"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zod-q0-2k3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-36" y="1208"/>
+            <point key="canvasLocation" x="2049" y="1047"/>
         </scene>
         <!--Navigation registration form-->
         <scene sceneID="ePE-hU-Gj3">
@@ -3006,16 +2914,16 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Pa-te-Wq9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1832" y="15"/>
+            <point key="canvasLocation" x="2128" y="15"/>
         </scene>
     </scenes>
     <resources>
         <image name="defaultPhoto" width="540" height="540"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Mkd-s4-g3z"/>
-        <segue reference="Vze-e0-vja"/>
-        <segue reference="HjC-1w-WlV"/>
-        <segue reference="crS-mo-3BM"/>
+        <segue reference="WzS-l2-SE3"/>
+        <segue reference="CGS-ot-1Rk"/>
+        <segue reference="h5H-rL-0Qd"/>
+        <segue reference="kWo-Sw-FX4"/>
     </inferredMetricsTieBreakers>
 </document>

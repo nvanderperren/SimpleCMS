@@ -61,11 +61,10 @@ class AddHeritageObjectViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if let viewController = segue.destination as? UINavigationController,
-                let targetController = viewController.topViewController as? HeritageDetailViewController {
-                targetController.heritageId = objectId
-                targetController.heritageName = objectName
-                targetController.navigationItem.title = "Voeg \(objectType.rawValue) toe"
+            if let viewController = segue.destination as? HeritageDetailViewController {
+                viewController.heritageId = objectId
+                viewController.heritageName = objectName
+                viewController.navigationItem.title = "Voeg \(objectType.rawValue) toe"
             
             
         }

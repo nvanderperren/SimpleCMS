@@ -18,6 +18,8 @@ class ArtefactDetailViewController: HeritageDetailViewController {
     @IBOutlet weak var artefactCreationPeriodTextField: UITextField!
     @IBOutlet weak var artefactTechniqueTextField: UITextField!
     
+    let backBar = UIBarButtonItem()
+    
     var requiredFields: [UITextField] {
         return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionDateTextField, acquisitionSourceTextField, acquisitionMethodTextField, rightsLicenseTextField, creditLineTextField]
     }
@@ -37,7 +39,6 @@ class ArtefactDetailViewController: HeritageDetailViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         if let artefact = artefact {
             setupArtefactModel(artefact)
-            saveButton = self.editButtonItem
             
         }
         

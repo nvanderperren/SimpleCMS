@@ -20,6 +20,8 @@ class MonumentDetailViewController: HeritageDetailViewController {
     @IBOutlet weak var monumentCreationPeriodTextField: UITextField!
     @IBOutlet weak var monumentStyleTextField: UITextField!
     
+    let backbar = UIBarButtonItem()
+    
     private var allTextFields: [UITextField] {
         return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, rightsLicenseTextField,  creditLineTextField, monumentCreatorTextField, monumentCreationPeriodTextField,heritageDescriptionTextField, heritageMaterialTextField, monumentStreetNameTextField, monumentMunicipalityTextField, monumentStyleTextField]
     }
@@ -35,6 +37,11 @@ class MonumentDetailViewController: HeritageDetailViewController {
         setupTextFields(with: allTextFields, for: monument)
         if let monument = monument {
             setupMonumentModel(monument)
+            backbar.title = "Back"
+            self.navigationItem.backBarButtonItem = backbar
+            saveButton.title = "Edit"
+            self.navigationItem.rightBarButtonItem = saveButton
+
         }
         setupAllControls()
         updateSaveButtonState(with: requiredTextFields)
