@@ -10,7 +10,7 @@ import UIKit
 
 class FindDetailViewController: HeritageDetailViewController {
     
-    // MARK: Properties
+    // MARK: - Properties and outlets
     
     var find: FindViewModel?
     
@@ -20,8 +20,6 @@ class FindDetailViewController: HeritageDetailViewController {
     @IBOutlet weak var findTechniqueTextField: UITextField!
     @IBOutlet weak var findInscriptionTextField: UITextField!
     
-    let backButton = UIBarButtonItem()
-    
     private var allTextFields: [UITextField] {
         return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionMethodTextField, acquisitionSourceTextField, acquisitionDateTextField, findDateTextField, findLocationTextField, findPlaceTypeTextField,heritageDescriptionTextField, heritageMaterialTextField, findTechniqueTextField, findInscriptionTextField]
     }
@@ -29,6 +27,24 @@ class FindDetailViewController: HeritageDetailViewController {
     private var requiredTextFields: [UITextField] {
         return [heritageIdTextField, heritageNameTextField, heritageTypeTextField]
     }
+    
+    // MARK: - ViewController methods
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print("Find showing")
+        setupNavBar(for: find)
+        setupTextFields(with: allTextFields, for: find)
+        updateSaveButtonState(with: requiredTextFields)
+        if let find = find {
+            setupFindModel(find)
+        }
+        
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
@@ -63,26 +79,13 @@ class FindDetailViewController: HeritageDetailViewController {
         
     }
     
+    // MARK: - TextFieldDelegate methods
     
-    // MARK: ViewController methods
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        print("Find showing")
-        setupNavBar(for: find)
-        setupTextFields(with: allTextFields, for: find)
-        updateSaveButtonState(with: requiredTextFields)
-        if let find = find {
-            setupFindModel(find)
-        }
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
-    
-    // MARK: TextFieldDelegate
     func textFieldDidEndEditing(_ textField: UITextField) {
         updateSaveButtonState(with: requiredTextFields)
     }
+    
+    // MARK: - Private methods
     
     private func setupFindModel(_ find: FindViewModel){
         heritageIdTextField.text = find.id

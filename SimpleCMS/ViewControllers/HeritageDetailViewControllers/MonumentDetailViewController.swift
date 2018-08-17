@@ -9,7 +9,8 @@
 import UIKit
 
 class MonumentDetailViewController: HeritageDetailViewController {
-    // MARK: Properties
+    
+    // MARK: Properties and outlets
     
     var monument: MonumentViewModel?
     
@@ -20,8 +21,6 @@ class MonumentDetailViewController: HeritageDetailViewController {
     @IBOutlet weak var monumentCreationPeriodTextField: UITextField!
     @IBOutlet weak var monumentStyleTextField: UITextField!
     
-    let backbar = UIBarButtonItem()
-    
     private var allTextFields: [UITextField] {
         return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, rightsLicenseTextField,  creditLineTextField, monumentCreatorTextField, monumentCreationPeriodTextField,heritageDescriptionTextField, heritageMaterialTextField, monumentStreetNameTextField, monumentMunicipalityTextField, monumentStyleTextField]
     }
@@ -31,22 +30,19 @@ class MonumentDetailViewController: HeritageDetailViewController {
     }
     
     // MARK: ViewController methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar(for: monument)
         setupTextFields(with: allTextFields, for: monument)
         if let monument = monument {
-            setupMonumentModel(monument)
-            backbar.title = "Back"
-            self.navigationItem.backBarButtonItem = backbar
-            saveButton.title = "Edit"
-            self.navigationItem.rightBarButtonItem = saveButton
-
-        }
+            setupMonumentModel(monument)}
         setupAllControls()
         updateSaveButtonState(with: requiredTextFields)
         print("Monument showing")
     }
+    
+    // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
@@ -80,14 +76,14 @@ class MonumentDetailViewController: HeritageDetailViewController {
         
     }
     
-   
+    // MARK: - TextFieldDelegate methods
     
-    // MARK: TextFieldDelegate
     func textFieldDidEndEditing(_ textField: UITextField) {
         updateSaveButtonState(with: requiredTextFields)
     }
     
-    // MARK: Private methods
+    // MARK: - Private methods
+    
     private func setupAllControls() {
         if monument != nil {
             monumentIsProtectedSwitch.isUserInteractionEnabled = false

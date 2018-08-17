@@ -10,6 +10,8 @@ import UIKit
 
 class ArtefactDetailViewController: HeritageDetailViewController {
     
+    // MARK: - Properties and outlets
+    
     var artefact: ArtefactViewModel?
     
     @IBOutlet weak var artefactCreatorTextField: UITextField!
@@ -26,7 +28,7 @@ class ArtefactDetailViewController: HeritageDetailViewController {
         return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionMethodTextField, acquisitionSourceTextField, acquisitionDateTextField, rightsLicenseTextField,  creditLineTextField, artefactCreatorTextField, artefactCreationPlaceTextField, artefactCreationDateTextField, artefactCreationPeriodTextField,heritageDescriptionTextField, heritageMaterialTextField, artefactTechniqueTextField]
     }
     
-    
+    // MARK: - ViewController methods
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Artefact showing")
@@ -78,10 +80,13 @@ class ArtefactDetailViewController: HeritageDetailViewController {
         
     }
     
+    // MARK: - TextFieldDelegate methods
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         updateSaveButtonState(with: requiredFields)
     }
+    
+    // MARK: - Private methods
     
     private func setupArtefactModel(_ artefact: ArtefactViewModel){
         heritageIdTextField.text = artefact.id

@@ -9,7 +9,9 @@
 import UIKit
 
 class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-        
+    
+    // MARK: - Properties and outlets
+    
     var heritageId: String?
     var heritageName: String?
     var pictureURL: String?
@@ -29,13 +31,22 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
     
+    // MARK: - ViewController methods
     
-//    var allTextFields = [UITextField?]()
-    
-    @IBAction func chooseImageFromSavedPhotos(_ sender: UIButton) {
-       setupImagePickerController(type: .photoLibrary)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupTableView()
+        updateFields()
+//        setupAllTextFields()
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
+    // MARK: - Camera en Photo methods
+    @IBAction func chooseImageFromSavedPhotos(_ sender: UIButton) {
+        setupImagePickerController(type: .photoLibrary)
+    }
     
     @IBAction func takePicture(_ sender: UIButton) {
         
@@ -51,32 +62,14 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
         }
     }
     
-    @IBAction func cancel(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupTableView()
-        updateFields()
-//        setupAllTextFields()
-        
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
-    
-    // MARK: TextFieldDelegate
+    // MARK: - TextFieldDelegate methods
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
-    // MARK: ImagePickerControllerDelegate
+    // MARK: - ImagePickerControllerDelegate methods
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage  else {
@@ -85,41 +78,18 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
         saveImage(selectedImage)
         heritageImageView.image = selectedImage
         dismiss(animated: true, completion: nil)
-        
-        
-        
     }
-    
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
     
-    
-    // MARK: Private and internal methods
-    
-    private func setupTableView() {
-        self.tableView = UITableView(frame: self.tableView.frame, style: .grouped)
-        self.tableView.allowsSelection = false
-        self.tableView.allowsSelectionDuringEditing = false
-    }
+    // MARK: - Private and internal methods
     
     func setupNavBar(for item: HeritageViewModel?) {
         if let heritageItem = item {
             navigationItem.title = heritageItem.id
         }
-    }
-    
-    private func setupImagePickerController(type: UIImagePickerControllerSourceType){
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.sourceType = type
-        imagePickerController.delegate = self
-        present(imagePickerController, animated: true)
-    }
-    
-    private func updateFields() {
-        heritageIdTextField.text = heritageId
-        heritageNameTextField.text = heritageName
     }
     
     func updateSaveButtonState(with requiredFields: [UITextField]) {
@@ -141,7 +111,7 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
             text.delegate = self
             text.autocapitalizationType = .sentences
             if (viewModel != nil) {
-                text.isEnabled = false
+//                text.isEnabled = false
             }
             
         }
@@ -158,17 +128,37 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
         
     }
     
-    // use this in the main table view
-    private func loadImage(with pathAbsoluteString: String){
-        let url = URL(string: pathAbsoluteString)
-        DispatchQueue.global().async {
-            let imageData: Data? = try? Data(contentsOf: url!)
-            DispatchQueue.main.async {
-                self.heritageImageView.image = UIImage(data: imageData!)
-            }
-            
-        }
+    private func setupTableView() {
+        self.tableView = UITableView(frame: self.tableView.frame, style: .grouped)
+        self.tableView.allowsSelection = false
+        self.tableView.allowsSelectionDuringEditing = false
     }
+    
+    private func setupImagePickerController(type: UIImagePickerControllerSourceType){
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.sourceType = type
+        imagePickerController.delegate = self
+        present(imagePickerController, animated: true)
+    }
+    
+    private func updateFields() {
+        heritageIdTextField.text = heritageId
+        heritageNameTextField.text = heritageName
+    }
+    
+    
+    
+//    // use this in the main table view or in viewmodel
+//    private func loadImage(with pathAbsoluteString: String){
+//        let url = URL(string: pathAbsoluteString)
+//        DispatchQueue.global().async {
+//            let imageData: Data? = try? Data(contentsOf: url!)
+//            DispatchQueue.main.async {
+//                self.heritageImageView.image = UIImage(data: imageData!)
+//            }
+//
+//        }
+//    }
     
     
 }

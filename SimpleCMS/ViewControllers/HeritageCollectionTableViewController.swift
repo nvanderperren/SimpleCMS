@@ -10,7 +10,7 @@ import UIKit
 
 class HeritageCollectionTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UITextFieldDelegate {
     
-    // MARK: - Properties
+    // MARK: - Properties and outlets
     var heritageObjects = [HeritageViewModel]()
     var currentHeritageObjects : [HeritageViewModel] = []
     private var seeder = Seeder()
@@ -20,7 +20,7 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
     var categories: [String] = []
     private var indexPathToEdit: IndexPath!
 
-    // MARK: - ViewController method
+    // MARK: - ViewController methods
     override func viewDidLoad() {
         super.viewDidLoad()
         heritageObjects = seeder.heritageObjects.sorted{$0.id < $1.id  }
@@ -29,7 +29,9 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
         setupSearchBar()
     }
     
-    // MARK: - Navigation - Unwind Segues
+    // MARK: - Navigation
+    
+    // MARK: Unwind Segues
     @IBAction func unwindFromFindToHeritageCollection(_ segue: UIStoryboardSegue){
         switch (segue.identifier) {
         case "did add find":
@@ -82,6 +84,36 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
         }
     }
     
+    // MARK: Segue to other viewcontrollers
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch(segue.identifier){
+        case "Show artefact":
+            let destinationController = segue.destination as! ArtefactDetailViewController
+            let selection = heritageCollectionTableView.indexPathForSelectedRow!
+            destinationController.artefact = heritageObjects[selection.row] as? ArtefactViewModel
+            heritageCollectionTableView.deselectRow(at: selection, animated: true)
+        case "Show find":
+            let destinationController = segue.destination as! FindDetailViewController
+            let selection = heritageCollectionTableView.indexPathForSelectedRow!
+            destinationController.find = heritageObjects[selection.row] as? FindViewModel
+            heritageCollectionTableView.deselectRow(at: selection, animated: true)
+        case "Show monument":
+            let destinationController = segue.destination as! MonumentDetailViewController
+            let selection = heritageCollectionTableView.indexPathForSelectedRow!
+            destinationController.monument = heritageObjects[selection.row] as? MonumentViewModel
+            heritageCollectionTableView.deselectRow(at: selection, animated: true)
+        case "Show publication":
+            let destinationController = segue.destination as! PublicationDetailViewController
+            let selection = heritageCollectionTableView.indexPathForSelectedRow!
+            destinationController.publication = heritageObjects[selection.row] as? PublicationViewModel
+            heritageCollectionTableView.deselectRow(at: selection, animated: true)
+        case "add item":
+            print("item will be added")
+        default:
+            print("Segue does not exist")
+        }
+    }
+    
 
     // MARK: - Table view data source
 
@@ -107,6 +139,8 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
         cell.objectImageView?.image = heritageObjects[indexPath.row].picture ?? UIImage(named: "defaultPhoto")
         return cell
     }
+    
+    // MARK: - TableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         indexPathToEdit = indexPath
@@ -189,36 +223,6 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
         searchBar.showsScopeBar = false
         searchBar.showsCancelButton = false
         searchBar.resignFirstResponder()
-    }
-    
-    // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch(segue.identifier){
-        case "Show artefact":
-            let destinationController = segue.destination as! ArtefactDetailViewController
-            let selection = heritageCollectionTableView.indexPathForSelectedRow!
-            destinationController.artefact = heritageObjects[selection.row] as? ArtefactViewModel
-            heritageCollectionTableView.deselectRow(at: selection, animated: true)
-        case "Show find":
-            let destinationController = segue.destination as! FindDetailViewController
-            let selection = heritageCollectionTableView.indexPathForSelectedRow!
-            destinationController.find = heritageObjects[selection.row] as? FindViewModel
-            heritageCollectionTableView.deselectRow(at: selection, animated: true)
-        case "Show monument":
-            let destinationController = segue.destination as! MonumentDetailViewController
-            let selection = heritageCollectionTableView.indexPathForSelectedRow!
-            destinationController.monument = heritageObjects[selection.row] as? MonumentViewModel
-            heritageCollectionTableView.deselectRow(at: selection, animated: true)
-        case "Show publication":
-            let destinationController = segue.destination as! PublicationDetailViewController
-            let selection = heritageCollectionTableView.indexPathForSelectedRow!
-            destinationController.publication = heritageObjects[selection.row] as? PublicationViewModel
-            heritageCollectionTableView.deselectRow(at: selection, animated: true)
-        case "add item":
-            print("item will be added")
-        default:
-            print("Segue does not exist")
-        }
     }
 
     // MARK: - Private methods

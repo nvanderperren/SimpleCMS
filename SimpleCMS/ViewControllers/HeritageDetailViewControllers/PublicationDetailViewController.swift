@@ -10,7 +10,7 @@ import UIKit
 
 class PublicationDetailViewController: HeritageDetailViewController {
     
-    // MARK: Properties
+    // MARK: - Properties and outlets
     
     var publication: PublicationViewModel?
     
@@ -30,7 +30,8 @@ class PublicationDetailViewController: HeritageDetailViewController {
         return [heritageIdTextField, heritageNameTextField, authorTextField, acquisitionMethodTextField, acquisitionSourceTextField, acquisitionDateTextField, rightsLicenseTextField, creditLineTextField]
     }
     
-    // MARK: ViewController methods
+    // MARK: - ViewController methods
+
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Publication showing")
@@ -41,6 +42,8 @@ class PublicationDetailViewController: HeritageDetailViewController {
             setupPublicationModel(publication)
         }
     }
+    
+    // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
@@ -74,11 +77,13 @@ class PublicationDetailViewController: HeritageDetailViewController {
         
     }
     
+    // MARK: - TextFieldDelegate methods
     
-    // MARK: TextFieldDelegate
     func textFieldDidEndEditing(_ textField: UITextField) {
         updateSaveButtonState(with: requiredTextFields)
     }
+    
+    // MARK: - Private methods
     
     private func setupPublicationModel(_ publication: PublicationViewModel){
         heritageIdTextField.text = publication.id

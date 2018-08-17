@@ -10,6 +10,8 @@ import UIKit
 
 class AddHeritageObjectViewController: UIViewController, UITextFieldDelegate {
     
+    // MARK: - Properties and outlets
+    
     @IBOutlet weak var idHeritageTextField: UITextField!
     @IBOutlet weak var nameHeritageTextField: UITextField!
     @IBOutlet weak var typeHeritageSegmentControl: UISegmentedControl!
@@ -28,27 +30,29 @@ class AddHeritageObjectViewController: UIViewController, UITextFieldDelegate {
         return objectTypes[typeHeritageSegmentControl.selectedSegmentIndex]
     }
     
-    
-    
+    // MARK: - ViewController methods
     override func viewDidLoad() {
         super.viewDidLoad()
         idHeritageTextField.delegate = self
         nameHeritageTextField.delegate = self
         registrationButton.layer.cornerRadius = 5
         updateRegistrationButton()
-        
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let viewController = segue.destination as? HeritageDetailViewController {
+            viewController.heritageId = objectId
+            viewController.heritageName = objectName
+            viewController.navigationItem.title = "Voeg \(objectType.rawValue) toe"
+        }
     }
     
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
     
+    // MARK: - TextFieldDelegate methods
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         updateRegistrationButton()
         textField.resignFirstResponder()
@@ -60,17 +64,7 @@ class AddHeritageObjectViewController: UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if let viewController = segue.destination as? HeritageDetailViewController {
-                viewController.heritageId = objectId
-                viewController.heritageName = objectName
-                viewController.navigationItem.title = "Voeg \(objectType.rawValue) toe"
-            
-            
-        }
-    }
-    
-    
+    // MARK: - Private methods
     
     private func updateRegistrationButton() {
         objectId = idHeritageTextField?.text
