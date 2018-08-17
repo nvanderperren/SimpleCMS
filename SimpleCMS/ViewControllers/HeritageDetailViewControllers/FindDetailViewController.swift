@@ -51,7 +51,7 @@ class FindDetailViewController: HeritageDetailViewController {
         print(segue.identifier!)
         switch(segue.identifier) {
         case "did add find"?:
-            find = FindViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, objectType: heritageTypeTextField.text!, pictureURL: pictureURL, findDate: findDateTextField.text, findPlaceType: findPlaceTypeTextField.text, findPlace: findLocationTextField.text, inscription: findInscriptionTextField.text)
+            updateViewModel()
             guard let find = find else {
                 fatalError("find is nil")
             }
@@ -59,6 +59,7 @@ class FindDetailViewController: HeritageDetailViewController {
             DatabaseService.service.create(find)
             print("item saved")
         case "did edit find"?:
+            updateViewModel()
             guard let find = find else {
                 fatalError("find is nil")
             }
@@ -103,5 +104,26 @@ class FindDetailViewController: HeritageDetailViewController {
         findTechniqueTextField.text = find.technique
         findInscriptionTextField.text = find.inscription
         self.heritageId = find.id
+    }
+    
+    private func updateViewModel() {
+        if let find = find {
+            find.id = heritageId!
+            find.name = heritageNameTextField.text!
+            find.objectType = heritageTypeTextField.text!
+            find.acquisitionMethod = acquisitionMethodTextField.text
+            find.acquisitionSource = acquisitionSourceTextField.text
+            find.acquisitionDate = acquisitionDateTextField.text
+            find.findDate = findDateTextField.text
+            find.findPlaceType = findPlaceTypeTextField.text
+            find.findPlace = findLocationTextField.text
+            find.description = heritageDescriptionTextField.text
+            find.material = heritageMaterialTextField.text
+            find.technique = findTechniqueTextField.text
+            find.inscription = findInscriptionTextField.text
+            find.pictureURL = pictureURL
+        } else {
+            find = FindViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, objectType: heritageTypeTextField.text!, pictureURL: pictureURL, findDate: findDateTextField.text, findPlaceType: findPlaceTypeTextField.text, findPlace: findLocationTextField.text, inscription: findInscriptionTextField.text)
+        }
     }
 }

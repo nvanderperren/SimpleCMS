@@ -2173,7 +2173,7 @@
                     <navigationItem key="navigationItem" id="r4K-z1-ChD">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="qjb-4s-hru">
                             <connections>
-                                <action selector="save:" destination="SRi-xV-LCj" id="Fka-hD-4yH"/>
+                                <action selector="save:" destination="SRi-xV-LCj" id="BAD-kT-Zx2"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -2193,8 +2193,8 @@
                         <outlet property="monumentStyleTextField" destination="utX-yu-K5R" id="B4D-pF-bb8"/>
                         <outlet property="rightsLicenseTextField" destination="Itb-FW-Exg" id="lDh-Ca-Ily"/>
                         <outlet property="saveButton" destination="qjb-4s-hru" id="iwS-ES-EUy"/>
-                        <segue destination="jmz-Cq-6LJ" kind="unwind" identifier="did add monument" unwindAction="unwindFromMonumentToHeritageCollectionWithSender:" id="1mL-Eb-3Gg"/>
-                        <segue destination="jmz-Cq-6LJ" kind="unwind" identifier="did edit monument" unwindAction="unwindFromMonumentToHeritageCollectionWithSender:" id="bZM-Tq-UH0"/>
+                        <segue destination="jmz-Cq-6LJ" kind="unwind" identifier="did add monument" unwindAction="unwindFromMonumentToHeritageCollection:" id="rn8-rK-nFc"/>
+                        <segue destination="jmz-Cq-6LJ" kind="unwind" identifier="did edit monument" unwindAction="unwindFromMonumentToHeritageCollection:" id="lxb-a6-Yrt"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DF8-Vd-iND" userLabel="First Responder" sceneMemberID="firstResponder"/>

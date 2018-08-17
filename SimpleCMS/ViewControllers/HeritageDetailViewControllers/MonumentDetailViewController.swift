@@ -49,7 +49,7 @@ class MonumentDetailViewController: HeritageDetailViewController {
         print(segue.identifier!)
         switch(segue.identifier) {
         case "did add monument"?:
-            monument = MonumentViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, monumentType: heritageTypeTextField.text!, pictureURL: pictureURL, protection: monumentIsProtectedSwitch.isOn, municipality: monumentMunicipalityTextField.text!, street: monumentStreetNameTextField.text!, houseNumber: nil, postalCode: nil, license: rightsLicenseTextField.text!, creditLine: creditLineTextField.text!, creator: monumentCreatorTextField.text, period: monumentCreationPeriodTextField.text, style: monumentStyleTextField.text)
+            updateViewModel()
             guard let monument = monument else {
                 fatalError("monument is nil")
             }
@@ -57,6 +57,7 @@ class MonumentDetailViewController: HeritageDetailViewController {
             DatabaseService.service.create(monument)
             print("item saved")
         case "did edit monument"?:
+            updateViewModel()
             guard let monument = monument else {
                 fatalError("monument is nil")
             }
@@ -105,6 +106,28 @@ class MonumentDetailViewController: HeritageDetailViewController {
         heritageMaterialTextField.text = monument.material
         monumentStyleTextField.text = monument.style
         self.heritageId = monument.id
+    }
+    
+    private func updateViewModel() {
+        if let monument = monument {
+            monument.id = heritageId!
+            monument.name = heritageNameTextField.text!
+            monument.monumentType = heritageTypeTextField.text!
+            monument.isProtected = monumentIsProtectedSwitch.isOn
+            monument.rightsLicense = rightsLicenseTextField.text!
+            monument.creditLine = creditLineTextField.text!
+            monument.monumentLocationMunicipality = monumentMunicipalityTextField.text!
+            monument.creator = monumentCreatorTextField.text
+            monument.period = monumentCreationPeriodTextField.text
+            monument.description = heritageDescriptionTextField.text
+            monument.material = heritageMaterialTextField.text
+            monument.style = monumentStyleTextField.text
+            monument.pictureURL = pictureURL
+        }
+        else {
+            monument = MonumentViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, monumentType: heritageTypeTextField.text!, pictureURL: pictureURL, protection: monumentIsProtectedSwitch.isOn, municipality: monumentMunicipalityTextField.text!, street: monumentStreetNameTextField.text!, houseNumber: nil, postalCode: nil, license: rightsLicenseTextField.text!, creditLine: creditLineTextField.text!, creator: monumentCreatorTextField.text, period: monumentCreationPeriodTextField.text, style: monumentStyleTextField.text)
+            
+        }
     }
         
 

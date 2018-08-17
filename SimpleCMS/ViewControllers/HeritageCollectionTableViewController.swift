@@ -67,7 +67,7 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
             if let sourceViewController = segue.source as? MonumentDetailViewController, let monumentObject = sourceViewController.monument {
                 addNewRowToTableView(with: monumentObject)
             }
-        case "did edit artefact":
+        case "did edit monument":
             heritageCollectionTableView.reloadRows(at: [indexPathToEdit], with: .automatic)
         default:
             fatalError("Something went wrong!")
