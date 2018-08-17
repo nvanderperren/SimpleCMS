@@ -11,9 +11,8 @@ import UIKit
 class HeritageCollectionTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UITextFieldDelegate {
     
     // MARK: - Properties and outlets
-    var heritageObjects = [HeritageViewModel]()
+    var heritageObjects = Seeder.service.getHeritageObjects()
     var currentHeritageObjects : [HeritageViewModel] = []
-    private var seeder = Seeder()
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var heritageCollectionTableView: UITableView!
     var isSearching = false
@@ -23,7 +22,6 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
     // MARK: - ViewController methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        heritageObjects = seeder.heritageObjects.sorted{$0.id < $1.id  }
         currentHeritageObjects = heritageObjects
         categories = returnSortedCategoriesOfHeritageObjects()
         setupSearchBar()
@@ -40,7 +38,6 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
                 addNewRowToTableView(with: findObject)
             }
         case "did edit find":
-            heritageObjects = seeder.heritageObjects
             currentHeritageObjects = heritageObjects
             heritageCollectionTableView.reloadRows(at: [indexPathToEdit], with: .automatic)
         default:

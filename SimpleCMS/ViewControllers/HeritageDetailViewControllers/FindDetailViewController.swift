@@ -15,13 +15,17 @@ class FindDetailViewController: HeritageDetailViewController {
     var find: FindViewModel?
     
     @IBOutlet weak var findDateTextField: UITextField!
-    @IBOutlet weak var findPlaceTypeTextField: UITextField!
     @IBOutlet weak var findLocationTextField: UITextField!
     @IBOutlet weak var findTechniqueTextField: UITextField!
     @IBOutlet weak var findInscriptionTextField: UITextField!
+    @IBOutlet weak var findPlaceTypePickerField: UIPickerView!
+    private var findPlaceTypes = Seeder.service.getHeritagePlaceTypes()
+    private var findPlaceType: String?
+    
+    
     
     private var allTextFields: [UITextField] {
-        return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionMethodTextField, acquisitionSourceTextField, acquisitionDateTextField, findDateTextField, findLocationTextField, findPlaceTypeTextField,heritageDescriptionTextField, heritageMaterialTextField, findTechniqueTextField, findInscriptionTextField]
+        return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionMethodTextField, acquisitionSourceTextField, acquisitionDateTextField, findDateTextField, findLocationTextField ,heritageDescriptionTextField, heritageMaterialTextField, findTechniqueTextField, findInscriptionTextField]
     }
     
     private var requiredTextFields: [UITextField] {
@@ -38,10 +42,10 @@ class FindDetailViewController: HeritageDetailViewController {
         updateSaveButtonState(with: requiredTextFields)
         if let find = find {
             setupFindModel(find)
+        } else {
+            findPlaceTypePickerField.selectRow(0, inComponent: 0, animated: false)
         }
         
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     // MARK: - Navigation
@@ -72,6 +76,7 @@ class FindDetailViewController: HeritageDetailViewController {
     }
     
     @IBAction func save(_ sender: UIBarButtonItem) {
+        print("save button clicked")
         if find == nil {
             performSegue(withIdentifier: "did add find", sender: FindDetailViewController())
         } else {
@@ -79,6 +84,8 @@ class FindDetailViewController: HeritageDetailViewController {
         }
         
     }
+    
+    
     
     // MARK: - TextFieldDelegate methods
     
@@ -97,7 +104,8 @@ class FindDetailViewController: HeritageDetailViewController {
         acquisitionSourceTextField.text = find.acquisitionSource
         acquisitionDateTextField.text = find.acquisitionDate
         findDateTextField.text = find.findDate
-        findPlaceTypeTextField.text = find.findPlaceType
+        let findplaceStatus = findPlaceTypes.index(of: find.findPlaceType ?? "Kies vondstplaatstype")
+        findPlaceTypePickerField.selectRow(findplaceStatus!, inComponent: 0, animated: true)
         findLocationTextField.text = find.findPlace
         heritageDescriptionTextField.text = find.description
         heritageMaterialTextField.text = find.material
@@ -107,6 +115,7 @@ class FindDetailViewController: HeritageDetailViewController {
     }
     
     private func updateViewModel() {
+        updateFindPlaceType()
         if let find = find {
             find.id = heritageId!
             find.name = heritageNameTextField.text!
@@ -115,7 +124,7 @@ class FindDetailViewController: HeritageDetailViewController {
             find.acquisitionSource = acquisitionSourceTextField.text
             find.acquisitionDate = acquisitionDateTextField.text
             find.findDate = findDateTextField.text
-            find.findPlaceType = findPlaceTypeTextField.text
+            find.findPlaceType = findPlaceType
             find.findPlace = findLocationTextField.text
             find.description = heritageDescriptionTextField.text
             find.material = heritageMaterialTextField.text
@@ -123,7 +132,33 @@ class FindDetailViewController: HeritageDetailViewController {
             find.inscription = findInscriptionTextField.text
             find.pictureURL = pictureURL
         } else {
-            find = FindViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, objectType: heritageTypeTextField.text!, pictureURL: pictureURL, findDate: findDateTextField.text, findPlaceType: findPlaceTypeTextField.text, findPlace: findLocationTextField.text, inscription: findInscriptionTextField.text)
+            find = FindViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, objectType: heritageTypeTextField.text!, pictureURL: pictureURL, findDate: findDateTextField.text, findPlaceType: findPlaceType, findPlace: findLocationTextField.text, inscription: findInscriptionTextField.text)
         }
     }
+    
+    private func updateFindPlaceType() {
+        findPlaceType = findPlaceTypes[findPlaceTypePickerField.selectedRow(inComponent: 0)]
+        if findPlaceType == "Kies type" {
+            findPlaceType = nil
+        }
+    }
+    
+    
+}
+
+extension FindDetailViewController: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return findPlaceTypes.count
+    }
+}
+
+extension FindDetailViewController: UIPickerViewDelegate {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return findPlaceTypes[row]
+    }
+    
 }

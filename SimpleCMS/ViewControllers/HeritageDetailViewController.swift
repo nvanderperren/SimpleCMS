@@ -121,10 +121,14 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
         let fileManager = FileManager.default
         let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
         let imagePath = documentsPath?.appendingPathComponent("\(heritageId!).jpg")
-        try! UIImageJPEGRepresentation(image, 1.0)?.write(to: imagePath!)
-        let path = imagePath!.absoluteString
-        print(path)
-        pictureURL = path
+        do {
+            try UIImageJPEGRepresentation(image, 1.0)?.write(to: imagePath!)
+            let path = imagePath!.absoluteString
+            print(path)
+            pictureURL = path
+        } catch {
+            print(error)
+        }
         
     }
     
