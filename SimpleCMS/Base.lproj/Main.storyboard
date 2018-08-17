@@ -110,7 +110,7 @@
                         <barButtonItem key="leftBarButtonItem" systemItem="action" id="9un-Qd-ZpK"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="CE7-l7-gLX">
                             <connections>
-                                <segue destination="PGv-bR-e54" kind="presentation" id="Zzm-D9-8fM"/>
+                                <segue destination="PGv-bR-e54" kind="presentation" identifier="add item" id="Zzm-D9-8fM"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -253,7 +253,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GWn-zN-NTv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3016" y="67"/>
+            <point key="canvasLocation" x="3010" y="15"/>
         </scene>
         <!--Find Detail View Controller-->
         <scene sceneID="SEt-2Z-rQ3">
@@ -885,7 +885,7 @@
                     <navigationItem key="navigationItem" id="9H6-Dd-Frp">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="k1U-ii-SpX">
                             <connections>
-                                <segue destination="YpS-6u-lef" kind="unwind" unwindAction="unwindFromFindToHeritageCollectionWithSender:" id="Bfi-3w-msR"/>
+                                <action selector="save:" destination="h0n-5C-3Cn" id="Xp4-ZU-mUA"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -905,12 +905,14 @@
                         <outlet property="heritageNameTextField" destination="ClR-KS-Zmw" id="Oi7-d2-sTT"/>
                         <outlet property="heritageTypeTextField" destination="2ec-kb-HWS" id="jSN-Rb-7UX"/>
                         <outlet property="saveButton" destination="k1U-ii-SpX" id="OPL-CE-KpD"/>
+                        <segue destination="YpS-6u-lef" kind="unwind" identifier="did add find" unwindAction="unwindFromFindToHeritageCollectionWithSender:" id="mDq-nj-Uiq"/>
+                        <segue destination="YpS-6u-lef" kind="unwind" identifier="did edit find" unwindAction="unwindFromFindToHeritageCollectionWithSender:" id="fHy-OC-Ngc"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rqj-P5-vUZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="YpS-6u-lef" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4483" y="-650"/>
+            <point key="canvasLocation" x="2568" y="-915"/>
         </scene>
         <!--Artefact Detail View Controller-->
         <scene sceneID="Nar-Yp-d9t">
@@ -1612,7 +1614,7 @@
                     <navigationItem key="navigationItem" id="5X2-kj-Vo3">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="Mv1-MN-svp">
                             <connections>
-                                <segue destination="tr3-Ug-RlW" kind="unwind" unwindAction="unwindFromArtefactToHeritageCollectionWithSender:" id="sTS-vs-CJ6"/>
+                                <action selector="save:" destination="955-W2-4yZ" id="Qyd-rw-OqH"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1635,12 +1637,14 @@
                         <outlet property="heritageTypeTextField" destination="Syv-nG-pzb" id="GP4-sq-KXZ"/>
                         <outlet property="rightsLicenseTextField" destination="r8G-7a-85z" id="Dtv-ht-0Yt"/>
                         <outlet property="saveButton" destination="Mv1-MN-svp" id="KfF-Qw-8Q3"/>
+                        <segue destination="tr3-Ug-RlW" kind="unwind" identifier="did edit artefact" unwindAction="unwindFromArtefactToHeritageCollection:" id="vbo-mW-DQe"/>
+                        <segue destination="tr3-Ug-RlW" kind="unwind" identifier="did add artefact" unwindAction="unwindFromArtefactToHeritageCollection:" id="xSP-yp-DjJ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5ME-v8-ep6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="tr3-Ug-RlW" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2922" y="-944"/>
+            <point key="canvasLocation" x="1303" y="-915"/>
         </scene>
         <!--Monument Detail View Controller-->
         <scene sceneID="XVm-nL-Bgo">
@@ -2169,7 +2173,7 @@
                     <navigationItem key="navigationItem" id="r4K-z1-ChD">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="qjb-4s-hru">
                             <connections>
-                                <segue destination="jmz-Cq-6LJ" kind="unwind" unwindAction="unwindFromMonumentToHeritageCollectionWithSender:" id="D97-f1-caA"/>
+                                <action selector="save:" destination="SRi-xV-LCj" id="Fka-hD-4yH"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -2189,12 +2193,14 @@
                         <outlet property="monumentStyleTextField" destination="utX-yu-K5R" id="B4D-pF-bb8"/>
                         <outlet property="rightsLicenseTextField" destination="Itb-FW-Exg" id="lDh-Ca-Ily"/>
                         <outlet property="saveButton" destination="qjb-4s-hru" id="iwS-ES-EUy"/>
+                        <segue destination="jmz-Cq-6LJ" kind="unwind" identifier="did add monument" unwindAction="unwindFromMonumentToHeritageCollectionWithSender:" id="1mL-Eb-3Gg"/>
+                        <segue destination="jmz-Cq-6LJ" kind="unwind" identifier="did edit monument" unwindAction="unwindFromMonumentToHeritageCollectionWithSender:" id="bZM-Tq-UH0"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DF8-Vd-iND" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="jmz-Cq-6LJ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3367" y="1074"/>
+            <point key="canvasLocation" x="2180" y="1106"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="NX5-9a-tSc">
@@ -2290,7 +2296,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tN8-ex-bs9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7204" y="-5"/>
+            <point key="canvasLocation" x="4662" y="15"/>
         </scene>
         <!--Initial Navigation-->
         <scene sceneID="yqx-wd-u7T">
@@ -2870,7 +2876,7 @@
                     <navigationItem key="navigationItem" id="ik3-iH-wxh">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="WuD-az-CO8">
                             <connections>
-                                <segue destination="tc0-h4-TIt" kind="unwind" unwindAction="unwindFromPublicationToHeritageCollectionWithSender:" id="9nN-73-tgT"/>
+                                <action selector="save:" destination="tke-Og-C3Q" id="jcX-jG-aba"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -2891,12 +2897,14 @@
                         <outlet property="publisherTextField" destination="xfR-cl-mTe" id="AYl-yf-2y0"/>
                         <outlet property="rightsLicenseTextField" destination="kBw-j4-m8C" id="hS3-bz-ypr"/>
                         <outlet property="saveButton" destination="WuD-az-CO8" id="4cF-Vv-0cG"/>
+                        <segue destination="tc0-h4-TIt" kind="unwind" identifier="did add publication" unwindAction="unwindFromPublicationToHeritageCollectionWithSender:" id="3Ss-oW-mbr"/>
+                        <segue destination="tc0-h4-TIt" kind="unwind" identifier="did edit publication" unwindAction="unwindFromPublicationToHeritageCollectionWithSender:" id="XBk-k8-fvr"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D75-He-9f7" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="tc0-h4-TIt" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2049" y="1047"/>
+            <point key="canvasLocation" x="1049" y="1106"/>
         </scene>
         <!--Navigation registration form-->
         <scene sceneID="ePE-hU-Gj3">
@@ -2914,7 +2922,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Pa-te-Wq9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2128" y="15"/>
+            <point key="canvasLocation" x="2051" y="15"/>
         </scene>
     </scenes>
     <resources>

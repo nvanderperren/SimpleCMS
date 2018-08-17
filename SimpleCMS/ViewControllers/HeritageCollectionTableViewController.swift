@@ -18,38 +18,67 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
     @IBOutlet weak var heritageCollectionTableView: UITableView!
     var isSearching = false
     var categories: [String] = []
+    private var indexPathToEdit: IndexPath!
 
     // MARK: - ViewController method
     override func viewDidLoad() {
         super.viewDidLoad()
         heritageObjects = seeder.heritageObjects.sorted{$0.id < $1.id  }
-        //currentHeritageObjects = heritageObjects
+        currentHeritageObjects = heritageObjects
         categories = returnSortedCategoriesOfHeritageObjects()
         setupSearchBar()
     }
     
     // MARK: - Navigation - Unwind Segues
-    @IBAction func unwindFromFindToHeritageCollection(sender: UIStoryboardSegue){
-        if let sourceViewController = sender.source as? FindDetailViewController, let findObject = sourceViewController.find {
-           addNewRowToTableView(with: findObject)
+    @IBAction func unwindFromFindToHeritageCollection(_ segue: UIStoryboardSegue){
+        switch (segue.identifier) {
+        case "did add find":
+            if let sourceViewController = segue.source as? FindDetailViewController, let findObject = sourceViewController.find {
+                addNewRowToTableView(with: findObject)
+            }
+        case "did edit find":
+            heritageCollectionTableView.reloadRows(at: [indexPathToEdit], with: .automatic)
+        default:
+            fatalError("Something went wrong!")
         }
     }
     
-    @IBAction func unwindFromArtefactToHeritageCollection(sender: UIStoryboardSegue){
-        if let sourceViewController = sender.source as? ArtefactDetailViewController, let artefactObject = sourceViewController.artefact {
-            addNewRowToTableView(with: artefactObject)
+    @IBAction func unwindFromArtefactToHeritageCollection(_ segue: UIStoryboardSegue){
+        switch (segue.identifier) {
+        case "did add artefact":
+                if let sourceViewController = segue.source as? ArtefactDetailViewController, let artefactObject = sourceViewController.artefact {
+                    addNewRowToTableView(with: artefactObject)
+            }
+        case "did edit artefact":
+            heritageCollectionTableView.reloadRows(at: [indexPathToEdit], with: .automatic)
+        default:
+            fatalError("Something went wrong!")
         }
     }
     
-    @IBAction func unwindFromMonumentToHeritageCollection(sender: UIStoryboardSegue){
-        if let sourceViewController = sender.source as? MonumentDetailViewController, let monumentObject = sourceViewController.monument {
-            addNewRowToTableView(with: monumentObject)
+    @IBAction func unwindFromMonumentToHeritageCollection(_ segue: UIStoryboardSegue){
+        switch (segue.identifier) {
+        case "did add monument":
+            if let sourceViewController = segue.source as? MonumentDetailViewController, let monumentObject = sourceViewController.monument {
+                addNewRowToTableView(with: monumentObject)
+            }
+        case "did edit artefact":
+            heritageCollectionTableView.reloadRows(at: [indexPathToEdit], with: .automatic)
+        default:
+            fatalError("Something went wrong!")
         }
     }
     
-    @IBAction func unwindFromPublicationToHeritageCollection(sender: UIStoryboardSegue){
-        if let sourceViewController = sender.source as? PublicationDetailViewController, let publicationObject = sourceViewController.publication {
-            addNewRowToTableView(with: publicationObject)
+    @IBAction func unwindFromPublicationToHeritageCollection(_ segue: UIStoryboardSegue){
+        switch (segue.identifier) {
+        case "did add publication":
+            if let sourceViewController = segue.source as? PublicationDetailViewController, let publicationObject = sourceViewController.publication {
+                addNewRowToTableView(with: publicationObject)
+            }
+        case "did edit publication":
+            heritageCollectionTableView.reloadRows(at: [indexPathToEdit], with: .automatic)
+        default:
+            fatalError("Something went wrong!")
         }
     }
     
@@ -80,6 +109,7 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        indexPathToEdit = indexPath
         guard let cell = heritageCollectionTableView.cellForRow(at: indexPath) as? HeritageObjectTableViewCell else {
             fatalError("Wrong TableViewCell")
         }
@@ -93,7 +123,7 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
         case HeritageObjectCategory.publication.rawValue:
             performSegue(withIdentifier: "Show publication", sender: HeritageCollectionTableViewController())
         default:
-            print("Problemen!")
+            fatalError("Problemen!")
         }
     }
     
@@ -184,6 +214,8 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
             let selection = heritageCollectionTableView.indexPathForSelectedRow!
             destinationController.publication = heritageObjects[selection.row] as? PublicationViewModel
             heritageCollectionTableView.deselectRow(at: selection, animated: true)
+        case "add item":
+            print("item will be added")
         default:
             print("Segue does not exist")
         }
@@ -212,9 +244,9 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
     }
     
     private func addNewRowToTableView(with record: HeritageViewModel){
-        DatabaseService.service.create(record)
-        let newIndexPath = IndexPath(row: heritageObjects.count-1, section: 0)
+        let newIndexPath = IndexPath(row: heritageObjects.count, section: 0)
         heritageObjects.append(record)
+        currentHeritageObjects = heritageObjects
         heritageCollectionTableView.insertRows(at: [newIndexPath], with: .automatic)
         for object in heritageObjects {
             print(object.name)

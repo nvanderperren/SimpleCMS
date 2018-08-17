@@ -44,14 +44,34 @@ class PublicationDetailViewController: HeritageDetailViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        guard let button = sender as? UIBarButtonItem, button === saveButton else {
-            print("er ging iets fout")
-            return
-        }
-        publication = PublicationViewModel(id: heritageIdTextField.text!, author: authorTextField.text!, title: heritageNameTextField.text!, pictureURL: pictureURL, acquisitionMethod: acquisitionMethodTextField.text!, acquisitionSource: acquisitionSourceTextField.text!, acquisitionDate: acquisitionDateTextField.text!, rightsLicense: rightsLicenseTextField.text!, creditLine: creditLineTextField.text!, publisher: publisherTextField.text, publicationDate: publicationDateTextField.text, publicationPlace: publicationPlaceTextField.text, numberOfPages: numberOfPagesTextField.text, edition: editionTextField.text)
-        if let publication = publication {
+        print(segue.identifier!)
+        switch(segue.identifier) {
+        case "did add publication":
+            publication = PublicationViewModel(id: heritageIdTextField.text!, author: authorTextField.text!, title: heritageNameTextField.text!, pictureURL: pictureURL, acquisitionMethod: acquisitionMethodTextField.text!, acquisitionSource: acquisitionSourceTextField.text!, acquisitionDate: acquisitionDateTextField.text!, rightsLicense: rightsLicenseTextField.text!, creditLine: creditLineTextField.text!, publisher: publisherTextField.text, publicationDate: publicationDateTextField.text, publicationPlace: publicationPlaceTextField.text, numberOfPages: numberOfPagesTextField.text, edition: editionTextField.text)
+            guard let publication = publication else {
+                fatalError("publication is nil")
+            }
             publication.primaryKey = UUID().uuidString
+            DatabaseService.service.create(publication)
+            print("item saved")
+        case "did edit publication":
+            guard let publication = publication else {
+                fatalError("publication is nil")
+            }
+            DatabaseService.service.update(publication)
+        default:
+            fatalError("unknown segue")
         }
+        
+    }
+    
+    @IBAction func save(_ sender: UIBarButtonItem) {
+        if publication == nil {
+            performSegue(withIdentifier: "did add publication", sender: PublicationDetailViewController())
+        } else {
+            performSegue(withIdentifier: "did edit publication", sender: PublicationDetailViewController())
+        }
+        
     }
     
     

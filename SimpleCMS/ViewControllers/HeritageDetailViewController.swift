@@ -9,7 +9,7 @@
 import UIKit
 
 class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    
+        
     var heritageId: String?
     var heritageName: String?
     var pictureURL: String?

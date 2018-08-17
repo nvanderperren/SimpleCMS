@@ -18,8 +18,6 @@ class ArtefactDetailViewController: HeritageDetailViewController {
     @IBOutlet weak var artefactCreationPeriodTextField: UITextField!
     @IBOutlet weak var artefactTechniqueTextField: UITextField!
     
-    let backBar = UIBarButtonItem()
-    
     var requiredFields: [UITextField] {
         return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionDateTextField, acquisitionSourceTextField, acquisitionMethodTextField, rightsLicenseTextField, creditLineTextField]
     }
@@ -44,20 +42,42 @@ class ArtefactDetailViewController: HeritageDetailViewController {
         
     }
     
+    // MARK: - Navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        guard let button = sender as? UIBarButtonItem, button === saveButton else {
-            print("er ging iets fout")
-            return
-        }
-        artefact = ArtefactViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, artefactType: heritageTypeTextField.text!, pictureURL: pictureURL, acquisitionSource: acquisitionSourceTextField.text!, acquisitionMethod: acquisitionMethodTextField.text!, acquisitionDate: acquisitionDateTextField.text!, rightsLicense: rightsLicenseTextField.text!, creditLine: creditLineTextField.text!, creator: artefactCreatorTextField.text, creationPlace: artefactCreationPlaceTextField.text, creationDate: artefactCreationDateTextField.text, creationPeriod: artefactCreationPeriodTextField.text, material: heritageMaterialTextField.text, technique: artefactTechniqueTextField.text, description: heritageDescriptionTextField.text, size: nil)
-        if let artefact = artefact {
+        print(segue.identifier!)
+        switch(segue.identifier) {
+        case "did add artefact"?:
+            artefact = ArtefactViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, artefactType: heritageTypeTextField.text!, pictureURL: pictureURL, acquisitionSource: acquisitionSourceTextField.text!, acquisitionMethod: acquisitionMethodTextField.text!, acquisitionDate: acquisitionDateTextField.text!, rightsLicense: rightsLicenseTextField.text!, creditLine: creditLineTextField.text!, creator: artefactCreatorTextField.text, creationPlace: artefactCreationPlaceTextField.text, creationDate: artefactCreationDateTextField.text, creationPeriod: artefactCreationPeriodTextField.text, material: heritageMaterialTextField.text, technique: artefactTechniqueTextField.text, description: heritageDescriptionTextField.text, size: nil)
+            guard let artefact = artefact else {
+                fatalError("something went wrong, artefact is nil")
+            }
             artefact.primaryKey = UUID().uuidString
+            DatabaseService.service.create(artefact)
+            print("item saved")
+            print("\(artefact.creditLine!)")
+        case "did edit artefact"?:
+            guard let artefact = artefact else {
+                fatalError("Something went wrong, artefact is nil")
+            }
+            DatabaseService.service.update(artefact)
+        default:
+            fatalError("Unknown segue")
+            
         }
-        print("item saved")
-        print("\(artefact!.creditLine!)")
         
     }
+    
+    @IBAction func save(_ sender: UIBarButtonItem) {
+        if artefact == nil {
+            performSegue(withIdentifier: "did add artefact", sender: ArtefactDetailViewController())
+        } else {
+            performSegue(withIdentifier: "did edit artefact", sender: ArtefactDetailViewController())
+        }
+        
+    }
+    
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         updateSaveButtonState(with: requiredFields)

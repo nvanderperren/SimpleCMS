@@ -50,14 +50,34 @@ class MonumentDetailViewController: HeritageDetailViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        guard let button = sender as? UIBarButtonItem, button === saveButton else {
-            print("er ging iets fout")
-            return
-        }
-        monument = MonumentViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, monumentType: heritageTypeTextField.text!, pictureURL: pictureURL, protection: monumentIsProtectedSwitch.isOn, municipality: monumentMunicipalityTextField.text!, street: monumentStreetNameTextField.text!, houseNumber: nil, postalCode: nil, license: rightsLicenseTextField.text!, creditLine: creditLineTextField.text!, creator: monumentCreatorTextField.text, period: monumentCreationPeriodTextField.text, style: monumentStyleTextField.text)
-        if let monument = monument {
+        print(segue.identifier!)
+        switch(segue.identifier) {
+        case "did add monument"?:
+            monument = MonumentViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, monumentType: heritageTypeTextField.text!, pictureURL: pictureURL, protection: monumentIsProtectedSwitch.isOn, municipality: monumentMunicipalityTextField.text!, street: monumentStreetNameTextField.text!, houseNumber: nil, postalCode: nil, license: rightsLicenseTextField.text!, creditLine: creditLineTextField.text!, creator: monumentCreatorTextField.text, period: monumentCreationPeriodTextField.text, style: monumentStyleTextField.text)
+            guard let monument = monument else {
+                fatalError("monument is nil")
+            }
             monument.primaryKey = UUID().uuidString
+            DatabaseService.service.create(monument)
+            print("item saved")
+        case "did edit monument"?:
+            guard let monument = monument else {
+                fatalError("monument is nil")
+            }
+            DatabaseService.service.update(monument)
+        default:
+            fatalError("Unknown segue")
+            
         }
+    }
+    
+    @IBAction func save(_ sender: UIBarButtonItem) {
+        if monument == nil {
+            performSegue(withIdentifier: "did add monument", sender: MonumentDetailViewController())
+        } else {
+            performSegue(withIdentifier: "did edit monument", sender: MonumentDetailViewController())
+        }
+        
     }
     
    

@@ -32,15 +32,35 @@ class FindDetailViewController: HeritageDetailViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        guard let button = sender as? UIBarButtonItem, button === saveButton else {
-            print("er ging iets fout")
-            return
+        print(segue.identifier!)
+        switch(segue.identifier) {
+        case "did add find"?:
+            find = FindViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, objectType: heritageTypeTextField.text!, pictureURL: pictureURL, findDate: findDateTextField.text, findPlaceType: findPlaceTypeTextField.text, findPlace: findLocationTextField.text, inscription: findInscriptionTextField.text)
+            guard let find = find else {
+                fatalError("find is nil")
+            }
+            find.primaryKey = UUID().uuidString
+            DatabaseService.service.create(find)
+            print("item saved")
+        case "did edit find"?:
+            guard let find = find else {
+                fatalError("find is nil")
+            }
+            DatabaseService.service.update(find)
+        default:
+            fatalError("Unknown segue")
         }
         // controleer dit!
-        find = FindViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, objectType: heritageTypeTextField.text!, pictureURL: pictureURL, findDate: findDateTextField.text, findPlaceType: findPlaceTypeTextField.text, findPlace: findLocationTextField.text, inscription: findInscriptionTextField.text)
-        if let find = find {
-            find.primaryKey = UUID().uuidString
+        
+    }
+    
+    @IBAction func save(_ sender: UIBarButtonItem) {
+        if find == nil {
+            performSegue(withIdentifier: "did add find", sender: FindDetailViewController())
+        } else {
+            performSegue(withIdentifier: "did edit find", sender: FindDetailViewController())
         }
+        
     }
     
     
@@ -53,8 +73,6 @@ class FindDetailViewController: HeritageDetailViewController {
         updateSaveButtonState(with: requiredTextFields)
         if let find = find {
             setupFindModel(find)
-            backButton.title = "Back"
-            self.navigationItem.backBarButtonItem = backButton
         }
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
