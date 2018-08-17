@@ -133,8 +133,93 @@ struct Seeder {
         ]
     }
     
-    func getObjectTypes() -> [String] {
-        return []
+    func getObjectTypes() -> [String:[String]] {
+        return [
+            "Drukwerk": [
+                "Affiche",
+                "Kaart",
+                "Prent",
+                "Boek",
+                "Strip",
+                "Plan",
+                "Bidprent"
+            ],
+            "Kunstwerk": [
+                "Beeldhouwwerk",
+                "Schilderij",
+                "Tekening",
+                "Foto",
+                "Glasnegatief",
+                "Dia"
+            ],
+            "Keramiek": [
+                "Pot",
+                "Bord",
+                "Vaas",
+                "Vloertegel",
+                "Geveltegel",
+                "Tegeltableau"
+            ],
+            "Smeedwerk": [
+                "Sierraad",
+                "Troffee",
+                "Munt",
+                "Medaille",
+                "Zegel"
+            ],
+            "Textiel": [
+                "Kledingstuk",
+                "Kostuum",
+                "Vaandel"
+            ],
+            "Gereedschap": [
+                "Scheepsuitrusting",
+                "Meubilair",
+                "Speelgoed",
+                "Wapen",
+                "Muziekinstrument",
+                "Huisraad"
+            ]
+            
+        ]
+    }
+    
+    func getMaterial() -> [String] {
+        return [
+            "Papier",
+            "Perkament",
+            "Glas",
+            "Porselein",
+            "Textiel",
+            "Koper",
+            "Ijzer",
+            "Lood",
+            "Tin of loodtin",
+            "Goud",
+            "Zilver",
+            "Gips",
+            "Brons",
+            "Metaal",
+            "Natuursteen",
+            "Keramiek",
+            "Hout",
+            "Inkt",
+            "Verf",
+            "Potlood",
+            "Steengoed",
+            "Beton",
+            "Cement",
+            "Kunststof",
+            "Aluminium",
+            "Staal",
+            "Pleister",
+            "Schelp",
+            "Bont",
+            "Gewei",
+            "Hoorn",
+            "Leer",
+            "Houtskool"     
+        ]
     }
     
     

@@ -32,6 +32,9 @@ class HeritageViewModel {
                 print(url)
                 loadImage(with: url)
             }
+            else {
+                picture = UIImage(named: "defaultPhoto")
+            }
         }
     }
     
@@ -50,6 +53,7 @@ class HeritageViewModel {
             let imageData = try Data(contentsOf: url!)
             self.picture = UIImage(data: imageData)
         } catch {
+            self.picture = UIImage(named: "defaultPhoto")
             print("Error loading image: \(error)")
         }
         
