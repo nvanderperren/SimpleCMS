@@ -107,7 +107,7 @@ class DatabaseService {
     
     // MARK: Private create methods
     private func createArtefact(_ model: ArtefactViewModel){
-        let artefact = Artefact(objectId: model.id, objectType: model.artefactType, name: model.name, photo: model.pictureURL, acquisitionMethod: model.acquisitionMethod!, acquisitionDate: model.acquisitionDate!, acquisitionSource: model.acquisitionSource!, depositPlace: nil, rightsStatus: model.rightsLicense, creditLine: model.creditLine, creator: model.creator, placeOfCreation: model.creationPlace, dateOfCreation: model.creationDate, period: model.creationPeriod, description: model.description, material: model.material, technique: model.technique, dimensions: nil)
+        let artefact = Artefact(objectId: model.id, objectType: model.artefactType, name: model.name, photo: model.pictureURL, acquisitionMethod: model.acquisitionMethod!, acquisitionDate: model.acquisitionDate!, acquisitionSource: model.acquisitionSource!, depositPlace: nil, rightsStatus: model.rightsLicense, creditLine: model.creditLine, creator: model.creator, placeOfCreation: model.creationPlace, dateOfCreation: model.creationDate, period: model.creationPeriod, description: model.description, material: model.material, dimensions: nil)
         artefact.primaryKey = model.primaryKey
         print(artefact.primaryKey)
         saveObject(artefact)
@@ -122,7 +122,7 @@ class DatabaseService {
     }
     
     private func createFind(_ model: FindViewModel){
-        let find = MetalDetectingFind(findId: model.id, name: model.name, objectType: model.objectType, photo: model.pictureURL, findDate: model.findDate, findPlaceType: model.findPlaceType, location: model.findPlace, material: model.material, technique: model.technique, inscription: model.inscription, description: model.description, objectDimensions: nil)
+        let find = MetalDetectingFind(findId: model.id, name: model.name, objectType: model.objectType, photo: model.pictureURL, findPlaceType: model.findPlaceType, location: model.findPlace, material: model.material, technique: model.technique, inscription: model.inscription, description: model.description, objectDimensions: nil)
         find.primaryKey = model.primaryKey
         print(find.primaryKey)
         saveObject(find)

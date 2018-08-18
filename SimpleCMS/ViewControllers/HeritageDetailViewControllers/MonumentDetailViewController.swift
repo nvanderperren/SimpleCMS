@@ -19,12 +19,13 @@ class MonumentDetailViewController: HeritageDetailViewController {
     @IBOutlet weak var monumentIsProtectedSwitch: UISwitch!
     @IBOutlet weak var monumentStreetNameTextField: UITextField!
     @IBOutlet weak var monumentMunicipalityTextField: UITextField!
+    @IBOutlet weak var monumentStreetNumberTextField: UITextField!
+    @IBOutlet weak var monumentPostalCodeTextField: UITextField!
     @IBOutlet weak var monumentCreatorTextField: UITextField!
-    @IBOutlet weak var monumentCreationPeriodTextField: UITextField!
     @IBOutlet weak var monumentStyleTextField: UITextField!
     
     private var allTextFields: [UITextField] {
-        return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, creditLineTextField, monumentCreatorTextField, monumentCreationPeriodTextField,heritageDescriptionTextField, heritageMaterialTextField, monumentStreetNameTextField, monumentMunicipalityTextField, monumentStyleTextField]
+        return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, creditLineTextField, monumentCreatorTextField, heritageMaterialTextField, monumentStreetNameTextField, monumentStreetNumberTextField, monumentPostalCodeTextField, monumentMunicipalityTextField, monumentStyleTextField]
     }
     
     private var requiredTextFields: [UITextField] {
@@ -104,9 +105,13 @@ class MonumentDetailViewController: HeritageDetailViewController {
         rightsLicensePicker.selectRow(rightsStatusIndex!, inComponent: 0, animated: false)
         creditLineTextField.text = monument.creditLine
         monumentMunicipalityTextField.text = monument.monumentLocationMunicipality
+        monumentStreetNameTextField.text = monument.monumentLocationStreetName
+        monumentPostalCodeTextField.text = monument.monumentLocationPostalCode
+        monumentStreetNumberTextField.text = monument.monumentLocationNumber
         monumentCreatorTextField.text = monument.creator
-        monumentCreationPeriodTextField.text = monument.period
-        heritageDescriptionTextField.text = monument.description
+        let creationPeriodIndex = creationPeriods.index(of: monument.period ?? "Kies periode")
+        creationPeriodPicker.selectRow(creationPeriodIndex!, inComponent: 0, animated: false)
+        heritageDescriptionTextView.text = monument.description
         heritageMaterialTextField.text = monument.material
         monumentStyleTextField.text = monument.style
         
@@ -121,15 +126,18 @@ class MonumentDetailViewController: HeritageDetailViewController {
             monument.rightsLicense = rightsStatus!
             monument.creditLine = creditLineTextField.text!
             monument.monumentLocationMunicipality = monumentMunicipalityTextField.text!
+            monument.monumentLocationStreetName = monumentStreetNameTextField.text
+            monument.monumentLocationNumber = monumentStreetNumberTextField.text
+            monument.monumentLocationPostalCode = monumentPostalCodeTextField.text
             monument.creator = monumentCreatorTextField.text
-            monument.period = monumentCreationPeriodTextField.text
-            monument.description = heritageDescriptionTextField.text
+            monument.period = heritageCreationPeriod
+            monument.description = heritageDescription
             monument.material = heritageMaterialTextField.text
             monument.style = monumentStyleTextField.text
             monument.pictureURL = pictureURL
         }
         else {
-            monument = MonumentViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, monumentType: heritageTypeTextField.text!, pictureURL: pictureURL, protection: monumentIsProtectedSwitch.isOn, municipality: monumentMunicipalityTextField.text!, street: monumentStreetNameTextField.text!, houseNumber: nil, postalCode: nil, license: rightsStatus!, creditLine: creditLineTextField.text!, creator: monumentCreatorTextField.text, period: monumentCreationPeriodTextField.text, style: monumentStyleTextField.text)
+            monument = MonumentViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, monumentType: heritageTypeTextField.text!, pictureURL: pictureURL, protection: monumentIsProtectedSwitch.isOn, municipality: monumentMunicipalityTextField.text!, street: monumentStreetNameTextField.text!, houseNumber: monumentStreetNumberTextField.text, postalCode: monumentPostalCodeTextField.text, license: rightsStatus!, creditLine: creditLineTextField.text!, creator: monumentCreatorTextField.text, period: heritageCreationPeriod, style: monumentStyleTextField.text)
             
         }
     }
@@ -137,6 +145,7 @@ class MonumentDetailViewController: HeritageDetailViewController {
     private func updateVariables(_ monument: MonumentViewModel) {
         self.heritageId = monument.id
         self.rightsStatus = monument.rightsLicense
+        self.heritageCreationPeriod = monument.period
     }
         
 

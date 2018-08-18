@@ -29,7 +29,6 @@ import RealmSwift
     dynamic var objectDimensions = List<ObjectDimension>()
     
     // find
-    dynamic var findDate: String? = nil
     dynamic var findPlaceType: String? = nil
     dynamic var location: String? = nil
     
@@ -39,13 +38,12 @@ import RealmSwift
     
     // MARK: Initializers
     
-    convenience init(findId: String, name: String, objectType: String, photo: String?, findDate: String?, findPlaceType: String?, location: String?, material: String?, technique: String?, inscription: String?, description: String?, objectDimensions: [ObjectDimension]?){
+    convenience init(findId: String, name: String, objectType: String, photo: String?, findPlaceType: String?, location: String?, material: String?, technique: String?, inscription: String?, description: String?, objectDimensions: [ObjectDimension]?){
         self.init()
         self.findId = findId
         self.name = name
         self.objectType = objectType
         self.photo = photo
-        self.findDate = findDate
         self.findPlaceType = findPlaceType
         self.location = location
         self.material = material

@@ -25,15 +25,25 @@ class ArtefactDetailViewController: HeritageDetailViewController {
     @IBOutlet weak var artefactCreatorTextField: UITextField!
     @IBOutlet weak var artefactCreationPlaceTextField: UITextField!
     @IBOutlet weak var artefactCreationDateTextField: UITextField!
-    @IBOutlet weak var artefactCreationPeriodTextField: UITextField!
-    @IBOutlet weak var artefactTechniqueTextField: UITextField!
+    @IBOutlet weak var dimensionLengthSwitch: UISwitch!
+    @IBOutlet weak var dimensionWidthSwitch: UISwitch!
+    @IBOutlet weak var dimensionDepthSwitch: UISwitch!
+    @IBOutlet weak var dimensionLengthStack: UIStackView!
+    @IBOutlet weak var dimensionWidthStackView: UIStackView!
+    @IBOutlet weak var dimensionDepthStackView: UIStackView!
+    @IBOutlet weak var dimensionLengthTextField: UITextField!
+    @IBOutlet weak var dimensionWidthTextField: UITextField!
+    @IBOutlet weak var dimensionDepthTextField: UITextField!
+    
+    
+    
     
     var requiredFields: [UITextField] {
         return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionSourceTextField, creditLineTextField]
     }
     
     var allTextFields: [UITextField] {
-        return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionSourceTextField, creditLineTextField, artefactCreatorTextField, artefactCreationPlaceTextField, artefactCreationDateTextField, artefactCreationPeriodTextField,heritageDescriptionTextField, heritageMaterialTextField, artefactTechniqueTextField]
+        return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionSourceTextField, creditLineTextField, artefactCreatorTextField, artefactCreationPlaceTextField, artefactCreationDateTextField, heritageMaterialTextField]
     }
     
     
@@ -113,15 +123,14 @@ class ArtefactDetailViewController: HeritageDetailViewController {
         acquistionDatePicker.date = convertStringToDate(acquisitionDate!)
         let rightsStatusIndex = rightsLicenses.index(of: rightsStatus ?? "Kies status")
         rightsLicensePicker.selectRow(rightsStatusIndex!, inComponent: 0, animated: false)
-        rightsLicenseTextField.text = artefact.rightsLicense
         creditLineTextField.text = artefact.creditLine
         artefactCreatorTextField.text = artefact.creator
         artefactCreationDateTextField.text = artefact.creationDate
         artefactCreationPlaceTextField.text = artefact.creationPlace
-        artefactCreationPeriodTextField.text = artefact.creationPeriod
-        heritageDescriptionTextField.text = artefact.description
+        let creationPeriodIndex = creationPeriods.index(of: heritageCreationPeriod ?? "Kies periode")
+        creationPeriodPicker.selectRow(creationPeriodIndex!, inComponent: 0, animated: false)
+        heritageDescriptionTextView.text = artefact.description
         heritageMaterialTextField.text = artefact.material
-        artefactTechniqueTextField.text = artefact.technique
         
     }
     
@@ -130,6 +139,8 @@ class ArtefactDetailViewController: HeritageDetailViewController {
         self.acquisitionMethod = artefact.acquisitionMethod
         self.acquisitionDate = artefact.acquisitionDate
         self.rightsStatus = artefact.rightsLicense
+        self.heritageCreationPeriod = artefact.creationPeriod
+        
     }
     
     private func updateViewModel() {
@@ -146,14 +157,13 @@ class ArtefactDetailViewController: HeritageDetailViewController {
             artefact.creator = artefactCreatorTextField.text
             artefact.creationDate = artefactCreationDateTextField.text
             artefact.creationPlace = artefactCreationPlaceTextField.text
-            artefact.creationPeriod = artefactCreationPeriodTextField.text
-            artefact.description = heritageDescriptionTextField.text
+            artefact.creationPeriod = heritageCreationPeriod
+            artefact.description = heritageDescription
             artefact.material = heritageMaterialTextField.text
-            artefact.technique = artefactTechniqueTextField.text
             artefact.pictureURL = pictureURL
         }
         else {
-            artefact = ArtefactViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, artefactType: heritageTypeTextField.text!, pictureURL: pictureURL, acquisitionSource: acquisitionSourceTextField.text!, acquisitionMethod: acquisitionMethod!, acquisitionDate: acquisitionDate!, rightsLicense: rightsStatus!, creditLine: creditLineTextField.text!, creator: artefactCreatorTextField.text, creationPlace: artefactCreationPlaceTextField.text, creationDate: artefactCreationDateTextField.text, creationPeriod: artefactCreationPeriodTextField.text, material: heritageMaterialTextField.text, technique: artefactTechniqueTextField.text, description: heritageDescriptionTextField.text, size: nil)
+            artefact = ArtefactViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, artefactType: heritageTypeTextField.text!, pictureURL: pictureURL, acquisitionSource: acquisitionSourceTextField.text!, acquisitionMethod: acquisitionMethod!, acquisitionDate: acquisitionDate!, rightsLicense: rightsStatus!, creditLine: creditLineTextField.text!, creator: artefactCreatorTextField.text, creationPlace: artefactCreationPlaceTextField.text, creationDate: artefactCreationDateTextField.text, creationPeriod: heritageCreationPeriod, material: heritageMaterialTextField.text, description: heritageDescription, size: nil)
         }
     }
     
@@ -165,9 +175,17 @@ class ArtefactDetailViewController: HeritageDetailViewController {
         }
     }
     
+    private func updateDimensionControls() {
+        dimensionLengthStack.isHidden = !dimensionLengthSwitch.isOn
+        dimensionWidthStackView.isHidden = !dimensionWidthSwitch.isOn
+        dimensionDepthStackView.isHidden = !dimensionDepthSwitch.isOn
+    }
+    
+    
    
     
     
 }
+
 
 

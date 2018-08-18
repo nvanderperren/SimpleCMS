@@ -23,9 +23,6 @@ import RealmSwift
 }
 
 enum ObjectDimensionType: String {
-    case diameter = "diameter"
-    case radius = "straal"
-    case length = "lengte"
     case width = "breedte"
     case height = "hoogte"
     case depth = "diepte"
@@ -34,5 +31,4 @@ enum ObjectDimensionType: String {
 enum ObjectDimensionUnit: String {
     case mm = "mm"
     case cm = "cm"
-    case m = "m"
 }

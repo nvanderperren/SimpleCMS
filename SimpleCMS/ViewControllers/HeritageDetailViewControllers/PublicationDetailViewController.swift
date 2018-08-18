@@ -15,7 +15,9 @@ class PublicationDetailViewController: HeritageDetailViewController {
     // model
     var publication: PublicationViewModel?
     
+    
     // variables
+    private var genre: String?
     
     // outlets
     @IBOutlet weak var authorTextField: UITextField!
@@ -23,11 +25,16 @@ class PublicationDetailViewController: HeritageDetailViewController {
     @IBOutlet weak var publicationPlaceTextField: UITextField!
     @IBOutlet weak var publicationDateTextField: UITextField!
     @IBOutlet weak var numberOfPagesTextField: UITextField!
-    @IBOutlet weak var contentTextField: UITextField!
     @IBOutlet weak var editionTextField: UITextField!
+    @IBOutlet weak var genreTextField: UITextField!
+    
+    // outlet actions
+    @IBAction func chooseGenre(_ sender: UIButton) {
+    }
+    
     
     private var allTextFields: [UITextField] {
-        return [heritageIdTextField, heritageNameTextField, authorTextField, acquisitionSourceTextField, creditLineTextField, publisherTextField, publicationDateTextField, publicationPlaceTextField, numberOfPagesTextField, contentTextField, editionTextField]
+        return [heritageIdTextField, heritageNameTextField, authorTextField, acquisitionSourceTextField, creditLineTextField, publisherTextField, publicationDateTextField, publicationPlaceTextField, numberOfPagesTextField, editionTextField, genreTextField]
     }
     
     private var requiredTextFields: [UITextField] {
@@ -113,7 +120,7 @@ class PublicationDetailViewController: HeritageDetailViewController {
         if let edition = publication.edition {
             editionTextField.text = String(edition)
         }
-        contentTextField.text = publication.description
+        heritageDescriptionTextView.text = publication.description
         self.heritageId = publication.id
     }
     
@@ -132,7 +139,7 @@ class PublicationDetailViewController: HeritageDetailViewController {
             publication.acquisitionMethod = acquisitionMethod!
             publication.acquisitionSource = acquisitionSourceTextField.text!
             publication.acquisitionDate = acquisitionDate!
-            publication.rightsLicense = rightsLicenseTextField.text!
+            publication.rightsLicense = rightsStatus!
             publication.creditLine =  creditLineTextField.text!
             publication.publisher = publisherTextField.text
             publication.publicationDate = publicationDateTextField.text
@@ -143,7 +150,7 @@ class PublicationDetailViewController: HeritageDetailViewController {
             if let edition = editionTextField.text {
                 publication.edition = Int(edition)
             }
-            publication.description = contentTextField.text
+            publication.description = heritageDescription
             publication.pictureURL = pictureURL
         }
         else {

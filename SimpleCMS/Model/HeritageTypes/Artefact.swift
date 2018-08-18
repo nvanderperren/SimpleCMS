@@ -29,7 +29,6 @@ import RealmSwift
     // charcteristics
     dynamic var objectDimensions = List<ObjectDimension>()
     dynamic var usedMaterial: String? = nil
-    dynamic var usedTechnique: String? = nil
     dynamic var objectDescription: String? = nil
     
     // creation
@@ -44,7 +43,7 @@ import RealmSwift
     
     
     // MARK: Initializers
-    convenience init(objectId: String, objectType: String, name: String, photo: String?, acquisitionMethod: String, acquisitionDate: String, acquisitionSource: String, depositPlace: String?, rightsStatus: String, creditLine: String, creator: String?, placeOfCreation: String?, dateOfCreation: String?, period: String?, description: String?, material: String?, technique: String?, dimensions: [ObjectDimension]?) {
+    convenience init(objectId: String, objectType: String, name: String, photo: String?, acquisitionMethod: String, acquisitionDate: String, acquisitionSource: String, depositPlace: String?, rightsStatus: String, creditLine: String, creator: String?, placeOfCreation: String?, dateOfCreation: String?, period: String?, description: String?, material: String?, dimensions: [ObjectDimension]?) {
         self.init()
         self.objectId = objectId
         self.objectType = objectType
@@ -65,7 +64,6 @@ import RealmSwift
         self.period = period
         self.objectDescription = description
         self.usedMaterial = material
-        self.usedTechnique = technique
         
     }
     

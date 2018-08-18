@@ -33,12 +33,30 @@ class HeritageDetailViewController: UITableViewController, UINavigationControlle
             }
         }
     }
+    
+    var heritageDescription: String? {
+        if heritageDescriptionTextView.text == descriptionPlaceHolder {
+            return nil
+        }
+        else {
+            return heritageDescriptionTextView.text
+        }
+    }
+    
+    var heritageCreationPeriod: String? {
+        didSet {
+            if (heritageCreationPeriod == "Kies periode") {
+                heritageCreationPeriod = nil
+            }
+        }
+    }
 //    var collapsedSections: NSMutableSet = []
     
     // readonly
     var acquisitionMethods = Seeder.service.getAcquisitionMethods()
     var rightsLicenses = Seeder.service.getRightsLicenses()
-    
+    var descriptionPlaceHolder = "Geef een korte beschrijving"
+    var creationPeriods = Seeder.service.getPeriods()
     
     // outlets
     @IBOutlet weak var heritageIdTextField: UITextField!
@@ -47,12 +65,16 @@ class HeritageDetailViewController: UITableViewController, UINavigationControlle
     @IBOutlet weak var heritageImageView: UIImageView!
     @IBOutlet weak var acquisitionSourceTextField: UITextField!
     @IBOutlet weak var creditLineTextField: UITextField!
-    @IBOutlet weak var heritageDescriptionTextField: UITextField!
     @IBOutlet weak var heritageMaterialTextField: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var acquisitionMethodPicker: UIPickerView!
     @IBOutlet weak var acquistionDatePicker: UIDatePicker!
     @IBOutlet weak var rightsLicensePicker: UIPickerView!
+    @IBOutlet weak var heritageDescriptionTextView: UITextView!
+    @IBOutlet weak var creationPeriodPicker: UIPickerView!
+    
+    
+    
     
     
     // MARK: - ViewController methods
@@ -61,8 +83,8 @@ class HeritageDetailViewController: UITableViewController, UINavigationControlle
         super.viewDidLoad()
         //acquistionDatePicker.maximumDate = Date()
         setupTableView()
+        setupTextView()
         updateFields()
-//        setupAllTextFields()
 
     }
     
@@ -141,9 +163,7 @@ class HeritageDetailViewController: UITableViewController, UINavigationControlle
         for text in allTextFields {
             text.delegate = self
             text.autocapitalizationType = .sentences
-            if (viewModel != nil) {
-//                text.isEnabled = false
-            }
+            text.clearButtonMode = .whileEditing
             
         }
     }
@@ -176,7 +196,11 @@ class HeritageDetailViewController: UITableViewController, UINavigationControlle
         heritageNameTextField.text = heritageName
     }
     
-    
+    private func setupTextView() {
+        heritageDescriptionTextView.delegate = self
+        heritageDescriptionTextView.text = descriptionPlaceHolder
+        heritageDescriptionTextView.isEditable = true
+    }
     
     private func checkForNumericValue(_ value: String){
         guard Double(value) != nil else {
@@ -303,6 +327,8 @@ extension HeritageDetailViewController: UIPickerViewDataSource {
             return acquisitionMethods.count
         case 2:
             return rightsLicenses.count
+        case 3:
+            return creationPeriods.count
         default:
             fatalError()
         }
@@ -318,6 +344,9 @@ extension HeritageDetailViewController: UIPickerViewDelegate {
         case 2:
             rightsStatus = rightsLicenses[row]
             print(rightsStatus ?? "rightslicense is nil")
+        case 3:
+            heritageCreationPeriod = creationPeriods[row]
+            print(heritageCreationPeriod ?? "rightslicense is nil")
         default:
             fatalError()
         }
@@ -329,8 +358,25 @@ extension HeritageDetailViewController: UIPickerViewDelegate {
             return acquisitionMethods[row]
         case 2:
             return rightsLicenses[row]
+        case 3:
+            return creationPeriods[row]
         default:
             fatalError()
         }
     }
 }
+
+extension HeritageDetailViewController: UITextViewDelegate {
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if (text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+}
+
+
+    
+

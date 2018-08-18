@@ -51,7 +51,7 @@ class ConversionService {
     private func convertToArtefactViewModel(with artefacts: Results<Artefact>) -> [ArtefactViewModel] {
         var artefactViewModels = [ArtefactViewModel]()
         for artefact in artefacts {
-            let artefactModel = ArtefactViewModel(id: artefact.objectId, name: artefact.name, artefactType: artefact.objectType, pictureURL: artefact.photo, acquisitionSource: artefact.acquistionSource, acquisitionMethod: artefact.acquisitionMethod, acquisitionDate: artefact.acquistionDate, rightsLicense: artefact.rightsStatus, creditLine: artefact.creditLine, creator: artefact.creator, creationPlace: artefact.placeOfCreation, creationDate: artefact.dateOfCreation, creationPeriod: artefact.period, material: artefact.usedMaterial, technique: artefact.usedTechnique, description: artefact.description, size: nil)
+            let artefactModel = ArtefactViewModel(id: artefact.objectId, name: artefact.name, artefactType: artefact.objectType, pictureURL: artefact.photo, acquisitionSource: artefact.acquistionSource, acquisitionMethod: artefact.acquisitionMethod, acquisitionDate: artefact.acquistionDate, rightsLicense: artefact.rightsStatus, creditLine: artefact.creditLine, creator: artefact.creator, creationPlace: artefact.placeOfCreation, creationDate: artefact.dateOfCreation, creationPeriod: artefact.period, material: artefact.usedMaterial, description: artefact.description, size: nil)
             artefactModel.primaryKey = artefact.primaryKey
             artefactViewModels.append(artefactModel)
             
@@ -95,7 +95,7 @@ class ConversionService {
     private func convertToFindViewModel(with finds: Results<MetalDetectingFind>) -> [FindViewModel] {
         var findViewModels = [FindViewModel]()
         for find in finds {
-            let findModel = FindViewModel(id: find.findId, name: find.name, objectType: find.objectType, pictureURL: find.photo, findDate: find.findDate, findPlaceType: find.findPlaceType, findPlace: find.location, inscription: find.inscription)
+            let findModel = FindViewModel(id: find.findId, name: find.name, objectType: find.objectType, pictureURL: find.photo, findPlaceType: find.findPlaceType, findPlace: find.location, inscription: find.inscription)
             findModel.primaryKey = find.primaryKey
             findViewModels.append(findModel)
         }
@@ -118,7 +118,6 @@ class ConversionService {
         object.period = viewModel.creationPeriod
         object.objectDescription = viewModel.description
         object.usedMaterial = viewModel.material
-        object.usedTechnique = viewModel.technique
         print(object.creator!)
         print(viewModel.creator!)
     }
@@ -144,7 +143,6 @@ class ConversionService {
         object.name = viewModel.name
         object.objectType = viewModel.objectType
         object.photo = viewModel.pictureURL
-        object.findDate = viewModel.findDate
         object.findPlaceType = viewModel.findPlaceType
         object.location = viewModel.findPlace
         object.material = viewModel.material

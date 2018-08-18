@@ -22,7 +22,6 @@ class HeritageViewModel {
     var acquisitionSource: String?
     var acquisitionDate: String?
     var material: String?
-    var technique: String?
     var primaryKey = String()
     
     var pictureURL: String? {

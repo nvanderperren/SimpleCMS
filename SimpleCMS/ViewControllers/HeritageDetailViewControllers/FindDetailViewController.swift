@@ -24,17 +24,27 @@ class FindDetailViewController: HeritageDetailViewController {
         }
     }
     
+    private var findTechnique: String? {
+        didSet {
+            if (findTechnique == "Kies techniek") {
+                findTechnique = nil
+            }
+        }
+    }
+    
+    // readonly
     private var findPlaceTypes = Seeder.service.getHeritagePlaceTypes()
+    private var techniques = Seeder.service.getTechniques()
     
     // outlets
-    @IBOutlet weak var findDateTextField: UITextField!
     @IBOutlet weak var findLocationTextField: UITextField!
-    @IBOutlet weak var findTechniqueTextField: UITextField!
     @IBOutlet weak var findInscriptionTextField: UITextField!
     @IBOutlet weak var findPlaceTypePickerField: UIPickerView!
+    @IBOutlet weak var findTechniquePicker: UIPickerView!
+    
     
     private var allTextFields: [UITextField] {
-        return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionSourceTextField, findDateTextField, findLocationTextField, heritageDescriptionTextField, heritageMaterialTextField, findTechniqueTextField, findInscriptionTextField]
+        return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionSourceTextField, findLocationTextField, heritageMaterialTextField, findInscriptionTextField]
     }
     
     private var requiredTextFields: [UITextField] {
@@ -118,6 +128,10 @@ class FindDetailViewController: HeritageDetailViewController {
             return acquisitionMethods.count
         case 1:
             return findPlaceTypes.count
+        case 3:
+            return creationPeriods.count
+        case 4:
+            return techniques.count
         default:
             fatalError()
         }
@@ -132,6 +146,12 @@ class FindDetailViewController: HeritageDetailViewController {
         case 1:
             findPlaceType = findPlaceTypes[row]
             print(findPlaceType ?? "findplacetype is nil")
+        case 3:
+            heritageCreationPeriod = creationPeriods[row]
+            print(heritageCreationPeriod ?? "creationPeriod is nil")
+        case 4:
+            findTechnique = techniques[row]
+            print(findTechnique ?? "findTechnique is nil")
         default:
             fatalError()
         }
@@ -144,6 +164,10 @@ class FindDetailViewController: HeritageDetailViewController {
             return acquisitionMethods[row]
         case 1:
             return findPlaceTypes[row]
+        case 3:
+            return creationPeriods[row]
+        case 4:
+            return techniques[row]
         default:
             fatalError()
         }
@@ -161,13 +185,13 @@ class FindDetailViewController: HeritageDetailViewController {
         acquisitionMethodPicker.selectRow(acquistionMethodStatus!, inComponent: 0, animated: true)
         acquisitionSourceTextField.text = find.acquisitionSource
         acquistionDatePicker.date = convertStringToDate(acquisitionDate)
-        findDateTextField.text = find.findDate
         let findplaceStatus = findPlaceTypes.index(of: find.findPlaceType ?? "Kies type")
         findPlaceTypePickerField.selectRow(findplaceStatus!, inComponent: 0, animated: true)
         findLocationTextField.text = find.findPlace
-        heritageDescriptionTextField.text = find.description
+        heritageDescriptionTextView.text = find.description
         heritageMaterialTextField.text = find.material
-        findTechniqueTextField.text = find.technique
+        let techniqueIndex = techniques.index(of: find.technique ?? "Kies techniek")
+        findTechniquePicker.selectRow(techniqueIndex!, inComponent: 0, animated: false)
         findInscriptionTextField.text = find.inscription
         
     }
@@ -180,16 +204,15 @@ class FindDetailViewController: HeritageDetailViewController {
             find.acquisitionMethod = acquisitionMethod
             find.acquisitionSource = acquisitionSourceTextField.text
             find.acquisitionDate = nil
-            find.findDate = findDateTextField.text
             find.findPlaceType = findPlaceType
             find.findPlace = findLocationTextField.text
-            find.description = heritageDescriptionTextField.text
+            find.description = heritageDescription
             find.material = heritageMaterialTextField.text
-            find.technique = findTechniqueTextField.text
+            find.technique = findTechnique
             find.inscription = findInscriptionTextField.text
             find.pictureURL = pictureURL
         } else {
-            find = FindViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, objectType: heritageTypeTextField.text!, pictureURL: pictureURL, findDate: findDateTextField.text, findPlaceType: findPlaceType, findPlace: findLocationTextField.text, inscription: findInscriptionTextField.text)
+            find = FindViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, objectType: heritageTypeTextField.text!, pictureURL: pictureURL, findPlaceType: findPlaceType, findPlace: findLocationTextField.text, inscription: findInscriptionTextField.text)
         }
     }
     
