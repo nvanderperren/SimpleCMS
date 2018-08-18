@@ -8,14 +8,16 @@
 
 import UIKit
 
-class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class HeritageDetailViewController: UITableViewController, UINavigationControllerDelegate  {
     
     // MARK: - Properties and outlets
     
+    // variables
     var heritageId: String?
     var heritageName: String?
     var pictureURL: String?
-    var acquisitionMethods = Seeder.service.getAcquisitionMethods()
+    var acquisitionDate: String?
+    
     var acquisitionMethod: String? {
         didSet {
             if (acquisitionMethod == "Kies methode") {
@@ -23,8 +25,21 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
             }
         }
     }
-    var acquisitionDate: String?
+   
+    var rightsStatus: String? {
+        didSet {
+            if (rightsStatus == "Kies status") {
+                rightsStatus = nil
+            }
+        }
+    }
     
+    // readonly
+    var acquisitionMethods = Seeder.service.getAcquisitionMethods()
+    var rightsLicenses = Seeder.service.getRightsLicenses()
+    
+    
+    // outlets
     @IBOutlet weak var heritageIdTextField: UITextField!
     @IBOutlet weak var heritageNameTextField: UITextField!
     @IBOutlet weak var heritageTypeTextField: UITextField!
@@ -34,36 +49,24 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
     @IBOutlet weak var creditLineTextField: UITextField!
     @IBOutlet weak var heritageDescriptionTextField: UITextField!
     @IBOutlet weak var heritageMaterialTextField: UITextField!
-    
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var acquisitionMethodPicker: UIPickerView!
-    
     @IBOutlet weak var acquistionDatePicker: UIDatePicker!
-    
-    @IBAction func acquistionDateChanged(_ sender: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        dateFormatter.locale = Locale(identifier: "nl_BE")
-        acquisitionDate = dateFormatter.string(from: acquistionDatePicker.date)
-        print(acquisitionDate ?? "no date???")
-        
-    }
-    
+    @IBOutlet weak var rightsLicensePicker: UIPickerView!
     
     
     // MARK: - ViewController methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        acquistionDatePicker.maximumDate = Date()
+        //acquistionDatePicker.maximumDate = Date()
         setupTableView()
         updateFields()
 //        setupAllTextFields()
 
     }
     
-    // MARK: - Camera en Photo methods
+    // MARK: - Camera and Photo methods
     @IBAction func chooseImageFromSavedPhotos(_ sender: UIButton) {
         setupImagePickerController(type: .photoLibrary)
     }
@@ -80,26 +83,15 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
         }
     }
     
-    // MARK: - TextFieldDelegate methods
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    // MARK: - ImagePickerControllerDelegate methods
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage  else {
-            fatalError("Expected a dictionary containing an image, but is was provided following: \(info)")
-        }
-        saveImage(selectedImage)
-        heritageImageView.image = selectedImage
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
+    // MARK: - DataPicker methods
+    @IBAction func acquistionDateChanged(_ sender: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .none
+        dateFormatter.locale = Locale(identifier: "nl_BE")
+        acquisitionDate = dateFormatter.string(from: acquistionDatePicker.date)
+        print(acquisitionDate ?? "no date???")
+        
     }
     
     // MARK: - Private and internal methods
@@ -156,12 +148,7 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
         self.tableView.allowsSelectionDuringEditing = false
     }
     
-    private func setupImagePickerController(type: UIImagePickerControllerSourceType){
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.sourceType = type
-        imagePickerController.delegate = self
-        present(imagePickerController, animated: true)
-    }
+    
     
     private func updateFields() {
         heritageIdTextField.text = heritageId
@@ -195,18 +182,17 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
         return alertController
     }
     
-    func updateAcquistionVariables() {
-        let index = acquisitionMethodPicker.selectedRow(inComponent: 0)
-        if (index != 0) {
-            acquisitionMethod = acquisitionMethods[index]
+    func convertStringToDate(_ dateString: String?) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .none
+        dateFormatter.dateStyle = .long
+        dateFormatter.locale = Locale(identifier: "nl_BE")
+        if let date = dateString {
+            return dateFormatter.date(from: date) ?? Date()
         } else {
-            acquisitionMethod = nil
+            return Date()
         }
-        
     }
-        
-    
-    
     
 //    // use this in the main table view or in viewmodel
 //    private func loadImage(with pathAbsoluteString: String){
@@ -221,23 +207,81 @@ class HeritageDetailViewController: UITableViewController, UITextFieldDelegate, 
 //    }
     
 }
+
+// MARK: - Extensions
+
+extension HeritageDetailViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+}
+
+extension HeritageDetailViewController: UIImagePickerControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage  else {
+            fatalError("Expected a dictionary containing an image, but is was provided following: \(info)")
+        }
+        saveImage(selectedImage)
+        heritageImageView.image = selectedImage
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    private func setupImagePickerController(type: UIImagePickerControllerSourceType){
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.sourceType = type
+        imagePickerController.delegate = self
+        present(imagePickerController, animated: true)
+    }
+}
+
 extension HeritageDetailViewController: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+        switch (pickerView.tag){
+        default:
+            return 1
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return acquisitionMethods.count
+        switch (pickerView.tag){
+        case 0:
+            return acquisitionMethods.count
+        case 2:
+            return rightsLicenses.count
+        default:
+            fatalError()
+        }
     }
 }
 
 extension HeritageDetailViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        acquisitionMethod = acquisitionMethods[row]
-        print(acquisitionMethod ?? "method is nil")
+        switch (pickerView.tag){
+        case 0:
+            acquisitionMethod = acquisitionMethods[row]
+            print(acquisitionMethod ?? "method is nil")
+        case 2:
+            rightsStatus = rightsLicenses[row]
+            print(rightsStatus ?? "rightslicense is nil")
+        default:
+            fatalError()
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return acquisitionMethods[row]
+        switch (pickerView.tag){
+        case 0:
+            return acquisitionMethods[row]
+        case 2:
+            return rightsLicenses[row]
+        default:
+            fatalError()
+        }
     }
 }

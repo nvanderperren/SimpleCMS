@@ -12,8 +12,12 @@ class PublicationDetailViewController: HeritageDetailViewController {
     
     // MARK: - Properties and outlets
     
+    // model
     var publication: PublicationViewModel?
     
+    // variables
+    
+    // outlets
     @IBOutlet weak var authorTextField: UITextField!
     @IBOutlet weak var publisherTextField: UITextField!
     @IBOutlet weak var publicationPlaceTextField: UITextField!
@@ -23,11 +27,11 @@ class PublicationDetailViewController: HeritageDetailViewController {
     @IBOutlet weak var editionTextField: UITextField!
     
     private var allTextFields: [UITextField] {
-        return [heritageIdTextField, heritageNameTextField, authorTextField, acquisitionSourceTextField, rightsLicenseTextField, creditLineTextField, publisherTextField, publicationDateTextField, publicationPlaceTextField, numberOfPagesTextField, contentTextField, editionTextField]
+        return [heritageIdTextField, heritageNameTextField, authorTextField, acquisitionSourceTextField, creditLineTextField, publisherTextField, publicationDateTextField, publicationPlaceTextField, numberOfPagesTextField, contentTextField, editionTextField]
     }
     
     private var requiredTextFields: [UITextField] {
-        return [heritageIdTextField, heritageNameTextField, authorTextField, acquisitionSourceTextField, rightsLicenseTextField, creditLineTextField]
+        return [heritageIdTextField, heritageNameTextField, authorTextField, acquisitionSourceTextField, creditLineTextField]
     }
     
     // MARK: - ViewController methods
@@ -37,8 +41,10 @@ class PublicationDetailViewController: HeritageDetailViewController {
         print("Publication showing")
         setupNavBar(for: publication)
         setupTextFields(with: allTextFields, for: publication)
+        setupDatePicker()
         updateSaveButtonState(with: requiredTextFields)
         if let publication = publication {
+            updateVariables(publication)
             setupPublicationModel(publication)
         }
     }
@@ -94,8 +100,9 @@ class PublicationDetailViewController: HeritageDetailViewController {
         let acquistionMethodStatus = acquisitionMethods.index(of: publication.acquisitionMethod ?? "Kies methode")
         acquisitionMethodPicker.selectRow(acquistionMethodStatus!, inComponent: 0, animated: true)
         acquisitionSourceTextField.text = publication.acquisitionSource
-        //acquisitionDateTextField.text = publication.acquisitionDate
-        rightsLicenseTextField.text = publication.rightsLicense
+        acquistionDatePicker.date = convertStringToDate(acquisitionDate!)
+        let rightsStatusIndex = rightsLicenses.index(of: rightsStatus ?? "Kies status")
+        rightsLicensePicker.selectRow(rightsStatusIndex!, inComponent: 0, animated: false)
         creditLineTextField.text = publication.creditLine
         publisherTextField.text = publication.publisher
         publicationDateTextField.text = publication.publicationDate
@@ -110,6 +117,13 @@ class PublicationDetailViewController: HeritageDetailViewController {
         self.heritageId = publication.id
     }
     
+    private func updateVariables(_ publication: PublicationViewModel) {
+        self.heritageId = publication.id
+        self.acquisitionMethod = publication.acquisitionMethod
+        self.acquisitionDate = publication.acquisitionDate
+        self.rightsStatus = publication.rightsLicense
+    }
+    
     private func updateViewModel() {
         if let publication = publication {
             publication.id = heritageId!
@@ -117,7 +131,7 @@ class PublicationDetailViewController: HeritageDetailViewController {
             publication.author = authorTextField.text!
             publication.acquisitionMethod = acquisitionMethod!
             publication.acquisitionSource = acquisitionSourceTextField.text!
-            publication.acquisitionDate = "datum"
+            publication.acquisitionDate = acquisitionDate!
             publication.rightsLicense = rightsLicenseTextField.text!
             publication.creditLine =  creditLineTextField.text!
             publication.publisher = publisherTextField.text
@@ -133,10 +147,17 @@ class PublicationDetailViewController: HeritageDetailViewController {
             publication.pictureURL = pictureURL
         }
         else {
-            publication = PublicationViewModel(id: heritageIdTextField.text!, author: authorTextField.text!, title: heritageNameTextField.text!, pictureURL: pictureURL, acquisitionMethod: acquisitionMethod!, acquisitionSource: acquisitionSourceTextField.text!, acquisitionDate: "een datum", rightsLicense: rightsLicenseTextField.text!, creditLine: creditLineTextField.text!, publisher: publisherTextField.text, publicationDate: publicationDateTextField.text, publicationPlace: publicationPlaceTextField.text, numberOfPages: numberOfPagesTextField.text, edition: editionTextField.text)
+            publication = PublicationViewModel(id: heritageIdTextField.text!, author: authorTextField.text!, title: heritageNameTextField.text!, pictureURL: pictureURL, acquisitionMethod: acquisitionMethod!, acquisitionSource: acquisitionSourceTextField.text!, acquisitionDate: acquisitionDate!, rightsLicense: rightsStatus!, creditLine: creditLineTextField.text!, publisher: publisherTextField.text, publicationDate: publicationDateTextField.text, publicationPlace: publicationPlaceTextField.text, numberOfPages: numberOfPagesTextField.text, edition: editionTextField.text)
         }
     }
     
+    private func setupDatePicker() {
+        if publication != nil {
+            acquistionDatePicker.maximumDate = convertStringToDate(publication?.acquisitionDate)
+        } else {
+            acquistionDatePicker.maximumDate = Date()
+        }
+    }
     
 
 }

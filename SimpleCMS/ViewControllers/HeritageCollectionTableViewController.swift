@@ -136,7 +136,7 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return heritageObjects.count
+        return currentHeritageObjects.count
     }
 
     
@@ -145,10 +145,10 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
             fatalError("Wrong TableViewCell")
         }
         // Configure the cell...
-        cell.objectIdLabel?.text = heritageObjects[indexPath.row].id
-        cell.objectTitleLabel?.text = heritageObjects[indexPath.row].name
-        cell.objectCategoryLabel?.text = heritageObjects[indexPath.row].category
-        cell.objectImageView?.image = heritageObjects[indexPath.row].picture ?? UIImage(named: "defaultPhoto")
+        cell.objectIdLabel?.text = currentHeritageObjects[indexPath.row].id
+        cell.objectTitleLabel?.text = currentHeritageObjects[indexPath.row].name
+        cell.objectCategoryLabel?.text = currentHeritageObjects[indexPath.row].category
+        cell.objectImageView?.image = currentHeritageObjects[indexPath.row].picture ?? UIImage(named: "defaultPhoto")
         return cell
     }
     

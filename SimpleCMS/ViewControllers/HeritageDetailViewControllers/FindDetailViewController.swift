@@ -12,13 +12,10 @@ class FindDetailViewController: HeritageDetailViewController {
     
     // MARK: - Properties and outlets
     
+    // model
     var find: FindViewModel?
     
-    @IBOutlet weak var findDateTextField: UITextField!
-    @IBOutlet weak var findLocationTextField: UITextField!
-    @IBOutlet weak var findTechniqueTextField: UITextField!
-    @IBOutlet weak var findInscriptionTextField: UITextField!
-    @IBOutlet weak var findPlaceTypePickerField: UIPickerView!
+    // variables
     private var findPlaceType: String? {
         didSet {
             if (findPlaceType == "Kies type") {
@@ -26,9 +23,15 @@ class FindDetailViewController: HeritageDetailViewController {
             }
         }
     }
+    
     private var findPlaceTypes = Seeder.service.getHeritagePlaceTypes()
     
-    
+    // outlets
+    @IBOutlet weak var findDateTextField: UITextField!
+    @IBOutlet weak var findLocationTextField: UITextField!
+    @IBOutlet weak var findTechniqueTextField: UITextField!
+    @IBOutlet weak var findInscriptionTextField: UITextField!
+    @IBOutlet weak var findPlaceTypePickerField: UIPickerView!
     
     private var allTextFields: [UITextField] {
         return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionSourceTextField, findDateTextField, findLocationTextField, heritageDescriptionTextField, heritageMaterialTextField, findTechniqueTextField, findInscriptionTextField]
@@ -45,8 +48,10 @@ class FindDetailViewController: HeritageDetailViewController {
         print("Find showing")
         setupNavBar(for: find)
         setupTextFields(with: allTextFields, for: find)
+        setupDatePicker()
         updateSaveButtonState(with: requiredTextFields)
         if let find = find {
+            updateVariables(find)
             setupFindModel(find)
         }
         
@@ -97,49 +102,9 @@ class FindDetailViewController: HeritageDetailViewController {
         updateSaveButtonState(with: requiredTextFields)
     }
     
-    // MARK: - Private methods
+    // MARK: - Picker
     
-    private func setupFindModel(_ find: FindViewModel){
-        heritageIdTextField.text = find.id
-        heritageNameTextField.text = find.name
-        heritageTypeTextField.text = find.objectType
-        heritageImageView.image = find.picture
-        let acquistionMethodStatus = acquisitionMethods.index(of: find.acquisitionMethod ?? "Kies methode")
-        acquisitionMethodPicker.selectRow(acquistionMethodStatus!, inComponent: 0, animated: true)
-        acquisitionSourceTextField.text = find.acquisitionSource
-        //acquisitionDateTextField.text = find.acquisitionDate
-        findDateTextField.text = find.findDate
-        let findplaceStatus = findPlaceTypes.index(of: find.findPlaceType ?? "Kies type")
-        findPlaceTypePickerField.selectRow(findplaceStatus!, inComponent: 0, animated: true)
-        findLocationTextField.text = find.findPlace
-        heritageDescriptionTextField.text = find.description
-        heritageMaterialTextField.text = find.material
-        findTechniqueTextField.text = find.technique
-        findInscriptionTextField.text = find.inscription
-        self.heritageId = find.id
-    }
-    
-    private func updateViewModel() {
-        if let find = find {
-            find.id = heritageId!
-            find.name = heritageNameTextField.text!
-            find.objectType = heritageTypeTextField.text!
-            find.acquisitionMethod = acquisitionMethod
-            find.acquisitionSource = acquisitionSourceTextField.text
-            find.acquisitionDate = nil
-            find.findDate = findDateTextField.text
-            find.findPlaceType = findPlaceType
-            find.findPlace = findLocationTextField.text
-            find.description = heritageDescriptionTextField.text
-            find.material = heritageMaterialTextField.text
-            find.technique = findTechniqueTextField.text
-            find.inscription = findInscriptionTextField.text
-            find.pictureURL = pictureURL
-        } else {
-            find = FindViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, objectType: heritageTypeTextField.text!, pictureURL: pictureURL, findDate: findDateTextField.text, findPlaceType: findPlaceType, findPlace: findLocationTextField.text, inscription: findInscriptionTextField.text)
-        }
-    }
-    
+    // MARK: PickerDataSource
     override func numberOfComponents(in pickerView: UIPickerView) -> Int {
         switch (pickerView.tag){
         default:
@@ -158,6 +123,7 @@ class FindDetailViewController: HeritageDetailViewController {
         }
     }
     
+    // MARK: PickerDelegate
     override func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch (pickerView.tag){
         case 0:
@@ -183,7 +149,63 @@ class FindDetailViewController: HeritageDetailViewController {
         }
         
     }
-}
-
     
-
+    // MARK: - Private methods
+    
+    private func setupFindModel(_ find: FindViewModel){
+        heritageIdTextField.text = find.id
+        heritageNameTextField.text = find.name
+        heritageTypeTextField.text = find.objectType
+        heritageImageView.image = find.picture
+        let acquistionMethodStatus = acquisitionMethods.index(of: find.acquisitionMethod ?? "Kies methode")
+        acquisitionMethodPicker.selectRow(acquistionMethodStatus!, inComponent: 0, animated: true)
+        acquisitionSourceTextField.text = find.acquisitionSource
+        acquistionDatePicker.date = convertStringToDate(acquisitionDate)
+        findDateTextField.text = find.findDate
+        let findplaceStatus = findPlaceTypes.index(of: find.findPlaceType ?? "Kies type")
+        findPlaceTypePickerField.selectRow(findplaceStatus!, inComponent: 0, animated: true)
+        findLocationTextField.text = find.findPlace
+        heritageDescriptionTextField.text = find.description
+        heritageMaterialTextField.text = find.material
+        findTechniqueTextField.text = find.technique
+        findInscriptionTextField.text = find.inscription
+        
+    }
+    
+    private func updateViewModel() {
+        if let find = find {
+            find.id = heritageId!
+            find.name = heritageNameTextField.text!
+            find.objectType = heritageTypeTextField.text!
+            find.acquisitionMethod = acquisitionMethod
+            find.acquisitionSource = acquisitionSourceTextField.text
+            find.acquisitionDate = nil
+            find.findDate = findDateTextField.text
+            find.findPlaceType = findPlaceType
+            find.findPlace = findLocationTextField.text
+            find.description = heritageDescriptionTextField.text
+            find.material = heritageMaterialTextField.text
+            find.technique = findTechniqueTextField.text
+            find.inscription = findInscriptionTextField.text
+            find.pictureURL = pictureURL
+        } else {
+            find = FindViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, objectType: heritageTypeTextField.text!, pictureURL: pictureURL, findDate: findDateTextField.text, findPlaceType: findPlaceType, findPlace: findLocationTextField.text, inscription: findInscriptionTextField.text)
+        }
+    }
+    
+    private func updateVariables(_ find: FindViewModel) {
+        heritageId = find.id
+        findPlaceType = find.findPlaceType
+        acquisitionMethod = find.acquisitionMethod
+        acquisitionDate = find.acquisitionDate
+        
+    }
+    
+    private func setupDatePicker() {
+        if find != nil {
+            acquistionDatePicker.maximumDate = convertStringToDate(find?.acquisitionDate)
+        } else {
+            acquistionDatePicker.maximumDate = Date()
+        }
+    }
+}

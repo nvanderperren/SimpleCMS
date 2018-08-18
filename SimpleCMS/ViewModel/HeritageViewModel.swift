@@ -16,8 +16,8 @@ class HeritageViewModel {
     var category: String
     var description: String?
     var picture: UIImage?
-    var rightsLicense: String?
-    var creditLine: String?
+    var rightsLicense: String = ""
+    var creditLine: String = ""
     var acquisitionMethod: String?
     var acquisitionSource: String?
     var acquisitionDate: String?

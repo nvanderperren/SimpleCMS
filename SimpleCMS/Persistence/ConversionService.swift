@@ -110,8 +110,8 @@ class ConversionService {
         object.acquisitionMethod = viewModel.acquisitionMethod!
         object.acquistionDate = viewModel.acquisitionDate!
         object.acquistionSource = viewModel.acquisitionSource!
-        object.rightsStatus = viewModel.rightsLicense!
-        object.creditLine = viewModel.creditLine!
+        object.rightsStatus = viewModel.rightsLicense
+        object.creditLine = viewModel.creditLine
         object.creator = viewModel.creator
         object.dateOfCreation = viewModel.creationDate
         object.placeOfCreation = viewModel.creationPlace
@@ -130,8 +130,8 @@ class ConversionService {
         object.isProtected = viewModel.isProtected
         object.photo = viewModel.pictureURL
         object.location = viewModel.monumentLocationMunicipality
-        object.rightsStatus = viewModel.rightsLicense!
-        object.creditLine = viewModel.creditLine!
+        object.rightsStatus = viewModel.rightsLicense
+        object.creditLine = viewModel.creditLine
         object.creator = viewModel.creator
         object.period = viewModel.period
         object.objectDescription = viewModel.description
@@ -161,8 +161,8 @@ class ConversionService {
         object.method = viewModel.acquisitionMethod!
         object.date = viewModel.acquisitionDate!
         object.source = viewModel.acquisitionSource!
-        object.rightsStatus = viewModel.rightsLicense!
-        object.creditLine = viewModel.creditLine!
+        object.rightsStatus = viewModel.rightsLicense
+        object.creditLine = viewModel.creditLine
         object.publisher = viewModel.publisher
         object.placeOfPublication = viewModel.publicationPlace
         object.yearOfPublication = viewModel.publicationDate

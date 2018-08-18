@@ -107,14 +107,14 @@ class DatabaseService {
     
     // MARK: Private create methods
     private func createArtefact(_ model: ArtefactViewModel){
-        let artefact = Artefact(objectId: model.id, objectType: model.artefactType, name: model.name, photo: model.pictureURL, acquisitionMethod: model.acquisitionMethod!, acquisitionDate: model.acquisitionDate!, acquisitionSource: model.acquisitionSource!, depositPlace: nil, rightsStatus: model.rightsLicense!, creditLine: model.creditLine!, creator: model.creator, placeOfCreation: model.creationPlace, dateOfCreation: model.creationDate, period: model.creationPeriod, description: model.description, material: model.material, technique: model.technique, dimensions: nil)
+        let artefact = Artefact(objectId: model.id, objectType: model.artefactType, name: model.name, photo: model.pictureURL, acquisitionMethod: model.acquisitionMethod!, acquisitionDate: model.acquisitionDate!, acquisitionSource: model.acquisitionSource!, depositPlace: nil, rightsStatus: model.rightsLicense, creditLine: model.creditLine, creator: model.creator, placeOfCreation: model.creationPlace, dateOfCreation: model.creationDate, period: model.creationPeriod, description: model.description, material: model.material, technique: model.technique, dimensions: nil)
         artefact.primaryKey = model.primaryKey
         print(artefact.primaryKey)
         saveObject(artefact)
     }
     
     private func createMonument(_ model: MonumentViewModel){
-        let monument = Monument(monumentId: model.id, name: model.name, type: model.monumentType, isProtected: model.isProtected, photo: model.pictureURL, location: model.monumentLocationMunicipality, rightsStatus: model.rightsLicense!, creditLine: model.creditLine!, creator: model.creator, period: model.period, description: model.description, style: model.style, material: model.material)
+        let monument = Monument(monumentId: model.id, name: model.name, type: model.monumentType, isProtected: model.isProtected, photo: model.pictureURL, location: model.monumentLocationMunicipality, rightsStatus: model.rightsLicense, creditLine: model.creditLine, creator: model.creator, period: model.period, description: model.description, style: model.style, material: model.material)
         monument.primaryKey = model.primaryKey
         print(monument.primaryKey)
         saveObject(monument)
@@ -129,7 +129,7 @@ class DatabaseService {
     }
     
     private func createPublication(_ model: PublicationViewModel) {
-        let publication = Publication(publicationId: model.id, title: model.name, author: model.author, photo: model.pictureURL, acquisitionMethod: model.acquisitionMethod!, acquisitionDate: model.acquisitionDate!, acquisitionSource: model.acquisitionSource!, depositPlace: nil, rightsLicense: model.rightsLicense!, creditLine: model.creditLine!, publisher: model.publisher, placeOfPublication: model.publicationPlace, yearOfPublication: model.publicationDate, genre: nil, shortDescription: model.description, numberOfPages: model.numberOfPages, edition: model.edition)
+        let publication = Publication(publicationId: model.id, title: model.name, author: model.author, photo: model.pictureURL, acquisitionMethod: model.acquisitionMethod!, acquisitionDate: model.acquisitionDate!, acquisitionSource: model.acquisitionSource!, depositPlace: nil, rightsLicense: model.rightsLicense, creditLine: model.creditLine, publisher: model.publisher, placeOfPublication: model.publicationPlace, yearOfPublication: model.publicationDate, genre: nil, shortDescription: model.description, numberOfPages: model.numberOfPages, edition: model.edition)
         publication.primaryKey = model.primaryKey
         print(publication.primaryKey)
         saveObject(publication)

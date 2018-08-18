@@ -222,6 +222,21 @@ struct Seeder {
         ]
     }
     
+    func getRightsLicenses() -> [String] {
+        return [
+            "Kies status",
+            "Copyright niet geëvalueerd",
+            "Copyright onbekend",
+            "Geen copyright vastgesteld",
+            "In copyright - rechthebbende onbekend",
+            "In copyright - verweesd werk",
+            "In copyright",
+            "Geen copyright (CC0)",
+            "Publiek domein"
+        ]
+        
+    }
+    
     
     
 }
