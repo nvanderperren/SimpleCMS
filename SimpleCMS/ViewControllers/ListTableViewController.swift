@@ -8,31 +8,44 @@
 
 import UIKit
 
-class ListTableViewController: UIViewController {
+class ListTableViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var listTableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var searchItemLabel: UILabel!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     
     
     var data: [String] = []
-    var value: String?
+    var value: String? {
+        didSet {
+            if value != nil {
+                saveButton.isEnabled = true
+                searchItemLabel.text = value
+            }
+        }
+    }
+    var currentData = [String]()
     
+    @IBAction func cancel(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        saveButton.isEnabled = false
+        
 
         // Do any additional setup after loading the view.
     }
     
 
-    /*
+    
     // MARK: - Navigation
+    
+    
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+ 
 
 }
 
@@ -47,7 +60,7 @@ extension ListTableViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "listElementCell", for: indexPath)
         cell.textLabel?.text = data[indexPath.row]
         return cell
     }
@@ -61,6 +74,34 @@ extension ListTableViewController: UITableViewDelegate {
 
 extension ListTableViewController: UISearchBarDelegate {
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchBar.showsCancelButton = true
+        guard !searchText.isEmpty else {
+            currentData = data
+            listTableView.reloadData()
+            return
+        }
+        currentData = data.filter{ element -> Bool in
+            return element.lowercased().contains(searchText.lowercased())
+        }
+        listTableView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        currentData = data
+        listTableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        currentData = data
+        listTableView.reloadData()
+        searchBar.resignFirstResponder()
+    }
+
 }
 
 

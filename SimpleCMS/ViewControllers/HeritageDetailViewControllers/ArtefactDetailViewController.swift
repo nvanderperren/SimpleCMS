@@ -25,18 +25,9 @@ class ArtefactDetailViewController: HeritageDetailViewController {
     @IBOutlet weak var artefactCreatorTextField: UITextField!
     @IBOutlet weak var artefactCreationPlaceTextField: UITextField!
     @IBOutlet weak var artefactCreationDateTextField: UITextField!
-    @IBOutlet weak var dimensionLengthSwitch: UISwitch!
-    @IBOutlet weak var dimensionWidthSwitch: UISwitch!
-    @IBOutlet weak var dimensionDepthSwitch: UISwitch!
-    @IBOutlet weak var dimensionLengthStack: UIStackView!
-    @IBOutlet weak var dimensionWidthStackView: UIStackView!
-    @IBOutlet weak var dimensionDepthStackView: UIStackView!
     @IBOutlet weak var dimensionLengthTextField: UITextField!
     @IBOutlet weak var dimensionWidthTextField: UITextField!
     @IBOutlet weak var dimensionDepthTextField: UITextField!
-    
-    
-    
     
     var requiredFields: [UITextField] {
         return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionSourceTextField, creditLineTextField]
@@ -174,16 +165,6 @@ class ArtefactDetailViewController: HeritageDetailViewController {
             acquistionDatePicker.maximumDate = Date()
         }
     }
-    
-    private func updateDimensionControls() {
-        dimensionLengthStack.isHidden = !dimensionLengthSwitch.isOn
-        dimensionWidthStackView.isHidden = !dimensionWidthSwitch.isOn
-        dimensionDepthStackView.isHidden = !dimensionDepthSwitch.isOn
-    }
-    
-    
-   
-    
     
 }
 

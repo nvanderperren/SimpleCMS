@@ -32,9 +32,12 @@ class FindDetailViewController: HeritageDetailViewController {
         }
     }
     
+    private var objectType: String?
+    
     // readonly
     private var findPlaceTypes = Seeder.service.getHeritagePlaceTypes()
     private var techniques = Seeder.service.getTechniques()
+    private var findObjectTypes = Seeder.service.getFindObjectTyptes()
     
     // outlets
     @IBOutlet weak var findLocationTextField: UITextField!
@@ -87,11 +90,22 @@ class FindDetailViewController: HeritageDetailViewController {
                 fatalError("find is nil")
             }
             DatabaseService.service.update(find, with: .update)
+        case "choose findtype"?:
+        if let destinationController = segue.destination as? UINavigationController, let target = destinationController.topViewController as? ListTableViewController {
+                target.data = findObjectTypes
+            }
         default:
             fatalError("Unknown segue")
         }
         // controleer dit!
         
+    }
+    
+    @IBAction func getObjectType(_ segue: UIStoryboardSegue) {
+        if let source = segue.source as? ListTableViewController {
+            objectType = source.value
+            heritageTypeTextField.text = objectType
+        }
     }
     
     @IBAction func save(_ sender: UIBarButtonItem) {
