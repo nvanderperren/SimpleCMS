@@ -33,6 +33,7 @@ class HeritageDetailViewController: UITableViewController, UINavigationControlle
             }
         }
     }
+//    var collapsedSections: NSMutableSet = []
     
     // readonly
     var acquisitionMethods = Seeder.service.getAcquisitionMethods()
@@ -45,7 +46,6 @@ class HeritageDetailViewController: UITableViewController, UINavigationControlle
     @IBOutlet weak var heritageTypeTextField: UITextField!
     @IBOutlet weak var heritageImageView: UIImageView!
     @IBOutlet weak var acquisitionSourceTextField: UITextField!
-    @IBOutlet weak var rightsLicenseTextField: UITextField!
     @IBOutlet weak var creditLineTextField: UITextField!
     @IBOutlet weak var heritageDescriptionTextField: UITextField!
     @IBOutlet weak var heritageMaterialTextField: UITextField!
@@ -93,6 +93,27 @@ class HeritageDetailViewController: UITableViewController, UINavigationControlle
         print(acquisitionDate ?? "no date???")
         
     }
+    
+//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 25))
+//        view.backgroundColor = UIColor.black.withAlphaComponent(0.9)
+//
+//        let headerLbl = UILabel(frame: CGRect(x: 12, y: 4, width: tableView.bounds.size.width-12, height: 18))
+//        headerLbl.tag = 111
+//        headerLbl.textColor = UIColor.white
+//        if section == 0{
+//            headerLbl.text = "Section1"
+//        }
+//        else{
+//            headerLbl.text = "Section2"
+//        }
+//        let btn = UIButton(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 25))
+//        btn.addTarget(self, action: #selector(collapseTableHeader(_:)), for: .touchUpInside)
+//        btn.tag = section
+//        view.addSubview(btn)
+//        view.addSubview(headerLbl)
+//        return view
+//    }
     
     // MARK: - Private and internal methods
     
@@ -194,6 +215,33 @@ class HeritageDetailViewController: UITableViewController, UINavigationControlle
         }
     }
     
+//    @objc private func collapseTableHeader(_ sender: UIButton) {
+//        tableView.beginUpdates()
+//        var section = Int()
+//        section = sender.tag
+//        var shouldCollapse = Bool()
+//        shouldCollapse = !collapsedSections.contains(section)
+//
+//        if shouldCollapse {
+//            collapsedSections.add(section)
+//        }
+//        else {
+//            collapsedSections.remove(section)
+//        }
+//        self.tableView.endUpdates()
+//    }
+//
+//    private func indexPathsForSection(section: Int, with numberOfRows: Int) -> [IndexPath] {
+//        var indexPaths = [IndexPath]()
+//        var indexPath = IndexPath()
+//
+//        for row in 0..<numberOfRows {
+//            indexPath = IndexPath(row: row, section: section)
+//            indexPaths.append(indexPath)
+//        }
+//        return indexPaths
+//    }
+    
 //    // use this in the main table view or in viewmodel
 //    private func loadImage(with pathAbsoluteString: String){
 //        let url = URL(string: pathAbsoluteString)
@@ -205,6 +253,7 @@ class HeritageDetailViewController: UITableViewController, UINavigationControlle
 //
 //        }
 //    }
+    
     
 }
 
