@@ -41,6 +41,7 @@ class MonumentViewModel: HeritageViewModel {
         self.pictureURL = pictureURL
         self.monumentLocationStreetName = street
         self.monumentLocationNumber = houseNumber
+        self.style = style
         self.creator = creator
         self.period = period
         self.creditLine = creditLine

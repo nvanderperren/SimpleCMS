@@ -15,9 +15,35 @@ class PublicationDetailViewController: HeritageDetailViewController {
     // model
     var publication: PublicationViewModel?
     
+    // variables
+    
+    override var acquisitionMethod: String? {
+        didSet {
+            if (acquisitionMethod == "Kies methode") {
+                acquisitionMethod = nil
+            }
+            saveButton.isEnabled = updateSaveButtonState(with: requiredTextFields, and: requiredVariables)
+        }
+    }
+    
+    override var rightsStatus: String? {
+        didSet {
+            if (rightsStatus == "Kies status") {
+                rightsStatus = nil
+            }
+            saveButton.isEnabled = updateSaveButtonState(with: requiredTextFields, and: requiredVariables)
+        }
+    }
+    
+    override var acquisitionDate: String? {
+        didSet {
+            saveButton.isEnabled = updateSaveButtonState(with: requiredTextFields, and: requiredVariables)
+        }
+    }
+    
     
     // readonly
-    var genres = Seeder.service.getGenres()
+    var genres = Seeder.service.getGenres().sorted{$0 < $1}
     
     
     // outlets
@@ -42,6 +68,10 @@ class PublicationDetailViewController: HeritageDetailViewController {
         return [heritageIdTextField, heritageNameTextField, authorTextField, acquisitionSourceTextField, creditLineTextField]
     }
     
+    private var requiredVariables: [String?] {
+        return [acquisitionMethod, acquisitionDate, rightsStatus]
+    }
+    
     // MARK: - ViewController methods
 
     override func viewDidLoad() {
@@ -50,7 +80,7 @@ class PublicationDetailViewController: HeritageDetailViewController {
         setupNavBar(for: publication)
         setupTextFields(with: allTextFields, for: publication)
         setupDatePicker()
-        updateSaveButtonState(with: requiredTextFields)
+        saveButton.isEnabled = updateSaveButtonState(with: requiredTextFields, and: requiredVariables)
         if let publication = publication {
             updateVariables(publication)
             setupPublicationModel(publication)
@@ -63,7 +93,7 @@ class PublicationDetailViewController: HeritageDetailViewController {
         super.prepare(for: segue, sender: sender)
         print(segue.identifier!)
         switch(segue.identifier) {
-        case "did add publication"?:
+        case "did add publication":
             updateViewModel()
             guard let publication = publication else {
                 fatalError("publication is nil")
@@ -71,7 +101,7 @@ class PublicationDetailViewController: HeritageDetailViewController {
             publication.primaryKey = UUID().uuidString
             DatabaseService.service.create(publication)
             print("item saved")
-        case "did edit publication"?:
+        case "did edit publication":
             updateViewModel()
             guard let publication = publication else {
                 fatalError("publication is nil")
@@ -112,7 +142,7 @@ class PublicationDetailViewController: HeritageDetailViewController {
     // MARK: - TextFieldDelegate methods
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        updateSaveButtonState(with: requiredTextFields)
+        saveButton.isEnabled = updateSaveButtonState(with: requiredTextFields, and: requiredVariables)
     }
     
     // MARK: - Private methods
@@ -139,7 +169,7 @@ class PublicationDetailViewController: HeritageDetailViewController {
             editionTextField.text = String(edition)
         }
         heritageDescriptionTextView.text = publication.description
-        self.heritageId = publication.id
+        genreTextField.text = publication.genre
     }
     
     private func updateVariables(_ publication: PublicationViewModel) {
@@ -147,6 +177,8 @@ class PublicationDetailViewController: HeritageDetailViewController {
         self.acquisitionMethod = publication.acquisitionMethod
         self.acquisitionDate = publication.acquisitionDate
         self.rightsStatus = publication.rightsLicense
+        self.pictureURL = publication.pictureURL
+
     }
     
     private func updateViewModel() {
@@ -169,10 +201,11 @@ class PublicationDetailViewController: HeritageDetailViewController {
                 publication.edition = Int(edition)
             }
             publication.description = heritageDescription
+            publication.genre = genreTextField.text
             publication.pictureURL = pictureURL
         }
         else {
-            publication = PublicationViewModel(id: heritageIdTextField.text!, author: authorTextField.text!, title: heritageNameTextField.text!, pictureURL: pictureURL, acquisitionMethod: acquisitionMethod!, acquisitionSource: acquisitionSourceTextField.text!, acquisitionDate: acquisitionDate!, rightsLicense: rightsStatus!, creditLine: creditLineTextField.text!, publisher: publisherTextField.text, publicationDate: publicationDateTextField.text, publicationPlace: publicationPlaceTextField.text, numberOfPages: numberOfPagesTextField.text, edition: editionTextField.text)
+            publication = PublicationViewModel(id: heritageIdTextField.text!, author: authorTextField.text!, title: heritageNameTextField.text!, pictureURL: pictureURL, acquisitionMethod: acquisitionMethod!, acquisitionSource: acquisitionSourceTextField.text!, acquisitionDate: acquisitionDate!, rightsLicense: rightsStatus!, creditLine: creditLineTextField.text!, publisher: publisherTextField.text, publicationDate: publicationDateTextField.text, publicationPlace: publicationPlaceTextField.text, numberOfPages: numberOfPagesTextField.text, edition: editionTextField.text, genre: genreTextField.text)
         }
     }
     

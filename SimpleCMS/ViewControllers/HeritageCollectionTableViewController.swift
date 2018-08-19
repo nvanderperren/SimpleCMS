@@ -11,7 +11,7 @@ import UIKit
 class HeritageCollectionTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UITextFieldDelegate {
     
     // MARK: - Properties and outlets
-    var heritageObjects = Seeder.service.getHeritageObjects()
+    var heritageObjects = [HeritageViewModel]()
     var currentHeritageObjects : [HeritageViewModel] = []
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var heritageCollectionTableView: UITableView!
@@ -22,6 +22,12 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
     // MARK: - ViewController methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let savedObjects = ConversionService.service.getAllHeritageViewModels()?.sorted(by: {$0.id < $1.id}) {
+            heritageObjects = savedObjects
+        } else {
+            heritageObjects = Seeder.service.getHeritageObjects().sorted(by: {$0.id < $1.id})
+            
+        }
         currentHeritageObjects = heritageObjects
         categories = returnSortedCategoriesOfHeritageObjects()
         setupSearchBar()
@@ -91,6 +97,7 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
             let destinationController = segue.destination as! ArtefactDetailViewController
             if let selection = heritageCollectionTableView.indexPathForSelectedRow {
                 destinationController.artefact = heritageObjects[selection.row] as? ArtefactViewModel
+                destinationController.saveButton.isEnabled = true
                 heritageCollectionTableView.deselectRow(at: selection, animated: true)
             } else {
                 destinationController.artefact = heritageObjects[indexPathToEdit.row] as? ArtefactViewModel
@@ -99,6 +106,7 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
             let destinationController = segue.destination as! FindDetailViewController
             if let selection = heritageCollectionTableView.indexPathForSelectedRow {
                 destinationController.find = heritageObjects[selection.row] as? FindViewModel
+                destinationController.saveButton.isEnabled = true
                 heritageCollectionTableView.deselectRow(at: selection, animated: true)
             } else {
                 destinationController.find = heritageObjects[indexPathToEdit.row] as? FindViewModel
@@ -107,6 +115,7 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
             let destinationController = segue.destination as! MonumentDetailViewController
             if let selection = heritageCollectionTableView.indexPathForSelectedRow {
                 destinationController.monument = heritageObjects[selection.row] as? MonumentViewModel
+                destinationController.saveButton.isEnabled = true
                 heritageCollectionTableView.deselectRow(at: selection, animated: true)
             } else {
                 destinationController.monument = heritageObjects[indexPathToEdit.row] as? MonumentViewModel
@@ -115,6 +124,7 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
             let destinationController = segue.destination as! PublicationDetailViewController
             if let selection = heritageCollectionTableView.indexPathForSelectedRow {
                 destinationController.publication = heritageObjects[selection.row] as? PublicationViewModel
+                destinationController.saveButton.isEnabled = true
                 heritageCollectionTableView.deselectRow(at: selection, animated: true)
             } else {
                 destinationController.publication = heritageObjects[indexPathToEdit.row] as? PublicationViewModel

@@ -24,7 +24,7 @@ import RealmSwift
 
 enum ObjectDimensionType: String {
     case width = "breedte"
-    case height = "hoogte"
+    case length = "lengte"
     case depth = "diepte"
 }
 

@@ -40,7 +40,6 @@ class DatabaseService {
         switch(model){
         case let model as ArtefactViewModel:
             let artefact = getAllArtefacts().filter{$0.primaryKey == model.primaryKey}.first
-            print(artefact!.name)
             if let artefact = artefact {
                 switch (method){
                 case .update:
@@ -107,7 +106,34 @@ class DatabaseService {
     
     // MARK: Private create methods
     private func createArtefact(_ model: ArtefactViewModel){
-        let artefact = Artefact(objectId: model.id, objectType: model.artefactType, name: model.name, photo: model.pictureURL, acquisitionMethod: model.acquisitionMethod!, acquisitionDate: model.acquisitionDate!, acquisitionSource: model.acquisitionSource!, depositPlace: nil, rightsStatus: model.rightsLicense, creditLine: model.creditLine, creator: model.creator, placeOfCreation: model.creationPlace, dateOfCreation: model.creationDate, period: model.creationPeriod, description: model.description, material: model.material, dimensions: nil)
+        
+        var objectDimensions = [ObjectDimension]()
+        
+        if let sizeLength = model.sizeLength {
+            let value = Double(sizeLength)
+            if let value = value {
+                objectDimensions.append(ObjectDimension(dimensionType: ObjectDimensionType.length.rawValue, value: value, unit: model.sizeLengthUnit!))
+
+            }
+        }
+        
+        if let sizeWidth = model.sizeWidth {
+            let value = Double(sizeWidth)
+            if let value = value {
+                objectDimensions.append(ObjectDimension(dimensionType: ObjectDimensionType.width.rawValue, value: value, unit: model.sizeWidthUnit!))
+            }
+            
+        }
+        
+        if let sizeDepth = model.sizeDepth {
+            let value = Double(sizeDepth)
+            if let value = value {
+                objectDimensions.append(ObjectDimension(dimensionType: ObjectDimensionType.depth.rawValue, value: value, unit: model.sizeDepthUnit!))
+
+            }
+        }
+        
+        let artefact = Artefact(objectId: model.id, objectType: model.artefactType, name: model.name, photo: model.pictureURL, acquisitionMethod: model.acquisitionMethod!, acquisitionDate: model.acquisitionDate!, acquisitionSource: model.acquisitionSource!, depositPlace: nil, rightsStatus: model.rightsLicense, creditLine: model.creditLine, creator: model.creator, placeOfCreation: model.creationPlace, dateOfCreation: model.creationDate, period: model.creationPeriod, description: model.description, material: model.material, dimensions: objectDimensions)
         artefact.primaryKey = model.primaryKey
         print(artefact.primaryKey)
         saveObject(artefact)
@@ -122,7 +148,34 @@ class DatabaseService {
     }
     
     private func createFind(_ model: FindViewModel){
-        let find = MetalDetectingFind(findId: model.id, name: model.name, objectType: model.objectType, photo: model.pictureURL, findPlaceType: model.findPlaceType, location: model.findPlace, material: model.material, technique: model.technique, inscription: model.inscription, description: model.description, objectDimensions: nil)
+        
+        var objectDimensions = [ObjectDimension]()
+        
+        if let sizeLength = model.sizeLength {
+            let value = Double(sizeLength)
+            if let value = value {
+                objectDimensions.append(ObjectDimension(dimensionType: ObjectDimensionType.length.rawValue, value: value, unit: model.sizeLengthUnit!))
+                
+            }
+        }
+        
+        if let sizeWidth = model.sizeWidth {
+            let value = Double(sizeWidth)
+            if let value = value {
+                objectDimensions.append(ObjectDimension(dimensionType: ObjectDimensionType.width.rawValue, value: value, unit: model.sizeWidthUnit!))
+            }
+            
+        }
+        
+        if let sizeDepth = model.sizeDepth {
+            let value = Double(sizeDepth)
+            if let value = value {
+                objectDimensions.append(ObjectDimension(dimensionType: ObjectDimensionType.depth.rawValue, value: value, unit: model.sizeDepthUnit!))
+                
+            }
+        }
+        
+        let find = MetalDetectingFind(findId: model.id, name: model.name, objectType: model.objectType, photo: model.pictureURL, findPlaceType: model.findPlaceType, location: model.findPlace, material: model.material, technique: model.technique, inscription: model.inscription, description: model.description, period: model.period, objectDimensions: objectDimensions, acquisitionMethod: model.acquisitionMethod, acquisitionDate: model.acquisitionDate, acquisitionSource: model.acquisitionSource)
         find.primaryKey = model.primaryKey
         print(find.primaryKey)
         saveObject(find)

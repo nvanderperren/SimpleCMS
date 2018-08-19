@@ -27,6 +27,7 @@ import RealmSwift
     dynamic var inscription: String? = nil
     dynamic var objectDescription: String? = nil
     dynamic var objectDimensions = List<ObjectDimension>()
+    dynamic var period: String? = nil
     
     // find
     dynamic var findPlaceType: String? = nil
@@ -34,11 +35,14 @@ import RealmSwift
     
     // acquisition
     // dynamic var acquisition: Acquisition? = nil
+    dynamic var acquisitionMethod: String? = nil
+    dynamic var acquisitionDate: String? = nil
+    dynamic var acquisitionSource: String? = nil
     
     
     // MARK: Initializers
     
-    convenience init(findId: String, name: String, objectType: String, photo: String?, findPlaceType: String?, location: String?, material: String?, technique: String?, inscription: String?, description: String?, objectDimensions: [ObjectDimension]?){
+    convenience init(findId: String, name: String, objectType: String, photo: String?, findPlaceType: String?, location: String?, material: String?, technique: String?, inscription: String?, description: String?, period: String?, objectDimensions: [ObjectDimension]?, acquisitionMethod: String?, acquisitionDate: String?, acquisitionSource: String?){
         self.init()
         self.findId = findId
         self.name = name
@@ -49,6 +53,7 @@ import RealmSwift
         self.material = material
         self.technique = technique
         self.inscription = inscription
+        self.period = period
         self.objectDescription = description
         if let dimensions = objectDimensions {
             self.objectDimensions.append(objectsIn: dimensions)     

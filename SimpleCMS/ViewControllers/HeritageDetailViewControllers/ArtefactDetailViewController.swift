@@ -14,9 +14,34 @@ class ArtefactDetailViewController: HeritageDetailViewController {
     
     // model
     var artefact: ArtefactViewModel?
+    var dimensionUnits = ["mm", "cm"]
     
     // readonly
     let artefactTypes = Seeder.service.getObjectTypes().sorted{$0 < $1}
+    
+    override var acquisitionMethod: String? {
+        didSet {
+            if (acquisitionMethod == "Kies methode") {
+                acquisitionMethod = nil
+            }
+            saveButton.isEnabled = updateSaveButtonState(with: requiredFields, and: requiredVariables)
+        }
+    }
+    
+    override var rightsStatus: String? {
+        didSet {
+            if (rightsStatus == "Kies status") {
+                rightsStatus = nil
+            }
+            saveButton.isEnabled = updateSaveButtonState(with: requiredFields, and: requiredVariables)
+        }
+    }
+    
+    override var acquisitionDate: String? {
+        didSet {
+            saveButton.isEnabled = updateSaveButtonState(with: requiredFields, and: requiredVariables)
+        }
+    }
     
     // outlets
     @IBOutlet weak var artefactCreatorTextField: UITextField!
@@ -25,13 +50,23 @@ class ArtefactDetailViewController: HeritageDetailViewController {
     @IBOutlet weak var dimensionLengthTextField: UITextField!
     @IBOutlet weak var dimensionWidthTextField: UITextField!
     @IBOutlet weak var dimensionDepthTextField: UITextField!
+    @IBOutlet weak var dimensionLengthSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var dimensionWidthSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var dimensionDepthSegmentedControl: UISegmentedControl!
+    
+    
+    
     
     var requiredFields: [UITextField] {
         return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionSourceTextField, creditLineTextField]
     }
     
     var allTextFields: [UITextField] {
-        return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionSourceTextField, creditLineTextField, artefactCreatorTextField, artefactCreationPlaceTextField, artefactCreationDateTextField, heritageMaterialTextField]
+        return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionSourceTextField, creditLineTextField, artefactCreatorTextField, artefactCreationPlaceTextField, artefactCreationDateTextField, heritageMaterialTextField, dimensionDepthTextField, dimensionWidthTextField, dimensionLengthTextField]
+    }
+    
+    var requiredVariables: [String?] {
+        return [acquisitionMethod, rightsStatus, acquisitionDate]
     }
     
     
@@ -43,7 +78,7 @@ class ArtefactDetailViewController: HeritageDetailViewController {
         setupNavBar(for: artefact)
         setupTextFields(with: allTextFields, for: artefact)
         setupDatePicker()
-        updateSaveButtonState(with: requiredFields)
+        saveButton.isEnabled = updateSaveButtonState(with: requiredFields, and: requiredVariables)
         if let artefact = artefact {
             updateVariables(artefact)
             setupArtefactModel(artefact)
@@ -119,7 +154,7 @@ class ArtefactDetailViewController: HeritageDetailViewController {
     // MARK: - TextFieldDelegate methods
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        updateSaveButtonState(with: requiredFields)
+       saveButton.isEnabled = updateSaveButtonState(with: requiredFields, and: requiredVariables)
     }
     
     
@@ -145,6 +180,12 @@ class ArtefactDetailViewController: HeritageDetailViewController {
         creationPeriodPicker.selectRow(creationPeriodIndex!, inComponent: 0, animated: false)
         heritageDescriptionTextView.text = artefact.description
         heritageMaterialTextField.text = artefact.material
+        dimensionLengthTextField.text = artefact.sizeLength
+        dimensionWidthTextField.text = artefact.sizeWidth
+        dimensionDepthTextField.text = artefact.sizeDepth
+        dimensionLengthSegmentedControl.selectedSegmentIndex = dimensionUnits.index(of: artefact.sizeLengthUnit ?? "mm") ?? 0
+        dimensionWidthSegmentedControl.selectedSegmentIndex = dimensionUnits.index(of: artefact.sizeWidthUnit ?? "mm") ?? 0
+        dimensionDepthSegmentedControl.selectedSegmentIndex = dimensionUnits.index(of: artefact.sizeDepthUnit ?? "mm") ?? 0
         
     }
     
@@ -154,6 +195,7 @@ class ArtefactDetailViewController: HeritageDetailViewController {
         self.acquisitionDate = artefact.acquisitionDate
         self.rightsStatus = artefact.rightsLicense
         self.heritageCreationPeriod = artefact.creationPeriod
+        self.pictureURL = artefact.pictureURL
         
     }
     
@@ -175,9 +217,14 @@ class ArtefactDetailViewController: HeritageDetailViewController {
             artefact.description = heritageDescription
             artefact.material = heritageMaterialTextField.text
             artefact.pictureURL = pictureURL
+            artefact.sizeLengthUnit = dimensionUnits[dimensionLengthSegmentedControl.selectedSegmentIndex]
+            artefact.sizeWidth = dimensionWidthTextField.text
+            artefact.sizeWidthUnit = dimensionUnits[dimensionWidthSegmentedControl.selectedSegmentIndex]
+            artefact.sizeDepth = dimensionDepthTextField.text
+            artefact.sizeDepthUnit = dimensionUnits[dimensionDepthSegmentedControl.selectedSegmentIndex]
         }
         else {
-            artefact = ArtefactViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, artefactType: heritageTypeTextField.text!, pictureURL: pictureURL, acquisitionSource: acquisitionSourceTextField.text!, acquisitionMethod: acquisitionMethod!, acquisitionDate: acquisitionDate!, rightsLicense: rightsStatus!, creditLine: creditLineTextField.text!, creator: artefactCreatorTextField.text, creationPlace: artefactCreationPlaceTextField.text, creationDate: artefactCreationDateTextField.text, creationPeriod: heritageCreationPeriod, material: heritageMaterialTextField.text, description: heritageDescription, size: nil)
+            artefact = ArtefactViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, artefactType: heritageTypeTextField.text!, pictureURL: pictureURL, acquisitionSource: acquisitionSourceTextField.text!, acquisitionMethod: acquisitionMethod!, acquisitionDate: acquisitionDate!, rightsLicense: rightsStatus!, creditLine: creditLineTextField.text!, creator: artefactCreatorTextField.text, creationPlace: artefactCreationPlaceTextField.text, creationDate: artefactCreationDateTextField.text, creationPeriod: heritageCreationPeriod, material: heritageMaterialTextField.text, description: heritageDescription, length: dimensionLengthTextField.text, lengthUnit: dimensionUnits[dimensionLengthSegmentedControl.selectedSegmentIndex], width: dimensionWidthTextField.text, widthUnit: dimensionUnits[dimensionWidthSegmentedControl.selectedSegmentIndex], depth: dimensionDepthTextField.text, depthUnit: dimensionUnits[dimensionDepthSegmentedControl.selectedSegmentIndex])
         }
     }
     

@@ -14,17 +14,49 @@ struct Seeder {
     static let service = Seeder()
     
     func getHeritageObjects() -> [HeritageViewModel] {
-        let item1 = HeritageViewModel(id: "TILE1", name: "armband", category: HeritageObjectCategory.metalDetectingFind.rawValue)
-        let item2 = HeritageViewModel(id: "TILE2", name: "munitie", category: HeritageObjectCategory.metalDetectingFind.rawValue)
-        let item3 = HeritageViewModel(id: "TILE3", name: "een oud boek", category: HeritageObjectCategory.publication.rawValue)
-        let item4 = HeritageViewModel(id: "TILE4", name: "een schilderij", category: HeritageObjectCategory.artefact.rawValue)
-        let item5 = HeritageViewModel(id: "TILE5", name: "een muziekinstrument", category: HeritageObjectCategory.artefact.rawValue)
-        item1.picture = UIImage(named:"armband")
-        item2.picture = UIImage(named:"munitie")
-        item3.picture = UIImage(named:"boek")
-        item4.picture = UIImage(named: "schilderij")
-        item5.picture = UIImage(named: "kalimba")
-        return [item1, item2, item3, item4, item5] + ConversionService.service.getAllHeritageViewModels()
+        let images = [UIImage(named:"armband"), UIImage(named:"munitie"), UIImage(named:"boek"), UIImage(named: "schilderij"), UIImage(named: "kalimba")]
+        var paths = [String]()
+        
+        for image in images {
+            if let image = image {
+                let path = saveImage(image)
+                paths.append(path)
+            }
+            
+        }
+        
+        let item1 = ArtefactViewModel(id: "TILE1", name: "armband", artefactType: "Sierraad", pictureURL: paths[0], acquisitionSource: "Ikzelf", acquisitionMethod: "Aankoop", acquisitionDate: "24 januari 2016", rightsLicense: "Verweesd werk", creditLine: "een verweesd werk", creator: "Linda Vandervorst", creationPlace: "Melsbroek", creationDate: nil, creationPeriod: nil, material: nil, description: "een armband", length: nil, lengthUnit: nil, width: nil, widthUnit: nil, depth: nil, depthUnit: nil)
+        let item2 = FindViewModel(id: "TILE2", name: "munitie", objectType: "Bijl", pictureURL: paths[1], findPlaceType: nil, findPlace: nil, inscription: nil, description: nil, period: nil, technique: nil, length: nil, lengthUnit: nil, width: nil, widthUnit: nil, depth: nil, depthUnit: nil, acquisitionSource: nil, acquisitionMethod: nil, acquisitionDate: nil)
+        let item3 = PublicationViewModel(id: "TILE3", author: "Nastasia Vanderperren", title: "een mooi booek", pictureURL: paths[2], acquisitionMethod: "Schenking", acquisitionSource: "Mijn mama", acquisitionDate: "25 februari 2001", rightsLicense: "Copyright niet geëvalueerd", creditLine: "geen idee", publisher: nil, publicationDate: nil, publicationPlace: nil, numberOfPages: nil, edition: nil, genre: nil)
+        let item4 = ArtefactViewModel(id: "TILE4", name: "een schilderij", artefactType: "Schilderij", pictureURL: paths[3], acquisitionSource: "museum", acquisitionMethod: "Schenking", acquisitionDate: "22 augustus 1987", rightsLicense: "Geen copyright (CC0)", creditLine: "gebruik het maar!", creator: nil, creationPlace: nil, creationDate: nil, creationPeriod: nil, material: nil, description: nil)
+        let item5 = ArtefactViewModel(id: "TILE5", name: "Trompet", artefactType: "Muziekinstrument", pictureURL: paths[4], acquisitionSource: "de fanfare", acquisitionMethod: "Aankoop", acquisitionDate: "23 juli 1996", rightsLicense: "In copyright", creditLine: "hier staat iets", creator: nil, creationPlace: nil, creationDate: nil, creationPeriod: nil, material: nil, description: nil)
+        item1.primaryKey = UUID().uuidString
+        item2.primaryKey = UUID().uuidString
+        item3.primaryKey = UUID().uuidString
+        item4.primaryKey = UUID().uuidString
+        item5.primaryKey = UUID().uuidString
+        DatabaseService.service.create(item1)
+        DatabaseService.service.create(item2)
+        DatabaseService.service.create(item3)
+        DatabaseService.service.create(item4)
+        DatabaseService.service.create(item5)
+        
+        return [item1, item2, item3, item4, item5]
+        
+    }
+    
+    private func saveImage(_ image:UIImage) -> String {
+        let fileManager = FileManager.default
+        let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
+        let imagePath = documentsPath?.appendingPathComponent("\(UUID().uuidString).jpg")
+        do {
+            try UIImageJPEGRepresentation(image, 1.0)?.write(to: imagePath!)
+            let path = imagePath!.absoluteString
+            return path
+        } catch {
+            print(error)
+        }
+        return ""
         
     }
     

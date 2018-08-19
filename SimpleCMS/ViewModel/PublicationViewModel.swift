@@ -17,6 +17,7 @@ class PublicationViewModel : HeritageViewModel {
     var publicationPlace: String?
     var numberOfPages: Int?
     var edition: Int?
+    var genre: String?
     
     // MARK: Initializers
     required init(id: String, title: String, author: String, acquisitionMethod: String, acquisitionSource: String, acquisitionDate: String, rightsLicense: String, creditLine: String) {
@@ -29,7 +30,7 @@ class PublicationViewModel : HeritageViewModel {
         self.creditLine = creditLine
     }
     
-    convenience init(id: String, author: String, title: String, pictureURL: String?, acquisitionMethod: String, acquisitionSource: String, acquisitionDate: String, rightsLicense: String, creditLine: String, publisher: String?, publicationDate: String?, publicationPlace: String?, numberOfPages: String?, edition: String?) {
+    convenience init(id: String, author: String, title: String, pictureURL: String?, acquisitionMethod: String, acquisitionSource: String, acquisitionDate: String, rightsLicense: String, creditLine: String, publisher: String?, publicationDate: String?, publicationPlace: String?, numberOfPages: String?, edition: String?, genre: String?) {
         self.init(id: id, title: title, author: author, acquisitionMethod: acquisitionMethod, acquisitionSource: acquisitionSource, acquisitionDate: acquisitionDate, rightsLicense: rightsLicense, creditLine: creditLine)
         self.pictureURL = pictureURL
         self.publisher = publisher

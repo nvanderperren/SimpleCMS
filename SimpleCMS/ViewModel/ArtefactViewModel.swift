@@ -14,10 +14,13 @@ class ArtefactViewModel : HeritageViewModel {
     var creationPlace: String?
     var creationDate: String?
     var creationPeriod: String?
-    var size: String?
-//    var sizeType: String
-//    var sizeValue: Double
-//    var sizeUnit: String
+    var sizeLength: String?
+    var sizeLengthUnit: String?
+    var sizeWidth: String?
+    var sizeWidthUnit: String?
+    var sizeDepth: String?
+    var sizeDepthUnit: String?
+    
     
     required init(id: String, name: String, artefactType: String, acquisitionSource: String, acquisitionMethod: String, acquisitionDate: String, rightsLicense: String, creditLine: String) {
         self.artefactType = artefactType
@@ -30,7 +33,7 @@ class ArtefactViewModel : HeritageViewModel {
         
     }
     
-    convenience init(id: String, name: String, artefactType: String, pictureURL: String?, acquisitionSource: String, acquisitionMethod: String, acquisitionDate: String, rightsLicense: String, creditLine: String, creator: String?, creationPlace: String?, creationDate: String?, creationPeriod: String?, material: String?, description: String?, size: String?) {
+    convenience init(id: String, name: String, artefactType: String, pictureURL: String?, acquisitionSource: String, acquisitionMethod: String, acquisitionDate: String, rightsLicense: String, creditLine: String, creator: String?, creationPlace: String?, creationDate: String?, creationPeriod: String?, material: String?, description: String?) {
         self.init(id: id, name: name, artefactType: artefactType, acquisitionSource: acquisitionSource, acquisitionMethod: acquisitionMethod, acquisitionDate: acquisitionDate, rightsLicense: rightsLicense, creditLine: creditLine)
         self.pictureURL = pictureURL
         self.creator = creator
@@ -39,7 +42,23 @@ class ArtefactViewModel : HeritageViewModel {
         self.creationPeriod = creationPeriod
         self.description = description
         self.material = material
-        self.size = size
+    }
+    
+    convenience init(id: String, name: String, artefactType: String, pictureURL: String?, acquisitionSource: String, acquisitionMethod: String, acquisitionDate: String, rightsLicense: String, creditLine: String, creator: String?, creationPlace: String?, creationDate: String?, creationPeriod: String?, material: String?, description: String?, length: String?, lengthUnit: String?, width: String?, widthUnit: String?, depth: String?, depthUnit: String?) {
+        self.init(id: id, name: name, artefactType: artefactType, acquisitionSource: acquisitionSource, acquisitionMethod: acquisitionMethod, acquisitionDate: acquisitionDate, rightsLicense: rightsLicense, creditLine: creditLine)
+        self.pictureURL = pictureURL
+        self.creator = creator
+        self.creationPlace = creationPlace
+        self.creationDate = creationDate
+        self.creationPeriod = creationPeriod
+        self.description = description
+        self.material = material
+        self.sizeLength = length
+        self.sizeLengthUnit = lengthUnit
+        self.sizeWidth = width
+        self.sizeWidthUnit = widthUnit
+        self.sizeDepth = depth
+        self.sizeDepthUnit = depthUnit
     }
     
     

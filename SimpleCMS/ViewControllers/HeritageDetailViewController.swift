@@ -26,7 +26,7 @@ class HeritageDetailViewController: UITableViewController, UINavigationControlle
             }
         }
     }
-   
+    
     var rightsStatus: String? {
         didSet {
             if (rightsStatus == "Kies status") {
@@ -34,6 +34,7 @@ class HeritageDetailViewController: UITableViewController, UINavigationControlle
             }
         }
     }
+    
     
     var heritageDescription: String? {
         if heritageDescriptionTextView.text == descriptionPlaceHolder {
@@ -51,14 +52,14 @@ class HeritageDetailViewController: UITableViewController, UINavigationControlle
             }
         }
     }
-//    var collapsedSections: NSMutableSet = []
+
     
     // readonly
     var acquisitionMethods = Seeder.service.getAcquisitionMethods()
     var rightsLicenses = Seeder.service.getRightsLicenses()
     var descriptionPlaceHolder = "Geef een korte beschrijving"
     var creationPeriods = Seeder.service.getPeriods()
-    var materials = Seeder.service.getMaterials()
+    var materials = Seeder.service.getMaterials().sorted(by: {$0 < $1})
     
     // outlets
     @IBOutlet weak var heritageIdTextField: UITextField!
@@ -118,27 +119,6 @@ class HeritageDetailViewController: UITableViewController, UINavigationControlle
         
     }
     
-//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 25))
-//        view.backgroundColor = UIColor.black.withAlphaComponent(0.9)
-//
-//        let headerLbl = UILabel(frame: CGRect(x: 12, y: 4, width: tableView.bounds.size.width-12, height: 18))
-//        headerLbl.tag = 111
-//        headerLbl.textColor = UIColor.white
-//        if section == 0{
-//            headerLbl.text = "Section1"
-//        }
-//        else{
-//            headerLbl.text = "Section2"
-//        }
-//        let btn = UIButton(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: 25))
-//        btn.addTarget(self, action: #selector(collapseTableHeader(_:)), for: .touchUpInside)
-//        btn.tag = section
-//        view.addSubview(btn)
-//        view.addSubview(headerLbl)
-//        return view
-//    }
-    
     // MARK: - Private and internal methods
     
     func setupNavBar(for item: HeritageViewModel?) {
@@ -147,17 +127,23 @@ class HeritageDetailViewController: UITableViewController, UINavigationControlle
         }
     }
     
-    func updateSaveButtonState(with requiredFields: [UITextField]) {
+    func updateSaveButtonState(with requiredFields: [UITextField], and requiredVariables: [String?]?) -> Bool {
         var strings = [String]()
         for textField in requiredFields {
             let text = textField.text ?? ""
             strings.append(text)
         }
+        if let variables = requiredVariables {
+            for variable in variables {
+                strings.append(variable ?? "")
+            }
+        }
+        
         let count = strings.filter{$0.isEmpty}.count
         if (count > 0) {
-            saveButton.isEnabled = false
+            return false
         } else {
-            saveButton.isEnabled = true
+            return true
         }
     }
     

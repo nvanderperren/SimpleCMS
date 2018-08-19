@@ -15,6 +15,16 @@ class MonumentDetailViewController: HeritageDetailViewController {
     // monument
     var monument: MonumentViewModel?
     
+    // variables
+    override var rightsStatus: String? {
+        didSet {
+            if (rightsStatus == "Kies status") {
+                rightsStatus = nil
+            }
+            saveButton.isEnabled = updateSaveButtonState(with: requiredTextFields, and: requiredVariables)
+        }
+    }
+    
     // readonly
     var styles = Seeder.service.getMonumentStyles().sorted{$0 < $1}
     var monumentTypes = Seeder.service.getMonumentTypes().sorted{$0 < $1}
@@ -36,6 +46,10 @@ class MonumentDetailViewController: HeritageDetailViewController {
         return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, creditLineTextField, monumentMunicipalityTextField]
     }
     
+    private var requiredVariables: [String?] {
+        return [rightsStatus]
+    }
+    
     // MARK: ViewController methods
     
     override func viewDidLoad() {
@@ -45,8 +59,7 @@ class MonumentDetailViewController: HeritageDetailViewController {
         if let monument = monument {
             updateVariables(monument)
             setupMonumentModel(monument)}
-        setupAllControls()
-        updateSaveButtonState(with: requiredTextFields)
+        saveButton.isEnabled = updateSaveButtonState(with: requiredTextFields, and: requiredVariables)
         print("Monument showing")
     }
     
@@ -122,16 +135,10 @@ class MonumentDetailViewController: HeritageDetailViewController {
     // MARK: - TextFieldDelegate methods
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        updateSaveButtonState(with: requiredTextFields)
+        saveButton.isEnabled = updateSaveButtonState(with: requiredTextFields, and: requiredVariables)
     }
     
     // MARK: - Private methods
-    
-    private func setupAllControls() {
-        if monument != nil {
-            monumentIsProtectedSwitch.isUserInteractionEnabled = false
-        }
-    }
     
     private func setupMonumentModel(_ monument: MonumentViewModel){
         heritageIdTextField.text = monument.id
@@ -184,6 +191,8 @@ class MonumentDetailViewController: HeritageDetailViewController {
         self.heritageId = monument.id
         self.rightsStatus = monument.rightsLicense
         self.heritageCreationPeriod = monument.period
+        self.pictureURL = monument.pictureURL
+
     }
         
 

@@ -14,6 +14,7 @@ class FindDetailViewController: HeritageDetailViewController {
     
     // model
     var find: FindViewModel?
+    var dimensionUnits = ["mm", "cm"]
     
     
     // variables
@@ -36,17 +37,23 @@ class FindDetailViewController: HeritageDetailViewController {
     // readonly
     private var findPlaceTypes = Seeder.service.getHeritagePlaceTypes()
     private var techniques = Seeder.service.getTechniques()
-    private var findObjectTypes = Seeder.service.getFindObjectTyptes()
+    private var findObjectTypes = Seeder.service.getFindObjectTyptes().sorted{$0 < $1}
     
     // outlets
     @IBOutlet weak var findLocationTextField: UITextField!
     @IBOutlet weak var findInscriptionTextField: UITextField!
     @IBOutlet weak var findPlaceTypePickerField: UIPickerView!
     @IBOutlet weak var findTechniquePicker: UIPickerView!
+    @IBOutlet weak var dimensionLengthTextField: UITextField!
+    @IBOutlet weak var dimensionWidthTextField: UITextField!
+    @IBOutlet weak var dimensionDepthTextField: UITextField!
+    @IBOutlet weak var dimensionLengthSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var dimensionWidthSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var dimensionDepthSegmentedControl: UISegmentedControl!
     
     
     private var allTextFields: [UITextField] {
-        return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionSourceTextField, findLocationTextField, heritageMaterialTextField, findInscriptionTextField]
+        return [heritageIdTextField, heritageNameTextField, heritageTypeTextField, acquisitionSourceTextField, findLocationTextField, heritageMaterialTextField, findInscriptionTextField, dimensionLengthTextField, dimensionWidthTextField, dimensionDepthTextField]
     }
     
     private var requiredTextFields: [UITextField] {
@@ -61,7 +68,7 @@ class FindDetailViewController: HeritageDetailViewController {
         setupNavBar(for: find)
         setupTextFields(with: allTextFields, for: find)
         setupDatePicker()
-        updateSaveButtonState(with: requiredTextFields)
+        saveButton.isEnabled = updateSaveButtonState(with: requiredTextFields, and: nil)
         if let find = find {
             updateVariables(find)
             setupFindModel(find)
@@ -137,7 +144,7 @@ class FindDetailViewController: HeritageDetailViewController {
     // MARK: - TextFieldDelegate methods
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        updateSaveButtonState(with: requiredTextFields)
+       saveButton.isEnabled = updateSaveButtonState(with: requiredTextFields, and: nil)
     }
     
     // MARK: - Picker
@@ -221,6 +228,15 @@ class FindDetailViewController: HeritageDetailViewController {
         let techniqueIndex = techniques.index(of: find.technique ?? "Kies techniek")
         findTechniquePicker.selectRow(techniqueIndex!, inComponent: 0, animated: false)
         findInscriptionTextField.text = find.inscription
+        let creationPeriodIndex = creationPeriods.index(of: heritageCreationPeriod ?? "Kies periode")
+        creationPeriodPicker.selectRow(creationPeriodIndex!, inComponent: 0, animated: false)
+        dimensionLengthTextField.text = find.sizeLength
+        dimensionWidthTextField.text = find.sizeWidth
+        dimensionDepthTextField.text = find.sizeDepth
+        dimensionLengthSegmentedControl.selectedSegmentIndex = dimensionUnits.index(of: find.sizeLengthUnit ?? "mm") ?? 0
+        dimensionWidthSegmentedControl.selectedSegmentIndex = dimensionUnits.index(of: find.sizeWidthUnit ?? "mm") ?? 0
+        dimensionDepthSegmentedControl.selectedSegmentIndex = dimensionUnits.index(of: find.sizeDepthUnit ?? "mm") ?? 0
+        
         
     }
     
@@ -231,16 +247,28 @@ class FindDetailViewController: HeritageDetailViewController {
             find.objectType = heritageTypeTextField.text!
             find.acquisitionMethod = acquisitionMethod
             find.acquisitionSource = acquisitionSourceTextField.text
-            find.acquisitionDate = nil
+            find.acquisitionDate = acquisitionDate
             find.findPlaceType = findPlaceType
             find.findPlace = findLocationTextField.text
             find.description = heritageDescription
             find.material = heritageMaterialTextField.text
             find.technique = findTechnique
             find.inscription = findInscriptionTextField.text
+            find.description = heritageDescriptionTextView.text
+            find.period = heritageCreationPeriod
             find.pictureURL = pictureURL
+            find.sizeLength = dimensionLengthTextField.text
+            find.sizeLengthUnit = dimensionUnits[dimensionLengthSegmentedControl.selectedSegmentIndex]
+            find.sizeWidth = dimensionWidthTextField.text
+            find.sizeWidthUnit = dimensionUnits[dimensionWidthSegmentedControl.selectedSegmentIndex]
+            find.sizeDepth = dimensionDepthTextField.text
+            find.sizeDepthUnit = dimensionUnits[dimensionDepthSegmentedControl.selectedSegmentIndex]
+            find.acquisitionSource = acquisitionSourceTextField.text
+            find.acquisitionDate = acquisitionDate
+            find.acquisitionMethod = acquisitionMethod
+            
         } else {
-            find = FindViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, objectType: heritageTypeTextField.text!, pictureURL: pictureURL, findPlaceType: findPlaceType, findPlace: findLocationTextField.text, inscription: findInscriptionTextField.text)
+            find = FindViewModel(id: heritageIdTextField.text!, name: heritageNameTextField.text!, objectType: heritageTypeTextField.text!, pictureURL: pictureURL, findPlaceType: findPlaceType, findPlace: findLocationTextField.text, inscription: findInscriptionTextField.text, description: heritageDescriptionTextView.text, period: heritageCreationPeriod, technique: findTechnique, length: dimensionLengthTextField.text, lengthUnit: dimensionUnits[dimensionLengthSegmentedControl.selectedSegmentIndex], width: dimensionWidthTextField.text, widthUnit: dimensionUnits[dimensionWidthSegmentedControl.selectedSegmentIndex], depth: dimensionDepthTextField.text, depthUnit: dimensionUnits[dimensionDepthSegmentedControl.selectedSegmentIndex], acquisitionSource: acquisitionSourceTextField.text, acquisitionMethod: acquisitionMethod, acquisitionDate: acquisitionDate)
         }
     }
     
@@ -249,6 +277,8 @@ class FindDetailViewController: HeritageDetailViewController {
         findPlaceType = find.findPlaceType
         acquisitionMethod = find.acquisitionMethod
         acquisitionDate = find.acquisitionDate
+        self.pictureURL = find.pictureURL
+
         
     }
     

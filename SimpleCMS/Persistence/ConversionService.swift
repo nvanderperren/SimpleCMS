@@ -17,7 +17,7 @@ class ConversionService {
     let database = DatabaseService.service
     
     // MARK: - Public methods
-    func getAllHeritageViewModels() -> [HeritageViewModel] {
+    func getAllHeritageViewModels() -> [HeritageViewModel]? {
         let artefacts = convertToArtefactViewModel(with: database.getAllArtefacts())
         let monuments = convertToMonumentViewModel(with: database.getAllMonuments())
         let publications = convertToPublicationViewModel(with: database.getAllPublications())
@@ -51,7 +51,22 @@ class ConversionService {
     private func convertToArtefactViewModel(with artefacts: Results<Artefact>) -> [ArtefactViewModel] {
         var artefactViewModels = [ArtefactViewModel]()
         for artefact in artefacts {
-            let artefactModel = ArtefactViewModel(id: artefact.objectId, name: artefact.name, artefactType: artefact.objectType, pictureURL: artefact.photo, acquisitionSource: artefact.acquistionSource, acquisitionMethod: artefact.acquisitionMethod, acquisitionDate: artefact.acquistionDate, rightsLicense: artefact.rightsStatus, creditLine: artefact.creditLine, creator: artefact.creator, creationPlace: artefact.placeOfCreation, creationDate: artefact.dateOfCreation, creationPeriod: artefact.period, material: artefact.usedMaterial, description: artefact.description, size: nil)
+            
+            let artefactModel = ArtefactViewModel(id: artefact.objectId, name: artefact.name, artefactType: artefact.objectType, pictureURL: artefact.photo, acquisitionSource: artefact.acquistionSource, acquisitionMethod: artefact.acquisitionMethod, acquisitionDate: artefact.acquistionDate, rightsLicense: artefact.rightsStatus, creditLine: artefact.creditLine, creator: artefact.creator, creationPlace: artefact.placeOfCreation, creationDate: artefact.dateOfCreation, creationPeriod: artefact.period, material: artefact.usedMaterial, description: artefact.description)
+            for dimension in artefact.objectDimensions {
+                if dimension.dimensionType == ObjectDimensionType.length.rawValue {
+                    artefactModel.sizeLength = String(dimension.value)
+                    artefactModel.sizeLengthUnit = dimension.dimensionType
+                }
+                if dimension.dimensionType == ObjectDimensionType.width.rawValue {
+                    artefactModel.sizeWidth = String(dimension.value)
+                    artefactModel.sizeWidthUnit = dimension.dimensionType
+                }
+                if dimension.dimensionType == ObjectDimensionType.depth.rawValue {
+                    artefactModel.sizeDepth = String(dimension.value)
+                    artefactModel.sizeDepthUnit = dimension.dimensionType
+                }
+            }
             artefactModel.primaryKey = artefact.primaryKey
             artefactViewModels.append(artefactModel)
             
@@ -85,7 +100,7 @@ class ConversionService {
             else {
                 edition = nil
             }
-            let publicationModel = PublicationViewModel(id: publication.publicationId, author: publication.author, title: publication.author, pictureURL: publication.photo, acquisitionMethod: publication.method, acquisitionSource: publication.source, acquisitionDate: publication.date, rightsLicense: publication.rightsStatus, creditLine: publication.creditLine, publisher: publication.publisher, publicationDate: publication.yearOfPublication, publicationPlace: publication.placeOfPublication, numberOfPages: pages, edition: edition)
+            let publicationModel = PublicationViewModel(id: publication.publicationId, author: publication.author, title: publication.author, pictureURL: publication.photo, acquisitionMethod: publication.method, acquisitionSource: publication.source, acquisitionDate: publication.date, rightsLicense: publication.rightsStatus, creditLine: publication.creditLine, publisher: publication.publisher, publicationDate: publication.yearOfPublication, publicationPlace: publication.placeOfPublication, numberOfPages: pages, edition: edition, genre: publication.genre)
             publicationModel.primaryKey = publication.primaryKey
             publicationViewModels.append(publicationModel)
         }
@@ -95,7 +110,21 @@ class ConversionService {
     private func convertToFindViewModel(with finds: Results<MetalDetectingFind>) -> [FindViewModel] {
         var findViewModels = [FindViewModel]()
         for find in finds {
-            let findModel = FindViewModel(id: find.findId, name: find.name, objectType: find.objectType, pictureURL: find.photo, findPlaceType: find.findPlaceType, findPlace: find.location, inscription: find.inscription)
+            let findModel = FindViewModel(id: find.findId, name: find.name, objectType: find.objectType, pictureURL: find.photo, findPlaceType: find.findPlaceType, findPlace: find.location, inscription: find.inscription, period: find.period, technique: find.technique, description: find.description, acquisitionSource: find.acquisitionSource, acquisitionMethod: find.acquisitionMethod, acquisitionDate: find.acquisitionDate)
+            for dimension in find.objectDimensions {
+                if dimension.dimensionType == ObjectDimensionType.length.rawValue {
+                    findModel.sizeLength = String(dimension.value)
+                    findModel.sizeLengthUnit = dimension.dimensionType
+                }
+                if dimension.dimensionType == ObjectDimensionType.width.rawValue {
+                    findModel.sizeWidth = String(dimension.value)
+                    findModel.sizeWidthUnit = dimension.dimensionType
+                }
+                if dimension.dimensionType == ObjectDimensionType.depth.rawValue {
+                    findModel.sizeDepth = String(dimension.value)
+                    findModel.sizeDepthUnit = dimension.dimensionType
+                }
+            }
             findModel.primaryKey = find.primaryKey
             findViewModels.append(findModel)
         }
@@ -149,6 +178,9 @@ class ConversionService {
         object.technique = viewModel.technique
         object.inscription = viewModel.inscription
         object.objectDescription = viewModel.description
+        object.acquisitionMethod = viewModel.acquisitionMethod
+        object.acquisitionDate = viewModel.acquisitionDate
+        object.acquisitionSource = viewModel.acquisitionSource
     }
     
     private func convertFromPublicationViewModel(to object: Publication, with viewModel: PublicationViewModel) {

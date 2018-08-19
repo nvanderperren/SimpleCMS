@@ -107,7 +107,6 @@
                         <viewLayoutGuide key="safeArea" id="wjg-vN-H9M"/>
                     </view>
                     <navigationItem key="navigationItem" id="KGC-ie-URf">
-                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="9un-Qd-ZpK"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="CE7-l7-gLX">
                             <connections>
                                 <segue destination="PGv-bR-e54" kind="presentation" identifier="add item" id="Zzm-D9-8fM"/>
@@ -935,7 +934,7 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="afw-PP-w93">
                                                             <rect key="frame" x="0.0" y="0.0" width="398" height="20.333333333333332"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breedte" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="76j-n2-J15">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lengte" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="76j-n2-J15">
                                                                     <rect key="frame" x="0.0" y="0.0" width="398" height="20.333333333333332"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
@@ -985,7 +984,7 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="vhr-wu-bpk">
                                                             <rect key="frame" x="0.0" y="0.0" width="398" height="20.333333333333332"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Diepte" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ktx-Oz-Y8m">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breedte" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ktx-Oz-Y8m">
                                                                     <rect key="frame" x="0.0" y="0.0" width="398" height="20.333333333333332"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
@@ -1035,7 +1034,7 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="lOQ-hN-HPH">
                                                             <rect key="frame" x="0.0" y="0.0" width="398" height="20.333333333333332"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lengte" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gIa-r8-99E">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Diepte" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gIa-r8-99E">
                                                                     <rect key="frame" x="0.0" y="0.0" width="398" height="20.333333333333332"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
@@ -1094,6 +1093,12 @@
                         <outlet property="acquisitionSourceTextField" destination="KCC-39-gXb" id="Kus-d1-3M9"/>
                         <outlet property="acquistionDatePicker" destination="0Dd-AU-sfD" id="HWW-RL-XmH"/>
                         <outlet property="creationPeriodPicker" destination="7yV-7E-tOf" id="rPv-8x-9JM"/>
+                        <outlet property="dimensionDepthSegmentedControl" destination="5Ru-ho-H2c" id="nvX-wW-Gmu"/>
+                        <outlet property="dimensionDepthTextField" destination="599-Vq-Pcd" id="JKV-N1-bgz"/>
+                        <outlet property="dimensionLengthSegmentedControl" destination="fel-Vg-ZEb" id="1gN-x4-PNr"/>
+                        <outlet property="dimensionLengthTextField" destination="xhR-wV-96u" id="8q6-2a-5Na"/>
+                        <outlet property="dimensionWidthSegmentedControl" destination="MtR-Fc-Ixh" id="l5y-Cj-JLM"/>
+                        <outlet property="dimensionWidthTextField" destination="Q05-ky-XvO" id="cbZ-F0-Jot"/>
                         <outlet property="findInscriptionTextField" destination="T4f-lq-9KG" id="Wua-rS-MWh"/>
                         <outlet property="findLocationTextField" destination="cQI-By-pck" id="0OP-mS-HVo"/>
                         <outlet property="findPlaceTypePickerField" destination="bCm-hx-Q3a" id="Q9H-Mu-1te"/>
@@ -1126,7 +1131,7 @@
                             <tableViewSection headerTitle="Identificatie (verplicht)" id="Q3u-aR-Z9I">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="certainTableView" rowHeight="90" id="cyh-z3-ea7" customClass="LabelAndTextFieldTableViewCell" customModule="SimpleCMS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="90"/>
+                                        <rect key="frame" x="0.0" y="55.333333333333343" width="414" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cyh-z3-ea7" id="yqv-Ai-erP">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="89.666666666666671"/>
@@ -1192,7 +1197,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="90" id="B9R-IA-tuo">
-                                        <rect key="frame" x="0.0" y="235.33333333333334" width="414" height="90"/>
+                                        <rect key="frame" x="0.0" y="235.33333333333337" width="414" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="B9R-IA-tuo" id="6Nd-Dd-KfV">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="89.666666666666671"/>
@@ -1890,8 +1895,11 @@
                         <outlet property="artefactCreatorTextField" destination="mKC-xx-zkP" id="OhY-XA-Coj"/>
                         <outlet property="creationPeriodPicker" destination="x2o-6A-BBV" id="IJQ-HS-6uB"/>
                         <outlet property="creditLineTextField" destination="csQ-uG-U3S" id="uwW-cN-O2f"/>
+                        <outlet property="dimensionDepthSegmentedControl" destination="Xd9-Ss-ha3" id="xIG-jl-toI"/>
                         <outlet property="dimensionDepthTextField" destination="HUw-DS-CoI" id="jHg-gs-TCE"/>
+                        <outlet property="dimensionLengthSegmentedControl" destination="xZb-O3-tlz" id="gcF-yu-w3j"/>
                         <outlet property="dimensionLengthTextField" destination="UBn-gc-JuS" id="csU-sP-OAS"/>
+                        <outlet property="dimensionWidthSegmentedControl" destination="Rz5-Bh-gXZ" id="lzg-zd-vFw"/>
                         <outlet property="dimensionWidthTextField" destination="mK5-cd-jaw" id="p1g-ZX-zbn"/>
                         <outlet property="heritageDescriptionTextView" destination="Viq-fX-qfP" id="fJw-rH-lyz"/>
                         <outlet property="heritageIdTextField" destination="CAM-Mr-66l" id="Bz8-qK-PHz"/>
@@ -1922,7 +1930,7 @@
                             <tableViewSection headerTitle="Identificatie (verplicht)" id="5Cw-J7-BUD">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="90" id="vwH-H9-v9b">
-                                        <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="90"/>
+                                        <rect key="frame" x="0.0" y="55.333333333333343" width="414" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vwH-H9-v9b" id="0Jb-wy-gKw">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="89.666666666666671"/>
@@ -1988,7 +1996,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="90" id="XQd-BK-eYr">
-                                        <rect key="frame" x="0.0" y="235.33333333333334" width="414" height="90"/>
+                                        <rect key="frame" x="0.0" y="235.33333333333337" width="414" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XQd-BK-eYr" id="qa8-a5-dua">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="89.666666666666671"/>
@@ -3213,8 +3221,8 @@
                         <outlet property="publisherTextField" destination="xfR-cl-mTe" id="AYl-yf-2y0"/>
                         <outlet property="rightsLicensePicker" destination="Phl-hS-Iwj" id="CBw-gc-KcM"/>
                         <outlet property="saveButton" destination="WuD-az-CO8" id="4cF-Vv-0cG"/>
-                        <segue destination="tc0-h4-TIt" kind="unwind" identifier="did add publication" unwindAction="unwindFromPublicationToHeritageCollectionWithSender:" id="3Ss-oW-mbr"/>
-                        <segue destination="tc0-h4-TIt" kind="unwind" identifier="did edit publication" unwindAction="unwindFromPublicationToHeritageCollectionWithSender:" id="XBk-k8-fvr"/>
+                        <segue destination="tc0-h4-TIt" kind="unwind" identifier="did add publication" unwindAction="unwindFromPublicationToHeritageCollection:" id="Udq-uB-jUL"/>
+                        <segue destination="tc0-h4-TIt" kind="unwind" identifier="did edit publication" unwindAction="unwindFromPublicationToHeritageCollection:" id="ED9-Ue-t1v"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D75-He-9f7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3263,7 +3271,7 @@
         <image name="defaultPhoto" width="540" height="540"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="yzH-YE-6PB"/>
+        <segue reference="h7t-IJ-Pw5"/>
         <segue reference="Mkd-s4-g3z"/>
         <segue reference="Vze-e0-vja"/>
         <segue reference="HjC-1w-WlV"/>
