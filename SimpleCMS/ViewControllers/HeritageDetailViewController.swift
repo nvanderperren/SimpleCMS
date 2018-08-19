@@ -190,7 +190,7 @@ class HeritageDetailViewController: UITableViewController, UINavigationControlle
         heritageDescriptionTextView.isEditable = true
     }
     
-    private func checkForNumericValue(_ value: String){
+    func checkForNumericValue(_ value: String) {
         guard Double(value) != nil else {
             let alertController = createAlertsWithOneAction(has: "Geef een getal in.")
             self.present(alertController, animated: true)
@@ -199,8 +199,13 @@ class HeritageDetailViewController: UITableViewController, UINavigationControlle
         print("value is a number")
     }
     
-    private func checkIfStringHasEnoughCharacters(_ value: String, count: Int){
-        guard value.count < count || value.count > count else {
+    func checkIfStringHasEnoughNumbers(_ value: String, count: Int) {
+        guard Double(value) != nil else {
+            let alertController = createAlertsWithOneAction(has: "Geef een getal in van \(count) tekens")
+            self.present(alertController, animated: true)
+            return
+        }
+        guard value.count == count else {
             let alertController = createAlertsWithOneAction(has: "Geef \(count) tekens in")
             self.present(alertController, animated: true)
             return
@@ -227,32 +232,7 @@ class HeritageDetailViewController: UITableViewController, UINavigationControlle
         }
     }
     
-//    @objc private func collapseTableHeader(_ sender: UIButton) {
-//        tableView.beginUpdates()
-//        var section = Int()
-//        section = sender.tag
-//        var shouldCollapse = Bool()
-//        shouldCollapse = !collapsedSections.contains(section)
-//
-//        if shouldCollapse {
-//            collapsedSections.add(section)
-//        }
-//        else {
-//            collapsedSections.remove(section)
-//        }
-//        self.tableView.endUpdates()
-//    }
-//
-//    private func indexPathsForSection(section: Int, with numberOfRows: Int) -> [IndexPath] {
-//        var indexPaths = [IndexPath]()
-//        var indexPath = IndexPath()
-//
-//        for row in 0..<numberOfRows {
-//            indexPath = IndexPath(row: row, section: section)
-//            indexPaths.append(indexPath)
-//        }
-//        return indexPaths
-//    }
+
     
 //    // use this in the main table view or in viewmodel
 //    private func loadImage(with pathAbsoluteString: String){

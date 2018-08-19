@@ -154,7 +154,19 @@ class ArtefactDetailViewController: HeritageDetailViewController {
     // MARK: - TextFieldDelegate methods
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-       saveButton.isEnabled = updateSaveButtonState(with: requiredFields, and: requiredVariables)
+        saveButton.isEnabled = updateSaveButtonState(with: requiredFields, and: requiredVariables)
+        if textField == artefactCreationDateTextField {
+            checkIfStringHasEnoughNumbers(artefactCreationDateTextField.text ?? "", count: 4)
+        }
+        if textField == dimensionLengthTextField {
+            checkForNumericValue(dimensionLengthTextField.text ?? "")
+        }
+        if textField == dimensionWidthTextField {
+            checkForNumericValue(dimensionWidthTextField.text ?? "")
+        }
+        if textField == dimensionDepthTextField {
+            checkForNumericValue(dimensionDepthTextField.text ?? "")
+        }
     }
     
     

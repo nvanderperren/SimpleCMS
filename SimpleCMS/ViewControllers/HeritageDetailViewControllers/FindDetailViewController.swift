@@ -144,8 +144,18 @@ class FindDetailViewController: HeritageDetailViewController {
     // MARK: - TextFieldDelegate methods
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-       saveButton.isEnabled = updateSaveButtonState(with: requiredTextFields, and: nil)
+        saveButton.isEnabled = updateSaveButtonState(with: requiredTextFields, and: nil)
+        if textField == dimensionLengthTextField {
+            checkForNumericValue(dimensionLengthTextField.text ?? "")
+        }
+        if textField == dimensionWidthTextField {
+            checkForNumericValue(dimensionWidthTextField.text ?? "")
+        }
+        if textField == dimensionDepthTextField {
+            checkForNumericValue(dimensionDepthTextField.text ?? "")
+        }
     }
+
     
     // MARK: - Picker
     

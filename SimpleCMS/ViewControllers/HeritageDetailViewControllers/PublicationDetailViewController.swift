@@ -143,6 +143,15 @@ class PublicationDetailViewController: HeritageDetailViewController {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         saveButton.isEnabled = updateSaveButtonState(with: requiredTextFields, and: requiredVariables)
+        if textField == editionTextField {
+            checkForNumericValue(editionTextField.text ?? "")
+        }
+        if textField == numberOfPagesTextField {
+            checkForNumericValue(numberOfPagesTextField.text ?? "")
+        }
+        if textField == publicationDateTextField {
+            checkIfStringHasEnoughNumbers(publicationDateTextField.text ?? "", count: 4)
+        }
     }
     
     // MARK: - Private methods
@@ -216,6 +225,8 @@ class PublicationDetailViewController: HeritageDetailViewController {
             acquistionDatePicker.maximumDate = Date()
         }
     }
+    
+    
     
 
 }

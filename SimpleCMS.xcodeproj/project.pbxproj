@@ -207,9 +207,9 @@
 			children = (
 				6E4FD1E32112D80600AC719E /* HeritageCollectionTableViewController.swift */,
 				6E4FD1E52112D83B00AC719E /* AddHeritageObjectViewController.swift */,
+				6E62C6292128C1F800515951 /* ListTableViewController.swift */,
 				6E4DD1D4211E337000E70F3E /* HeritageDetailViewController.swift */,
 				6E4DD1D8211EF31B00E70F3E /* HeritageDetailViewControllers */,
-				6E62C6292128C1F800515951 /* ListTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";

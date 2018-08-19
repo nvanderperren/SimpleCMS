@@ -22,10 +22,10 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
     // MARK: - ViewController methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let savedObjects = ConversionService.service.getAllHeritageViewModels()?.sorted(by: {$0.id < $1.id}) {
-            heritageObjects = savedObjects
+        if ConversionService.service.getAllHeritageViewModels().count > 0 {
+            heritageObjects = ConversionService.service.getAllHeritageViewModels().sorted(by: {$0.id.lowercased() < $1.id.lowercased()})
         } else {
-            heritageObjects = Seeder.service.getHeritageObjects().sorted(by: {$0.id < $1.id})
+            heritageObjects = Seeder.service.getHeritageObjects().sorted(by: {$0.id.lowercased() < $1.id.lowercased()})
             
         }
         currentHeritageObjects = heritageObjects
@@ -193,7 +193,7 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
             self.performSegue(withIdentifier: "show \(object)", sender: self)
             completionHandler(true)
         })
-        editAction.backgroundColor = UIColor.yellow
+        editAction.backgroundColor = UIColor.cyan
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete", handler: {(action, view, completionHandler) in
             let heritageObject = self.currentHeritageObjects[indexPath.row]
             DatabaseService.service.update(heritageObject, with: .delete)
@@ -225,7 +225,7 @@ class HeritageCollectionTableViewController: UIViewController, UITableViewDataSo
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         
         categories = returnSortedCategoriesOfHeritageObjects()
-        if (categories.count < 2 || categories.count > 5 ) {
+        if (categories.count < 1 || categories.count > 5 ) {
             fatalError("te weinig of veel categorieën")
         } else {
             switch selectedScope {

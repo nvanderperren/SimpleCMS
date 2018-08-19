@@ -17,7 +17,7 @@ class ConversionService {
     let database = DatabaseService.service
     
     // MARK: - Public methods
-    func getAllHeritageViewModels() -> [HeritageViewModel]? {
+    func getAllHeritageViewModels() -> [HeritageViewModel] {
         let artefacts = convertToArtefactViewModel(with: database.getAllArtefacts())
         let monuments = convertToMonumentViewModel(with: database.getAllMonuments())
         let publications = convertToPublicationViewModel(with: database.getAllPublications())
@@ -100,7 +100,7 @@ class ConversionService {
             else {
                 edition = nil
             }
-            let publicationModel = PublicationViewModel(id: publication.publicationId, author: publication.author, title: publication.author, pictureURL: publication.photo, acquisitionMethod: publication.method, acquisitionSource: publication.source, acquisitionDate: publication.date, rightsLicense: publication.rightsStatus, creditLine: publication.creditLine, publisher: publication.publisher, publicationDate: publication.yearOfPublication, publicationPlace: publication.placeOfPublication, numberOfPages: pages, edition: edition, genre: publication.genre)
+            let publicationModel = PublicationViewModel(id: publication.publicationId, author: publication.author, title: publication.title, pictureURL: publication.photo, acquisitionMethod: publication.method, acquisitionSource: publication.source, acquisitionDate: publication.date, rightsLicense: publication.rightsStatus, creditLine: publication.creditLine, publisher: publication.publisher, publicationDate: publication.yearOfPublication, publicationPlace: publication.placeOfPublication, numberOfPages: pages, edition: edition, genre: publication.genre)
             publicationModel.primaryKey = publication.primaryKey
             publicationViewModels.append(publicationModel)
         }
