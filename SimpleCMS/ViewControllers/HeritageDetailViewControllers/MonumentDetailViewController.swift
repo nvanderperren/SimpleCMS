@@ -15,6 +15,10 @@ class MonumentDetailViewController: HeritageDetailViewController {
     // monument
     var monument: MonumentViewModel?
     
+    // readonly
+    var styles = Seeder.service.getMonumentStyles().sorted{$0 < $1}
+    var monumentTypes = Seeder.service.getMonumentTypes().sorted{$0 < $1}
+    
     // outlets
     @IBOutlet weak var monumentIsProtectedSwitch: UISwitch!
     @IBOutlet weak var monumentStreetNameTextField: UITextField!
@@ -66,9 +70,43 @@ class MonumentDetailViewController: HeritageDetailViewController {
                 fatalError("monument is nil")
             }
             DatabaseService.service.update(monument, with: .update)
+        case "choose material":
+            if let destinationController = segue.destination as? UINavigationController, let target = destinationController.topViewController as? ListTableViewController {
+                target.data = materials
+                target.action = "did choose monumentMaterial"
+            }
+        case "choose style":
+            if let destinationController = segue.destination as? UINavigationController, let target = destinationController.topViewController as? ListTableViewController {
+                target.data = styles
+                target.action = "did choose style"
+            }
+        case "choose monumentType":
+            if let destinationController = segue.destination as? UINavigationController, let target = destinationController.topViewController as? ListTableViewController {
+                target.data = monumentTypes
+                target.action = "did choose monumentType"
+            }
         default:
             fatalError("Unknown segue")
             
+        }
+    }
+    
+    @IBAction func choseItemInMonumentList(_ segue: UIStoryboardSegue) {
+        switch(segue.identifier) {
+        case "did choose monumentMaterial":
+            if let source = segue.source as? ListTableViewController {
+                heritageMaterialTextField.text = source.value
+            }
+        case "did choose style":
+            if let source = segue.source as? ListTableViewController {
+                monumentStyleTextField.text = source.value
+            }
+        case "did choose monumentType":
+            if let source = segue.source as? ListTableViewController {
+                heritageTypeTextField.text = source.value
+            }
+        default:
+            fatalError("Unknown segue")
         }
     }
     

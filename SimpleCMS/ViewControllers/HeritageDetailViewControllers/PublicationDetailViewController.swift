@@ -16,8 +16,9 @@ class PublicationDetailViewController: HeritageDetailViewController {
     var publication: PublicationViewModel?
     
     
-    // variables
-    private var genre: String?
+    // readonly
+    var genres = Seeder.service.getGenres()
+    
     
     // outlets
     @IBOutlet weak var authorTextField: UITextField!
@@ -62,7 +63,7 @@ class PublicationDetailViewController: HeritageDetailViewController {
         super.prepare(for: segue, sender: sender)
         print(segue.identifier!)
         switch(segue.identifier) {
-        case "did add publication":
+        case "did add publication"?:
             updateViewModel()
             guard let publication = publication else {
                 fatalError("publication is nil")
@@ -70,16 +71,33 @@ class PublicationDetailViewController: HeritageDetailViewController {
             publication.primaryKey = UUID().uuidString
             DatabaseService.service.create(publication)
             print("item saved")
-        case "did edit publication":
+        case "did edit publication"?:
             updateViewModel()
             guard let publication = publication else {
                 fatalError("publication is nil")
             }
             DatabaseService.service.update(publication, with: .update)
+        case "choose genre"?:
+            if let destinationController = segue.destination as? UINavigationController, let target = destinationController.topViewController as? ListTableViewController {
+                target.data = genres
+                target.action = "did choose genre"
+            }
         default:
             fatalError("unknown segue")
         }
         
+    }
+    
+    @IBAction func choseGenre(_ segue: UIStoryboardSegue) {
+        switch(segue.identifier){
+        case "did choose genre":
+            if let source = segue.source as? ListTableViewController {
+                genreTextField.text = source.value
+            }
+        default:
+            fatalError("segue does not exist")
+        }
+       
     }
     
     @IBAction func save(_ sender: UIBarButtonItem) {

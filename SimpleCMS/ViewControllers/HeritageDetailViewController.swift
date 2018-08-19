@@ -17,6 +17,7 @@ class HeritageDetailViewController: UITableViewController, UINavigationControlle
     var heritageName: String?
     var pictureURL: String?
     var acquisitionDate: String?
+    var material: String?
     
     var acquisitionMethod: String? {
         didSet {
@@ -57,6 +58,7 @@ class HeritageDetailViewController: UITableViewController, UINavigationControlle
     var rightsLicenses = Seeder.service.getRightsLicenses()
     var descriptionPlaceHolder = "Geef een korte beschrijving"
     var creationPeriods = Seeder.service.getPeriods()
+    var materials = Seeder.service.getMaterials()
     
     // outlets
     @IBOutlet weak var heritageIdTextField: UITextField!

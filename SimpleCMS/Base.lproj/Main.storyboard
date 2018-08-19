@@ -330,7 +330,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="ZMe-Mp-ZYM">
                             <connections>
-                                <segue destination="iZk-ua-68i" kind="unwind" unwindAction="getObjectType:" id="AxV-Eo-rhf"/>
+                                <action selector="didChoose:" destination="Nh5-ME-yF3" id="edD-II-Xqt"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -340,6 +340,14 @@
                         <outlet property="searchBar" destination="CBD-oh-7ue" id="7rz-x0-hXu"/>
                         <outlet property="searchDisplayController" destination="WK1-Le-tRM" id="gsn-7r-qCI"/>
                         <outlet property="searchItemLabel" destination="Gwq-EF-Ix4" id="TAV-vV-eJ1"/>
+                        <segue destination="iZk-ua-68i" kind="unwind" identifier="did choose artefact" unwindAction="itemInListChosen:" id="LMk-De-zss"/>
+                        <segue destination="iZk-ua-68i" kind="unwind" identifier="did choose artefactMaterial" unwindAction="itemInListChosen:" id="o7l-J3-VpI"/>
+                        <segue destination="iZk-ua-68i" kind="unwind" identifier="did choose findType" unwindAction="itemInFindListChosen:" id="SxH-Du-uEn"/>
+                        <segue destination="iZk-ua-68i" kind="unwind" identifier="did choose genre" unwindAction="choseGenre:" id="o1U-uw-rdq"/>
+                        <segue destination="iZk-ua-68i" kind="unwind" identifier="did choose findMaterial" unwindAction="itemInFindListChosen:" id="Af6-KV-wj5"/>
+                        <segue destination="iZk-ua-68i" kind="unwind" identifier="did choose monumentMaterial" unwindAction="choseItemInMonumentList:" id="dJ1-K2-s9y"/>
+                        <segue destination="iZk-ua-68i" kind="unwind" identifier="did choose style" unwindAction="choseItemInMonumentList:" id="OVI-VM-sgp"/>
+                        <segue destination="iZk-ua-68i" kind="unwind" identifier="did choose monumentType" unwindAction="choseItemInMonumentList:" id="OBm-8B-Tvv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="srs-ZQ-nj5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -353,7 +361,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="6178.2608695652179" y="180.16304347826087"/>
+            <point key="canvasLocation" x="5436" y="-238"/>
         </scene>
         <!--Find Detail View Controller-->
         <scene sceneID="SEt-2Z-rQ3">
@@ -789,6 +797,9 @@
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="waU-Qe-qdA">
                                                             <rect key="frame" x="0.0" y="66.333333333333329" width="398" height="30"/>
                                                             <state key="normal" title="Voeg materiaal toe"/>
+                                                            <connections>
+                                                                <segue destination="Qhd-05-e5S" kind="presentation" identifier="choose findMaterial" id="yzH-YE-6PB"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                 </stackView>
@@ -919,24 +930,21 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="wKr-hR-bGM">
-                                                    <rect key="frame" x="8" y="10.666666666666664" width="398" height="69"/>
+                                                    <rect key="frame" x="8" y="16.000000000000004" width="398" height="58.333333333333343"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="afw-PP-w93">
-                                                            <rect key="frame" x="0.0" y="0.0" width="398" height="31"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="398" height="20.333333333333332"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breedte" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="76j-n2-J15">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="60.333333333333336" height="31"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="398" height="20.333333333333332"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hkI-TH-bkC">
-                                                                    <rect key="frame" x="349" y="0.0" width="51" height="31"/>
-                                                                </switch>
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="teR-2B-m9M">
-                                                            <rect key="frame" x="0.0" y="39" width="398" height="30"/>
+                                                            <rect key="frame" x="0.0" y="28.333333333333336" width="398" height="30"/>
                                                             <subviews>
                                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xhR-wV-96u">
                                                                     <rect key="frame" x="0.0" y="0.0" width="189" height="30"/>
@@ -972,24 +980,21 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Qzf-SO-liQ">
-                                                    <rect key="frame" x="8" y="10.666666666666664" width="398" height="69"/>
+                                                    <rect key="frame" x="8" y="16.000000000000004" width="398" height="58.333333333333343"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="vhr-wu-bpk">
-                                                            <rect key="frame" x="0.0" y="0.0" width="398" height="31"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="398" height="20.333333333333332"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Diepte" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ktx-Oz-Y8m">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="50.333333333333336" height="31"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="398" height="20.333333333333332"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9NV-Id-tj4">
-                                                                    <rect key="frame" x="349" y="0.0" width="51" height="31"/>
-                                                                </switch>
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="GFf-Ea-w0M">
-                                                            <rect key="frame" x="0.0" y="39" width="398" height="30"/>
+                                                            <rect key="frame" x="0.0" y="28.333333333333336" width="398" height="30"/>
                                                             <subviews>
                                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Q05-ky-XvO">
                                                                     <rect key="frame" x="0.0" y="0.0" width="189" height="30"/>
@@ -1025,24 +1030,21 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="F2O-RP-5az">
-                                                    <rect key="frame" x="8" y="11" width="398" height="69"/>
+                                                    <rect key="frame" x="8" y="16.333333333333332" width="398" height="58.333333333333343"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="lOQ-hN-HPH">
-                                                            <rect key="frame" x="0.0" y="0.0" width="398" height="31"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="398" height="20.333333333333332"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lengte" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gIa-r8-99E">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="52.666666666666664" height="31"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="398" height="20.333333333333332"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nw1-Fl-jdn">
-                                                                    <rect key="frame" x="349" y="0.0" width="51" height="31"/>
-                                                                </switch>
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="AtE-5S-gXj">
-                                                            <rect key="frame" x="0.0" y="39" width="398" height="30"/>
+                                                            <rect key="frame" x="0.0" y="28.333333333333329" width="398" height="30"/>
                                                             <subviews>
                                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Geef waarde in" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="599-Vq-Pcd">
                                                                     <rect key="frame" x="0.0" y="0.0" width="189" height="30"/>
@@ -1217,6 +1219,9 @@
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QTY-kh-cfT">
                                                                     <rect key="frame" x="344" y="0.0" width="30" height="30"/>
                                                                     <state key="normal" title="Kies"/>
+                                                                    <connections>
+                                                                        <segue destination="Qhd-05-e5S" kind="presentation" identifier="choose artefact" id="5NB-ao-Nkh"/>
+                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                         </stackView>
@@ -1689,6 +1694,9 @@
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2d2-xd-4Al">
                                                             <rect key="frame" x="0.0" y="66.333333333333329" width="398" height="30"/>
                                                             <state key="normal" title="Voeg materiaal toe"/>
+                                                            <connections>
+                                                                <segue destination="Qhd-05-e5S" kind="presentation" identifier="choose material" id="pP4-px-I9I"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                 </stackView>
@@ -1712,24 +1720,21 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Ako-g1-Uyt">
-                                                    <rect key="frame" x="8" y="11" width="398" height="69"/>
+                                                    <rect key="frame" x="8" y="16.333333333333332" width="398" height="58.333333333333343"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="zx4-2S-k4v">
-                                                            <rect key="frame" x="0.0" y="0.0" width="398" height="31"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="398" height="20.333333333333332"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lengte" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P4O-sq-KL4">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="48" height="31"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="398" height="20.333333333333332"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rxy-mT-JLt">
-                                                                    <rect key="frame" x="349" y="0.0" width="51" height="31"/>
-                                                                </switch>
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="zQl-Dt-dUj" customClass="DimensionStackView" customModule="SimpleCMS" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="39" width="398" height="30"/>
+                                                            <rect key="frame" x="0.0" y="28.333333333333329" width="398" height="30"/>
                                                             <subviews>
                                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Geef waarde in" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="UBn-gc-JuS">
                                                                     <rect key="frame" x="0.0" y="0.0" width="189" height="30"/>
@@ -1767,24 +1772,21 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="I4n-63-Xvj">
-                                                    <rect key="frame" x="8" y="10.666666666666664" width="398" height="69"/>
+                                                    <rect key="frame" x="8" y="16.000000000000004" width="398" height="58.333333333333343"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="pLY-ya-JpX">
-                                                            <rect key="frame" x="0.0" y="0.0" width="398" height="31"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="398" height="20.333333333333332"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="breedte" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XZh-tp-j1j">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="59.666666666666664" height="31"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="398" height="20.333333333333332"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HgQ-ly-hxB">
-                                                                    <rect key="frame" x="349" y="0.0" width="51" height="31"/>
-                                                                </switch>
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="sAQ-yY-4PM">
-                                                            <rect key="frame" x="0.0" y="39" width="398" height="30"/>
+                                                            <rect key="frame" x="0.0" y="28.333333333333336" width="398" height="30"/>
                                                             <subviews>
                                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Geef waarde in" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mK5-cd-jaw">
                                                                     <rect key="frame" x="0.0" y="0.0" width="189" height="30"/>
@@ -1820,24 +1822,21 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="OYp-Xk-ooe">
-                                                    <rect key="frame" x="8" y="10.666666666666664" width="398" height="69"/>
+                                                    <rect key="frame" x="8" y="16.000000000000004" width="398" height="58.333333333333343"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="Zox-4R-7OY">
-                                                            <rect key="frame" x="0.0" y="0.0" width="398" height="31"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="398" height="20.333333333333332"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="diepte" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VaC-jg-0Nu">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="48.333333333333336" height="31"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="398" height="20.333333333333332"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fQu-Za-6cs">
-                                                                    <rect key="frame" x="349" y="0.0" width="51" height="31"/>
-                                                                </switch>
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Nty-TT-tDI">
-                                                            <rect key="frame" x="0.0" y="39" width="398" height="30"/>
+                                                            <rect key="frame" x="0.0" y="28.333333333333336" width="398" height="30"/>
                                                             <subviews>
                                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Geef waarde in" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="HUw-DS-CoI">
                                                                     <rect key="frame" x="0.0" y="0.0" width="189" height="30"/>
@@ -1891,14 +1890,8 @@
                         <outlet property="artefactCreatorTextField" destination="mKC-xx-zkP" id="OhY-XA-Coj"/>
                         <outlet property="creationPeriodPicker" destination="x2o-6A-BBV" id="IJQ-HS-6uB"/>
                         <outlet property="creditLineTextField" destination="csQ-uG-U3S" id="uwW-cN-O2f"/>
-                        <outlet property="dimensionDepthStackView" destination="Nty-TT-tDI" id="yyf-At-woO"/>
-                        <outlet property="dimensionDepthSwitch" destination="fQu-Za-6cs" id="E8u-mm-jt0"/>
                         <outlet property="dimensionDepthTextField" destination="HUw-DS-CoI" id="jHg-gs-TCE"/>
-                        <outlet property="dimensionLengthStack" destination="zQl-Dt-dUj" id="QW4-v7-xXS"/>
-                        <outlet property="dimensionLengthSwitch" destination="rxy-mT-JLt" id="ugj-I8-2ZX"/>
                         <outlet property="dimensionLengthTextField" destination="UBn-gc-JuS" id="csU-sP-OAS"/>
-                        <outlet property="dimensionWidthStackView" destination="sAQ-yY-4PM" id="06S-PL-Eo1"/>
-                        <outlet property="dimensionWidthSwitch" destination="HgQ-ly-hxB" id="7h5-Ng-Fpq"/>
                         <outlet property="dimensionWidthTextField" destination="mK5-cd-jaw" id="p1g-ZX-zbn"/>
                         <outlet property="heritageDescriptionTextView" destination="Viq-fX-qfP" id="fJw-rH-lyz"/>
                         <outlet property="heritageIdTextField" destination="CAM-Mr-66l" id="Bz8-qK-PHz"/>
@@ -2022,6 +2015,9 @@
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gbt-ms-80s">
                                                                     <rect key="frame" x="344" y="0.0" width="30" height="30"/>
                                                                     <state key="normal" title="Kies"/>
+                                                                    <connections>
+                                                                        <segue destination="Qhd-05-e5S" kind="presentation" identifier="choose monumentType" id="aVD-WC-z8p"/>
+                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                         </stackView>
@@ -2465,6 +2461,9 @@
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BWe-MG-wcy">
                                                             <rect key="frame" x="0.0" y="66.333333333333329" width="398" height="30"/>
                                                             <state key="normal" title="Voeg stijl toe"/>
+                                                            <connections>
+                                                                <segue destination="Qhd-05-e5S" kind="presentation" identifier="choose style" id="Ot9-py-7V8"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                 </stackView>
@@ -2501,6 +2500,9 @@
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NVY-ug-RMg">
                                                             <rect key="frame" x="0.0" y="66.333333333333329" width="398" height="30"/>
                                                             <state key="normal" title="Voeg materiaal toe"/>
+                                                            <connections>
+                                                                <segue destination="Qhd-05-e5S" kind="presentation" identifier="choose material" id="GOO-PZ-8Xu"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                 </stackView>
@@ -3022,7 +3024,7 @@
                                                             <rect key="frame" x="0.0" y="28.333333333333336" width="398" height="30"/>
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="numberPad"/>
                                                         </textField>
                                                     </subviews>
                                                 </stackView>
@@ -3092,7 +3094,7 @@
                                                             <rect key="frame" x="0.0" y="28.333333333333336" width="398" height="30"/>
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="numberPad"/>
                                                         </textField>
                                                     </subviews>
                                                 </stackView>
@@ -3125,7 +3127,7 @@
                                                             <rect key="frame" x="0.0" y="28.333333333333336" width="398" height="30"/>
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="numberPad"/>
                                                         </textField>
                                                     </subviews>
                                                 </stackView>
@@ -3165,6 +3167,7 @@
                                                             <state key="normal" title="Kies genre"/>
                                                             <connections>
                                                                 <action selector="chooseGenre:" destination="tke-Og-C3Q" eventType="touchUpInside" id="txt-V2-vck"/>
+                                                                <segue destination="Qhd-05-e5S" kind="presentation" identifier="choose genre" id="h7t-IJ-Pw5"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -3253,13 +3256,14 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Nf-er-12T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5271.0144927536239" y="180.16304347826087"/>
+            <point key="canvasLocation" x="4583" y="-238"/>
         </scene>
     </scenes>
     <resources>
         <image name="defaultPhoto" width="540" height="540"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="yzH-YE-6PB"/>
         <segue reference="Mkd-s4-g3z"/>
         <segue reference="Vze-e0-vja"/>
         <segue reference="HjC-1w-WlV"/>

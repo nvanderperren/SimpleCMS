@@ -15,6 +15,7 @@ class FindDetailViewController: HeritageDetailViewController {
     // model
     var find: FindViewModel?
     
+    
     // variables
     private var findPlaceType: String? {
         didSet {
@@ -31,8 +32,6 @@ class FindDetailViewController: HeritageDetailViewController {
             }
         }
     }
-    
-    private var objectType: String?
     
     // readonly
     private var findPlaceTypes = Seeder.service.getHeritagePlaceTypes()
@@ -91,8 +90,14 @@ class FindDetailViewController: HeritageDetailViewController {
             }
             DatabaseService.service.update(find, with: .update)
         case "choose findtype"?:
-        if let destinationController = segue.destination as? UINavigationController, let target = destinationController.topViewController as? ListTableViewController {
+            if let destinationController = segue.destination as? UINavigationController, let target = destinationController.topViewController as? ListTableViewController {
                 target.data = findObjectTypes
+                target.action = "did choose findType"
+            }
+        case "choose findMaterial"?:
+            if let destinationController = segue.destination as? UINavigationController, let target = destinationController.topViewController as? ListTableViewController {
+                target.data = materials
+                target.action = "did choose findMaterial"
             }
         default:
             fatalError("Unknown segue")
@@ -101,11 +106,20 @@ class FindDetailViewController: HeritageDetailViewController {
         
     }
     
-    @IBAction func getObjectType(_ segue: UIStoryboardSegue) {
-        if let source = segue.source as? ListTableViewController {
-            objectType = source.value
-            heritageTypeTextField.text = objectType
+    @IBAction func itemInFindListChosen(_ segue: UIStoryboardSegue) {
+        switch(segue.identifier) {
+        case "did choose findType"?:
+            if let source = segue.source as? ListTableViewController {
+                heritageTypeTextField.text = source.value
+            }
+        case "did choose findMaterial"?:
+            if let source = segue.source as? ListTableViewController {
+                heritageMaterialTextField.text = source.value
+            }
+        default:
+            fatalError("segue does not exist")
         }
+        
     }
     
     @IBAction func save(_ sender: UIBarButtonItem) {

@@ -14,34 +14,42 @@ class ListTableViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchItemLabel: UILabel!
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    var isSearching: Bool = false
     
     
-    var data: [String] = []
+    var data: [String]?
+    var action: String?
+    
     var value: String? {
         didSet {
-            if value != nil {
+            if let value = value {
                 saveButton.isEnabled = true
-                searchItemLabel.text = value
+                searchItemLabel.text = "Gekozen term: " + value
+                
             }
         }
     }
-    var currentData = [String]()
+    var filteredData = [String]()
     
     @IBAction func cancel(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func didChoose(_ sender: UIBarButtonItem) {
+        if let action = action {
+            performSegue(withIdentifier: action, sender: ListTableViewController())
+        }
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         saveButton.isEnabled = false
+        searchItemLabel.text = "Kies term"
         
 
         // Do any additional setup after loading the view.
     }
-    
-
-    
-    // MARK: - Navigation
     
     
 
@@ -56,19 +64,37 @@ extension ListTableViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        if isSearching {
+            return filteredData.count
+        } else {
+            return data!.count
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "listElementCell", for: indexPath)
-        cell.textLabel?.text = data[indexPath.row]
+        if isSearching {
+            cell.textLabel?.text = filteredData[indexPath.row]
+        } else {
+            cell.textLabel?.text = data?[indexPath.row]
+        }
         return cell
     }
 }
 
 extension ListTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        value = data[indexPath.row]
+        if isSearching {
+            value = filteredData[indexPath.row]
+            print(value ?? "geen term")
+        }
+        else {
+            value = data?[indexPath.row]
+            print(value ?? "geen term")
+        }
+        
+        
     }
 }
 
@@ -76,32 +102,32 @@ extension ListTableViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchBar.showsCancelButton = true
-        guard !searchText.isEmpty else {
-            currentData = data
-            listTableView.reloadData()
-            return
-        }
-        currentData = data.filter{ element -> Bool in
-            return element.lowercased().contains(searchText.lowercased())
-        }
+        filteredData = data!.filter{ element -> Bool in
+                return element.lowercased().contains(searchText.lowercased())
+            }
+        isSearching = true
         listTableView.reloadData()
+        
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
     
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        currentData = data
-        listTableView.reloadData()
-    }
-    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        currentData = data
+        isSearching = false
+        searchBar.text = ""
         listTableView.reloadData()
         searchBar.resignFirstResponder()
     }
-
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        filteredData = data!
+        listTableView.reloadData()
+        searchBar.showsCancelButton = true
+    }
+    
 }
+
 
 

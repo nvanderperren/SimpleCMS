@@ -15,11 +15,8 @@ class ArtefactDetailViewController: HeritageDetailViewController {
     // model
     var artefact: ArtefactViewModel?
     
-    // variables
-    
-    
     // readonly
-    
+    let artefactTypes = Seeder.service.getObjectTypes().sorted{$0 < $1}
     
     // outlets
     @IBOutlet weak var artefactCreatorTextField: UITextField!
@@ -77,11 +74,37 @@ class ArtefactDetailViewController: HeritageDetailViewController {
                 fatalError("Something went wrong, artefact is nil")
             }
             DatabaseService.service.update(artefact, with: .update)
+        case "choose artefact"?:
+            if let destinationController = segue.destination as? UINavigationController, let target = destinationController.topViewController as? ListTableViewController {
+                target.data = artefactTypes
+                target.action = "did choose artefact"
+            }
+        case "choose material"?:
+            if let destinationController = segue.destination as? UINavigationController, let target = destinationController.topViewController as? ListTableViewController {
+                target.data = materials
+                target.action = "did choose artefactMaterial"
+            }
         default:
             fatalError("Unknown segue")
             
         }
         
+    }
+    
+    @IBAction func itemInListChosen(_ segue: UIStoryboardSegue){
+        switch (segue.identifier) {
+        case "did choose artefact":
+            if let source = segue.source as? ListTableViewController {
+                heritageTypeTextField.text = source.value
+            }
+        case "did choose artefactMaterial":
+            if let source = segue.source as? ListTableViewController {
+                heritageMaterialTextField.text = source.value
+            }
+        default:
+            fatalError()
+        }
+    
     }
     
     @IBAction func save(_ sender: UIBarButtonItem) {

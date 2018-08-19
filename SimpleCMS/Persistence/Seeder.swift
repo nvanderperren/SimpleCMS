@@ -133,58 +133,45 @@ struct Seeder {
         ]
     }
     
-    func getObjectTypes() -> [String:[String]] {
+    func getObjectTypes() -> [String] {
         return [
-            "Drukwerk": [
-                "Affiche",
-                "Kaart",
-                "Prent",
-                "Boek",
-                "Strip",
-                "Plan",
-                "Bidprent"
-            ],
-            "Kunstwerk": [
-                "Beeldhouwwerk",
-                "Schilderij",
-                "Tekening",
-                "Foto",
-                "Glasnegatief",
-                "Dia"
-            ],
-            "Keramiek": [
-                "Pot",
-                "Bord",
-                "Vaas",
-                "Vloertegel",
-                "Geveltegel",
-                "Tegeltableau"
-            ],
-            "Smeedwerk": [
-                "Sierraad",
-                "Troffee",
-                "Munt",
-                "Medaille",
-                "Zegel"
-            ],
-            "Textiel": [
-                "Kledingstuk",
-                "Kostuum",
-                "Vaandel"
-            ],
-            "Gereedschap": [
-                "Scheepsuitrusting",
-                "Meubilair",
-                "Speelgoed",
-                "Wapen",
-                "Muziekinstrument",
-                "Huisraad"
-            ]
-            
+            "Affiche",
+            "Kaart",
+            "Prent",
+            "Boek",
+            "Strip",
+            "Plan",
+            "Bidprent",
+            "Scheepsuitrusting",
+            "Meubilair",
+            "Speelgoed",
+            "Wapen",
+            "Muziekinstrument",
+            "Huisraad",
+            "Pot",
+            "Bord",
+            "Vaas",
+            "Vloertegel",
+            "Geveltegel",
+            "Tegeltableau",
+            "Beeldhouwwerk",
+            "Schilderij",
+            "Tekening",
+            "Foto",
+            "Glasnegatief",
+            "Dia",
+            "Sierraad",
+            "Troffee",
+            "Munt",
+            "Medaille",
+            "Zegel",
+            "Kledingstuk",
+            "Kostuum",
+            "Vaandel"
         ]
     }
     
-    func getMaterial() -> [String] {
+    func getMaterials() -> [String] {
         return [
             "Papier",
             "Perkament",
@@ -357,6 +344,104 @@ struct Seeder {
             "Zedenschetsen"
         ]
     
+    }
+    
+    func getMonumentStyles() -> [String] {
+        return [
+            "Art deco",
+            "Art nouveau",
+            "Barok",
+            "Brutalisme",
+            "Classicerend barok",
+            "Classicisme",
+            "Cottagestijl",
+            "Empire",
+            "High tech",
+            "Integratiearchitectuur",
+            "Modernisme",
+            "Beaux-artsstijl",
+            "Eclecticisme",
+            "Neo-Egyptisch",
+            "Neo-empire",
+            "Neo-Vlaamserenaissance-stijl",
+            "Neobarok",
+            "Neobyzantijns",
+            "Neoclassicisme",
+            "Neogotiek",
+            "Neomoors",
+            "Neorenaissance",
+            "Neorococo",
+            "Neoromaans",
+            "Neotraditioneel",
+            "Organische architectuur",
+            "Postmodernisme",
+            "Regionalisme",
+            "Renaissance",
+            "Rococo",
+            "Romaans",
+            "Traditioneel"
+        ]
+    }
+    
+    func getMonumentTypes() -> [String] {
+        return [
+            "Appartement",
+            "Boerderij",
+            "Hotel",
+            "Woonhuis",
+            "Woonboot",
+            "Bungalow",
+            "Hut",
+            "Mijningang",
+            "Baken",
+            "Golfbreker",
+            "Brug",
+            "Schoorsteen",
+            "Kraan",
+            "Dijk",
+            "Vlaggenmast",
+            "Dam",
+            "Vuurtoren",
+            "Mijnschacht",
+            "Obelisk",
+            "Steiger",
+            "Silo",
+            "Toren",
+            "Watermolen",
+            "Watertoren",
+            "Waterput",
+            "Windmolen",
+            "Fabriek",
+            "Kantoorgebouw",
+            "Industriegebouw",
+            "Winkel",
+            "Warenhuis",
+            "Kiosk",
+            "Bakkerij",
+            "School",
+            "Ziekenhuis",
+            "Stadion",
+            "Treinstation",
+            "Universiteit",
+            "Zwembad",
+            "Bibliotheek",
+            "Gemeentehuis",
+            "Kathedraal",
+            "Kapel",
+            "Kerk",
+            "Moskee",
+            "Tempel",
+            "Synagoge",
+            "Altaar",
+            "Bunker",
+            "Garage",
+            "Serre",
+            "Hangar",
+            "Parking",
+            "Pavilioen",
+            "Stal",
+            "Ruïne"
+        ]
     }
     
     
