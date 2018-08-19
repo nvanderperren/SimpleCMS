@@ -156,40 +156,6 @@ class HeritageDetailViewController: UITableViewController, UINavigationControlle
         }
     }
     
-    private func saveImage(_ image:UIImage) {
-        let fileManager = FileManager.default
-        let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
-        let imagePath = documentsPath?.appendingPathComponent("\(heritageId!).jpg")
-        do {
-            try UIImageJPEGRepresentation(image, 1.0)?.write(to: imagePath!)
-            let path = imagePath!.absoluteString
-            print(path)
-            pictureURL = path
-        } catch {
-            print(error)
-        }
-        
-    }
-    
-    private func setupTableView() {
-        self.tableView = UITableView(frame: self.tableView.frame, style: .grouped)
-        self.tableView.allowsSelection = false
-        self.tableView.allowsSelectionDuringEditing = false
-    }
-    
-    
-    
-    private func updateFields() {
-        heritageIdTextField.text = heritageId
-        heritageNameTextField.text = heritageName
-    }
-    
-    private func setupTextView() {
-        heritageDescriptionTextView.delegate = self
-        heritageDescriptionTextView.text = descriptionPlaceHolder
-        heritageDescriptionTextView.isEditable = true
-    }
-    
     func checkForNumericValue(_ value: String) {
         guard Double(value) != nil else {
             let alertController = createAlertsWithOneAction(has: "Geef een getal in.")
@@ -213,13 +179,6 @@ class HeritageDetailViewController: UITableViewController, UINavigationControlle
         print("genoeg tekens")
     }
     
-    private func createAlertsWithOneAction(has message: String) -> UIAlertController{
-        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default)
-        alertController.addAction(okAction)
-        return alertController
-    }
-    
     func convertStringToDate(_ dateString: String?) -> Date {
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = .none
@@ -231,6 +190,48 @@ class HeritageDetailViewController: UITableViewController, UINavigationControlle
             return Date()
         }
     }
+    
+    private func saveImage(_ image:UIImage) {
+        let fileManager = FileManager.default
+        let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
+        let imagePath = documentsPath?.appendingPathComponent("\(heritageId!).jpg")
+        do {
+            try UIImageJPEGRepresentation(image, 1.0)?.write(to: imagePath!)
+            let path = imagePath!.absoluteString
+            print(path)
+            pictureURL = path
+        } catch {
+            print(error)
+        }
+        
+    }
+    
+    private func setupTableView() {
+        self.tableView = UITableView(frame: self.tableView.frame, style: .grouped)
+        self.tableView.allowsSelection = false
+        self.tableView.allowsSelectionDuringEditing = false
+    }
+    
+    private func updateFields() {
+        heritageIdTextField.text = heritageId
+        heritageNameTextField.text = heritageName
+    }
+    
+    private func setupTextView() {
+        heritageDescriptionTextView.delegate = self
+        heritageDescriptionTextView.text = descriptionPlaceHolder
+        heritageDescriptionTextView.isEditable = true
+    }
+    
+    
+    private func createAlertsWithOneAction(has message: String) -> UIAlertController{
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(okAction)
+        return alertController
+    }
+    
+    
     
 
     
