@@ -157,26 +157,38 @@ class HeritageDetailViewController: UITableViewController, UINavigationControlle
     }
     
     func checkForNumericValue(_ value: String) {
-        guard Double(value) != nil else {
-            let alertController = createAlertsWithOneAction(has: "Geef een getal in.")
-            self.present(alertController, animated: true)
+        if value.isEmpty {
+            print("value is empty")
             return
+        } else {
+            guard Double(value) != nil else {
+                let alertController = createAlertsWithOneAction(has: "Geef een getal in.")
+                self.present(alertController, animated: true)
+                return
+            }
+            print("value is a number")
         }
-        print("value is a number")
+        
     }
     
     func checkIfStringHasEnoughNumbers(_ value: String, count: Int) {
-        guard Double(value) != nil else {
-            let alertController = createAlertsWithOneAction(has: "Geef een getal in van \(count) tekens")
-            self.present(alertController, animated: true)
+        if (value.isEmpty){
+            print("value is empty")
             return
+        } else {
+            guard Double(value) != nil || value.isEmpty else {
+                let alertController = createAlertsWithOneAction(has: "Geef een getal in van \(count) tekens")
+                self.present(alertController, animated: true)
+                return
+            }
+            guard value.count == count else {
+                let alertController = createAlertsWithOneAction(has: "Geef \(count) tekens in")
+                self.present(alertController, animated: true)
+                return
+            }
+            print("genoeg tekens")
         }
-        guard value.count == count else {
-            let alertController = createAlertsWithOneAction(has: "Geef \(count) tekens in")
-            self.present(alertController, animated: true)
-            return
-        }
-        print("genoeg tekens")
+        
     }
     
     func convertStringToDate(_ dateString: String?) -> Date {
